@@ -33,7 +33,129 @@
 <!-- FIN HEADER -->
 
 
+<!-- CONTENIDO DESTINOS - Autor: Lenin David Mamani Sarmiento -->
+<main id="main-content">
+  <h1>Destinos Lucky Air</h1>
+  <p>Volamos a los lugares mas hermosos de Yunnan y las principales ciudades de China.</p>
 
+  <section aria-labelledby="filtros-title">
+    <h2 id="filtros-title">Filtrar destinos</h2>
+    <form action="#listado" method="get" name="form-filtros">
+      <fieldset>
+        <legend>Region</legend>
+        <p><label><input type="radio" name="region" value="todos" checked> Todos</label></p>
+        <p><label><input type="radio" name="region" value="yunnan"> Yunnan (interior)</label></p>
+        <p><label><input type="radio" name="region" value="extra"> Extra-provincial</label></p>
+      </fieldset>
+      <fieldset>
+        <legend>Tipo de viaje</legend>
+        <p><label><input type="checkbox" name="tipo" value="cultura"> Cultura e historia</label></p>
+        <p><label><input type="checkbox" name="tipo" value="naturaleza"> Naturaleza</label></p>
+        <p><label><input type="checkbox" name="tipo" value="gastronomia"> Gastronomia</label></p>
+        <p><label><input type="checkbox" name="tipo" value="aventura"> Aventura</label></p>
+      </fieldset>
+      <p><button type="submit">Aplicar filtros</button></p>
+    </form>
+  </section>
+
+  <section id="listado" aria-labelledby="yunnan-title">
+    <h2 id="yunnan-title">Destinos en Yunnan</h2>
+
+    <article>
+      <h3>Kunming - La ciudad de la eterna primavera</h3>
+      <img src="/assets/images/kunming.jpg" alt="Vista panoramica de Kunming con su lago y rascacielos de fondo" width="400" height="250">
+      <p>Capital de Yunnan, con clima templado todo el ano. Puerta de entrada a la provincia.</p>
+      <ul>
+        <li>Aeropuerto: Kunming Changshui (KMG)</li>
+        <li>Duracion promedio: 3-4 dias</li>
+        <li>Mejor epoca: Todo el ano</li>
+      </ul>
+      <p><a href="/pages/destino-detalle.html?ciudad=kunming">Ver detalle de Kunming</a></p>
+    </article>
+
+    <article>
+      <h3>Dali - Historia y lagos</h3>
+      <img src="/assets/images/dali.jpg" alt="Lago Erhai de Dali con las montanas Cang al fondo" width="400" height="250">
+      <p>Ciudad a orillas del lago Erhai, con arquitectura tradicional Bai y montanas Cang.</p>
+      <ul>
+        <li>Aeropuerto: Dali (DLU)</li>
+        <li>Duracion promedio: 2-3 dias</li>
+        <li>Mejor epoca: Marzo a octubre</li>
+      </ul>
+      <p><a href="/pages/destino-detalle.html?ciudad=dali">Ver detalle de Dali</a></p>
+    </article>
+
+    <article>
+      <h3>Xishuangbanna - Tropico y selva</h3>
+      <img src="/assets/images/xishuangbanna.jpg" alt="Selva tropical de Xishuangbanna con pagodas budistas" width="400" height="250">
+      <p>Region tropical al sur, con selvas, templos budistas y cultura de la etnia Dai.</p>
+      <ul>
+        <li>Aeropuerto: Xishuangbanna Gasa (JHG)</li>
+        <li>Duracion promedio: 3-5 dias</li>
+        <li>Mejor epoca: Noviembre a abril</li>
+      </ul>
+      <p><a href="/pages/destino-detalle.html?ciudad=xishuangbanna">Ver detalle de Xishuangbanna</a></p>
+    </article>
+
+    <article>
+      <h3>Lijiang - Patrimonio UNESCO</h3>
+      <img src="/assets/images/lijiang.jpg" alt="Casco antiguo de Lijiang con canales y techos tradicionales" width="400" height="250">
+      <p>Casco antiguo declarado Patrimonio de la Humanidad, con canales y arquitectura Naxi.</p>
+      <ul>
+        <li>Aeropuerto: Lijiang Sanyi (LJG)</li>
+        <li>Duracion promedio: 2-4 dias</li>
+        <li>Mejor epoca: Abril a octubre</li>
+      </ul>
+      <p><a href="/pages/destino-detalle.html?ciudad=lijiang">Ver detalle de Lijiang</a></p>
+    </article>
+
+    <article>
+      <h3>Shangri-La - El Tibet accesible</h3>
+      <img src="/assets/images/shangrila.jpg" alt="Monasterio de Songzanlin en Shangri-La con montanas nevadas" width="400" height="250">
+      <p>Meseta tibetana con monasterios, lagos alpinos y cultura budista.</p>
+      <ul>
+        <li>Aeropuerto: Diqing Shangri-La (DIG)</li>
+        <li>Duracion promedio: 3-4 dias</li>
+        <li>Mejor epoca: Mayo a septiembre</li>
+      </ul>
+      <p><a href="/pages/destino-detalle.html?ciudad=shangrila">Ver detalle de Shangri-La</a></p>
+    </article>
+  </section>
+
+  <section aria-labelledby="extra-title">
+    <h2 id="extra-title">Destinos extra-provinciales</h2>
+    <p>Volamos a las principales ciudades de China con 87 vuelos semanales fuera de Yunnan.</p>
+    <table>
+      <caption>Rutas extra-provinciales principales</caption>
+      <thead>
+        <tr>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Frecuencia semanal</th>
+          <th scope="col">Desde (CNY)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Beijing</td><td>PEK</td><td>14 vuelos</td><td>780</td></tr>
+        <tr><td>Shanghai</td><td>SHA</td><td>10 vuelos</td><td>850</td></tr>
+        <tr><td>Guangzhou</td><td>CAN</td><td>12 vuelos</td><td>620</td></tr>
+        <tr><td>Chengdu</td><td>CTU</td><td>21 vuelos</td><td>380</td></tr>
+        <tr><td>Xi'an</td><td>XIY</td><td>7 vuelos</td><td>690</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <aside aria-labelledby="info-title">
+    <h2 id="info-title">Informacion util para tu viaje</h2>
+    <ul>
+      <li>Yunnan tiene 25 minorias etnicas reconocidas</li>
+      <li>El clima varia mucho segun altitud: desde tropical hasta meseta</li>
+      <li>La gastronomia incluye la hot pot de Yunnan y los fideos a traves del puente</li>
+      <li>Kunming recibio mas de 21 millones de turistas en 2007</li>
+    </ul>
+  </aside>
+</main>
+<!-- FIN CONTENIDO DESTINOS -->
 
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->

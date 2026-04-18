@@ -33,7 +33,154 @@
 <!-- FIN HEADER -->
 
 
+<!-- CONTENIDO LUCKY POINTS - Autor: Piero Batti Pena -->
+<main id="main-content">
+  <h1>Lucky Points</h1>
+  <p>Gana puntos en cada vuelo y canjealos por vuelos gratis, regalos y beneficios exclusivos.</p>
 
+  <nav aria-label="Secciones del programa">
+    <ul>
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#niveles">Niveles y beneficios</a></li>
+      <li><a href="#canje">Catalogo de canje</a></li>
+      <li><a href="#socios">Aerolineas y partners socios</a></li>
+      <li><a href="#registro">Registrarme</a></li>
+    </ul>
+  </nav>
+
+  <section id="como-funciona" aria-labelledby="como-title">
+    <h2 id="como-title">Como funciona el programa</h2>
+    <ol>
+      <li>Registrate gratis con tu email y documento de identidad.</li>
+      <li>Compra tus vuelos con Lucky Air o aerolineas socias.</li>
+      <li>Ganas 1 punto por cada CNY 10 gastados en vuelos Lucky Air.</li>
+      <li>Canjea tus puntos por vuelos, upgrades, regalos o beneficios partner.</li>
+      <li>Los puntos tienen validez de 24 meses desde que se acreditan.</li>
+    </ol>
+  </section>
+
+  <section id="niveles" aria-labelledby="niveles-title">
+    <h2 id="niveles-title">Niveles y beneficios</h2>
+    <table>
+      <caption>Niveles del programa Lucky Points</caption>
+      <thead>
+        <tr>
+          <th scope="col">Nivel</th>
+          <th scope="col">Vuelos por ano</th>
+          <th scope="col">Multiplicador de puntos</th>
+          <th scope="col">Beneficios</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Bronce</th>
+          <td>1 a 5</td>
+          <td>1x</td>
+          <td>Acumulacion basica y descuentos ocasionales</td>
+        </tr>
+        <tr>
+          <th scope="row">Plata</th>
+          <td>6 a 15</td>
+          <td>1.25x</td>
+          <td>Check-in prioritario y 10 kg extra de equipaje</td>
+        </tr>
+        <tr>
+          <th scope="row">Oro</th>
+          <td>16 a 30</td>
+          <td>1.5x</td>
+          <td>Sala VIP, cambios gratis y 20 kg extra</td>
+        </tr>
+        <tr>
+          <th scope="row">Platino</th>
+          <td>Mas de 30</td>
+          <td>2x</td>
+          <td>Todo lo anterior + upgrade automatico cuando hay disponibilidad</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="canje" aria-labelledby="canje-title">
+    <h2 id="canje-title">Catalogo de canje</h2>
+
+    <section aria-labelledby="canje-vuelos">
+      <h3 id="canje-vuelos">Vuelos</h3>
+      <ul>
+        <li>Vuelo domestico corto (Yunnan): 8,000 puntos</li>
+        <li>Vuelo extra-provincial: 15,000 puntos</li>
+        <li>Upgrade a Flex en vuelo propio: 3,000 puntos</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="canje-regalos">
+      <h3 id="canje-regalos">Regalos</h3>
+      <article>
+        <h4>Set de equipaje Lucky Air</h4>
+        <img src="/assets/images/canje-equipaje.jpg" alt="Set de maleta de mano y mochila Lucky Air" width="250" height="180">
+        <p>10,000 puntos</p>
+        <p><button type="button">Canjear</button></p>
+      </article>
+      <article>
+        <h4>Tarjeta de regalo Starbucks</h4>
+        <img src="/assets/images/canje-starbucks.jpg" alt="Tarjeta de regalo Starbucks de CNY 200" width="250" height="180">
+        <p>5,000 puntos</p>
+        <p><button type="button">Canjear</button></p>
+      </article>
+      <article>
+        <h4>Noche en hotel partner</h4>
+        <img src="/assets/images/canje-hotel.jpg" alt="Habitacion de hotel 4 estrellas de cadena partner" width="250" height="180">
+        <p>12,000 puntos</p>
+        <p><button type="button">Canjear</button></p>
+      </article>
+    </section>
+
+    <section aria-labelledby="canje-exp">
+      <h3 id="canje-exp">Experiencias</h3>
+      <ul>
+        <li>Tour guiado al Bosque de Piedra: 7,500 puntos</li>
+        <li>Cena degustacion Yunnan en Kunming: 4,000 puntos</li>
+        <li>Paseo en barco por el lago Erhai en Dali: 6,000 puntos</li>
+      </ul>
+    </section>
+  </section>
+
+  <section id="socios" aria-labelledby="socios-title">
+    <h2 id="socios-title">Aerolineas y partners socios</h2>
+    <p>Acumula y canjea puntos con nuestros socios.</p>
+    <ul>
+      <li>Hainan Airlines (empresa matriz)</li>
+      <li>China Southern Airlines</li>
+      <li>Starbucks China</li>
+      <li>Cadena Jinjiang Hotels</li>
+      <li>Ctrip (agencia de viajes)</li>
+      <li>eLong (agencia de viajes)</li>
+    </ul>
+  </section>
+
+  <section id="registro" aria-labelledby="registro-title">
+    <h2 id="registro-title">Registrate al programa</h2>
+    <p>Es gratis y te inscribes en menos de 2 minutos.</p>
+
+    <form action="/pages/mi-cuenta.html" method="post" name="form-registro-puntos">
+      <fieldset>
+        <legend>Datos personales</legend>
+        <p><label for="lp-nombre">Nombres:</label> <input type="text" id="lp-nombre" name="nombre" required></p>
+        <p><label for="lp-apellido">Apellidos:</label> <input type="text" id="lp-apellido" name="apellido" required></p>
+        <p><label for="lp-email">Email:</label> <input type="email" id="lp-email" name="email" required></p>
+        <p><label for="lp-doc">Documento de identidad:</label> <input type="text" id="lp-doc" name="documento" required></p>
+        <p><label for="lp-fecha">Fecha de nacimiento:</label> <input type="date" id="lp-fecha" name="nacimiento" required></p>
+      </fieldset>
+      <fieldset>
+        <legend>Credenciales</legend>
+        <p><label for="lp-pass">Contrasena:</label> <input type="password" id="lp-pass" name="password" minlength="8" required></p>
+        <p><label for="lp-pass2">Confirma contrasena:</label> <input type="password" id="lp-pass2" name="password2" minlength="8" required></p>
+      </fieldset>
+      <p><label><input type="checkbox" name="acepto" required> Acepto los <a href="/pages/legal.html">terminos del programa</a></label></p>
+      <p><button type="submit">Crear cuenta Lucky Points</button></p>
+    </form>
+  </section>
+</main>
+<!-- FIN CONTENIDO LUCKY POINTS -->
 
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
@@ -53,6 +200,7 @@
   <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
 </footer>
 <!-- FIN FOOTER -->
+<!-- xd -->
 
 </body>
 </html>
