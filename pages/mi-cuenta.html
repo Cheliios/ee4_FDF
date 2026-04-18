@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gestiona tus reservas, puntos Lucky y datos personales en tu cuenta de Lucky Air.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <title>Mi cuenta | Lucky Air</title>
+</head>
+<body>
+
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<a href="#main-content">Saltar al contenido principal</a>
+<header role="banner">
+  <div>
+    <a href="/index.html" aria-label="Lucky Air - Ir al inicio"><strong>Lucky Air</strong></a>
+    <p>Tu aerolinea low-cost en Yunnan</p>
+  </div>
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="/pages/vuelos.html">Vuelos</a></li>
+      <li><a href="/pages/destinos.html">Destinos</a></li>
+      <li><a href="/pages/lucky-points.html">Lucky Points</a></li>
+      <li><a href="/pages/empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="/pages/ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+  <div>
+    <a href="/pages/login.html">Cerrar sesion</a>
+    <a href="/pages/mi-cuenta.html" aria-current="page">Mi cuenta</a>
+  </div>
+</header>
+<!-- FIN HEADER -->
+
+
+<!-- CONTENIDO MI CUENTA - Autor: Felipe Reyes Ingunza -->
+<main id="main-content">
+  <h1>Hola, bienvenido de vuelta</h1>
+  <p>Gestiona tus reservas, puntos y datos personales.</p>
+
+  <nav aria-label="Secciones de mi cuenta">
+    <ul>
+      <li><a href="#reservas">Mis reservas</a></li>
+      <li><a href="#puntos">Mis Lucky Points</a></li>
+      <li><a href="#perfil">Mi perfil</a></li>
+      <li><a href="#preferencias">Preferencias</a></li>
+    </ul>
+  </nav>
+
+  <section id="reservas" aria-labelledby="reservas-title">
+    <h2 id="reservas-title">Mis reservas</h2>
+    <table>
+      <caption>Historial de vuelos</caption>
+      <thead>
+        <tr>
+          <th scope="col">Codigo</th>
+          <th scope="col">Ruta</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ABC123</td>
+          <td>KMG - DLU</td>
+          <td><time datetime="2026-04-20">20 abr 2026</time></td>
+          <td>Confirmado</td>
+          <td><a href="/pages/vuelos.html#validar">Check-in</a></td>
+        </tr>
+        <tr>
+          <td>DEF456</td>
+          <td>KMG - JHG</td>
+          <td><time datetime="2026-05-12">12 may 2026</time></td>
+          <td>Pendiente</td>
+          <td><a href="/pages/checkout.html?reserva=DEF456">Pagar</a></td>
+        </tr>
+        <tr>
+          <td>GHI789</td>
+          <td>DLU - KMG</td>
+          <td><time datetime="2026-02-03">3 feb 2026</time></td>
+          <td>Completado</td>
+          <td><a href="/pages/destino-detalle.html">Dejar resena</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="puntos" aria-labelledby="puntos-title">
+    <h2 id="puntos-title">Mis Lucky Points</h2>
+    <dl>
+      <dt>Saldo actual</dt><dd>2,450 puntos</dd>
+      <dt>Nivel</dt><dd>Plata</dd>
+      <dt>Proximos vencimientos</dt><dd>500 puntos vencen el 31 de diciembre</dd>
+    </dl>
+    <p><a href="/pages/lucky-points.html">Canjear puntos</a></p>
+  </section>
+
+  <section id="perfil" aria-labelledby="perfil-title">
+    <h2 id="perfil-title">Mi perfil</h2>
+    <form action="#perfil" method="post" name="form-perfil">
+      <fieldset>
+        <legend>Datos personales</legend>
+        <p><label for="p-nombre">Nombres:</label> <input type="text" id="p-nombre" name="nombre" required></p>
+        <p><label for="p-apellido">Apellidos:</label> <input type="text" id="p-apellido" name="apellido" required></p>
+        <p><label for="p-email">Email:</label> <input type="email" id="p-email" name="email" required></p>
+        <p><label for="p-tel">Telefono:</label> <input type="tel" id="p-tel" name="telefono" pattern="[+0-9 ]{9,15}"></p>
+        <p><label for="p-doc">Documento de identidad:</label> <input type="text" id="p-doc" name="documento" required></p>
+        <p><label for="p-fecha">Fecha de nacimiento:</label> <input type="date" id="p-fecha" name="nacimiento"></p>
+      </fieldset>
+      <p><button type="submit">Guardar cambios</button></p>
+    </form>
+  </section>
+
+  <section id="preferencias" aria-labelledby="pref-title">
+    <h2 id="pref-title">Preferencias</h2>
+    <form action="#preferencias" method="post" name="form-preferencias">
+      <fieldset>
+        <legend>Comunicaciones</legend>
+        <p><label><input type="checkbox" name="promos" value="si"> Recibir promociones por email</label></p>
+        <p><label><input type="checkbox" name="newsletter" value="si" checked> Newsletter mensual</label></p>
+        <p><label><input type="checkbox" name="sms" value="si"> Alertas de vuelo por SMS</label></p>
+      </fieldset>
+      <fieldset>
+        <legend>Idioma</legend>
+        <p><label><input type="radio" name="idioma" value="es" checked> Espanol</label></p>
+        <p><label><input type="radio" name="idioma" value="en"> English</label></p>
+        <p><label><input type="radio" name="idioma" value="zh"> 中文</label></p>
+      </fieldset>
+      <p><button type="submit">Guardar preferencias</button></p>
+    </form>
+  </section>
+</main>
+<!-- FIN CONTENIDO MI CUENTA -->
+
+
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<footer role="contentinfo">
+  <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
+    <ul><li><a href="/pages/nosotros.html">Nosotros</a></li><li><a href="/pages/blog.html">Blog</a></li><li><a href="/pages/legal.html">Terminos y privacidad</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
+    <ul><li><a href="/pages/ayuda.html">Centro de ayuda</a></li><li><a href="/pages/ayuda.html#contacto">Contacto</a></li><li><a href="/pages/vuelos.html#validar">Validar ticket</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
+    <address>Aeropuerto Internacional de Kunming<br>Yunnan, China<br><a href="tel:+868712345678">+86 871 234 5678</a><br><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></address>
+  </section>
+  <section aria-labelledby="footer-redes"><h2 id="footer-redes">Siguenos</h2>
+    <ul><li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li><li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li></ul>
+  </section>
+  <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- FIN FOOTER -->
+
+</body>
+</html>
