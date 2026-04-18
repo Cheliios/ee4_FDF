@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Busca, compra, valida tu ticket o solicita reembolso de vuelos Lucky Air.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <title>Vuelos | Lucky Air</title>
+</head>
+<body>
+
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<a href="#main-content">Saltar al contenido principal</a>
+<header role="banner">
+  <div>
+    <a href="/index.html" aria-label="Lucky Air - Ir al inicio"><strong>Lucky Air</strong></a>
+    <p>Tu aerolinea low-cost en Yunnan</p>
+  </div>
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="/pages/vuelos.html" aria-current="page">Vuelos</a></li>
+      <li><a href="/pages/destinos.html">Destinos</a></li>
+      <li><a href="/pages/lucky-points.html">Lucky Points</a></li>
+      <li><a href="/pages/empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="/pages/ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+  <div>
+    <a href="/pages/login.html">Iniciar sesion</a>
+    <a href="/pages/mi-cuenta.html">Mi cuenta</a>
+  </div>
+</header>
+<!-- FIN HEADER -->
+
+
+<!-- CONTENIDO VUELOS - Autor: Felipe Reyes Ingunza -->
+<main id="main-content">
+  <h1>Gestiona tus vuelos</h1>
+  <p>Todas las acciones de tu vuelo en un solo lugar, sin call center.</p>
+
+  <nav aria-label="Secciones de vuelos">
+    <ul>
+      <li><a href="#buscar">Buscar y comprar</a></li>
+      <li><a href="#validar">Validar ticket</a></li>
+      <li><a href="#estado">Estado de vuelo</a></li>
+      <li><a href="#reembolsar">Reembolso</a></li>
+    </ul>
+  </nav>
+
+  <section id="buscar" aria-labelledby="buscar-title">
+    <h2 id="buscar-title">Buscar y comprar vuelo</h2>
+    <form action="/pages/checkout.html" method="get" name="form-buscar">
+      <fieldset>
+        <legend>Datos del vuelo</legend>
+        <p>
+          <label for="b-origen">Origen:</label>
+          <select id="b-origen" name="origen" required>
+            <option value="">Selecciona</option>
+            <option value="KMG">Kunming</option>
+            <option value="DLU">Dali</option>
+            <option value="JHG">Xishuangbanna</option>
+            <option value="LJG">Lijiang</option>
+            <option value="PEK">Beijing</option>
+            <option value="SHA">Shanghai</option>
+          </select>
+        </p>
+        <p>
+          <label for="b-destino">Destino:</label>
+          <select id="b-destino" name="destino" required>
+            <option value="">Selecciona</option>
+            <option value="KMG">Kunming</option>
+            <option value="DLU">Dali</option>
+            <option value="JHG">Xishuangbanna</option>
+            <option value="LJG">Lijiang</option>
+            <option value="PEK">Beijing</option>
+            <option value="SHA">Shanghai</option>
+          </select>
+        </p>
+        <p><label for="b-fecha">Fecha:</label> <input type="date" id="b-fecha" name="fecha" required></p>
+        <p><label for="b-pasajeros">Pasajeros:</label> <input type="number" id="b-pasajeros" name="pasajeros" min="1" max="9" value="1" required></p>
+        <p>
+          <label for="b-clase">Tarifa:</label>
+          <select id="b-clase" name="clase">
+            <option value="basica">Basica</option>
+            <option value="flex">Flex (cambios sin costo)</option>
+          </select>
+        </p>
+      </fieldset>
+      <p><button type="submit">Buscar vuelos</button></p>
+    </form>
+
+    <section aria-labelledby="resultados-ejemplo">
+      <h3 id="resultados-ejemplo">Ejemplo de resultados disponibles</h3>
+      <table>
+        <caption>Vuelos Kunming - Dali para el 20 de abril</caption>
+        <thead>
+          <tr>
+            <th scope="col">Vuelo</th>
+            <th scope="col">Salida</th>
+            <th scope="col">Llegada</th>
+            <th scope="col">Duracion</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>LA8201</td><td>06:30</td><td>07:15</td><td>45 min</td><td>CNY 380</td><td><a href="/pages/checkout.html?vuelo=LA8201">Comprar</a></td></tr>
+          <tr><td>LA8203</td><td>12:45</td><td>13:30</td><td>45 min</td><td>CNY 420</td><td><a href="/pages/checkout.html?vuelo=LA8203">Comprar</a></td></tr>
+          <tr><td>LA8207</td><td>18:10</td><td>18:55</td><td>45 min</td><td>CNY 350</td><td><a href="/pages/checkout.html?vuelo=LA8207">Comprar</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+
+  <section id="validar" aria-labelledby="validar-title">
+    <h2 id="validar-title">Validar tu ticket</h2>
+    <p>Valida tu ticket online sin pasar por TravelSky.</p>
+    <form action="#validar" method="post" name="form-validar">
+      <fieldset>
+        <legend>Datos del ticket</legend>
+        <p><label for="v-codigo">Codigo de reserva:</label> <input type="text" id="v-codigo" name="codigo" pattern="[A-Z0-9]{6}" maxlength="6" placeholder="ABC123" required></p>
+        <p><label for="v-apellido">Apellido del pasajero:</label> <input type="text" id="v-apellido" name="apellido" minlength="2" required></p>
+      </fieldset>
+      <p><button type="submit">Validar ticket</button></p>
+    </form>
+  </section>
+
+  <section id="estado" aria-labelledby="estado-title">
+    <h2 id="estado-title">Estado de vuelo en tiempo real</h2>
+    <form action="#estado" method="get" name="form-estado">
+      <fieldset>
+        <legend>Consulta de estado</legend>
+        <p><label for="e-vuelo">Numero de vuelo:</label> <input type="text" id="e-vuelo" name="vuelo" pattern="LA[0-9]{4}" placeholder="LA8201" required></p>
+        <p><label for="e-fecha">Fecha:</label> <input type="date" id="e-fecha" name="fecha" required></p>
+      </fieldset>
+      <p><button type="submit">Consultar</button></p>
+    </form>
+
+    <section aria-labelledby="estado-demo">
+      <h3 id="estado-demo">Ejemplo de estado consultado</h3>
+      <dl>
+        <dt>Vuelo</dt><dd>LA8201</dd>
+        <dt>Ruta</dt><dd>Kunming (KMG) - Dali (DLU)</dd>
+        <dt>Estado</dt><dd>En hora</dd>
+        <dt>Salida programada</dt><dd><time datetime="2026-04-20T06:30">06:30</time></dd>
+        <dt>Puerta</dt><dd>B12</dd>
+      </dl>
+    </section>
+  </section>
+
+  <section id="reembolsar" aria-labelledby="reembolsar-title">
+    <h2 id="reembolsar-title">Solicitar reembolso</h2>
+    <p>Procesamos tu solicitud en 72 horas habiles.</p>
+    <form action="#reembolsar" method="post" name="form-reembolso">
+      <fieldset>
+        <legend>Datos de la reserva</legend>
+        <p><label for="r-codigo">Codigo de reserva:</label> <input type="text" id="r-codigo" name="codigo" pattern="[A-Z0-9]{6}" maxlength="6" required></p>
+        <p><label for="r-email">Email de contacto:</label> <input type="email" id="r-email" name="email" required></p>
+        <p>
+          <label for="r-motivo">Motivo del reembolso:</label>
+          <select id="r-motivo" name="motivo" required>
+            <option value="">Selecciona un motivo</option>
+            <option value="cambio-plan">Cambio de planes</option>
+            <option value="enfermedad">Enfermedad</option>
+            <option value="cancelacion">Vuelo cancelado</option>
+            <option value="otro">Otro</option>
+          </select>
+        </p>
+        <p><label for="r-detalle">Detalle adicional:</label></p>
+        <p><textarea id="r-detalle" name="detalle" rows="4" cols="50" maxlength="500"></textarea></p>
+      </fieldset>
+      <p><button type="submit">Enviar solicitud</button></p>
+    </form>
+  </section>
+</main>
+<!-- FIN CONTENIDO VUELOS -->
+
+
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<footer role="contentinfo">
+  <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
+    <ul><li><a href="/pages/nosotros.html">Nosotros</a></li><li><a href="/pages/blog.html">Blog</a></li><li><a href="/pages/legal.html">Terminos y privacidad</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
+    <ul><li><a href="/pages/ayuda.html">Centro de ayuda</a></li><li><a href="/pages/ayuda.html#contacto">Contacto</a></li><li><a href="/pages/vuelos.html#validar">Validar ticket</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
+    <address>Aeropuerto Internacional de Kunming<br>Yunnan, China<br><a href="tel:+868712345678">+86 871 234 5678</a><br><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></address>
+  </section>
+  <section aria-labelledby="footer-redes"><h2 id="footer-redes">Siguenos</h2>
+    <ul><li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li><li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li></ul>
+  </section>
+  <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- FIN FOOTER -->
+
+</body>
+</html>

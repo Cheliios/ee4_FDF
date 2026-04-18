@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lucky Air: aerolinea low-cost de Yunnan, China. Compra vuelos, descubre destinos y gana Lucky Points.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <meta name="theme-color" content="#0066cc">
+  <title>Lucky Air | Aerolinea low-cost de Yunnan, China</title>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza                  -->
+<!-- Componente reutilizado en todas las paginas del sitio        -->
+<!-- ============================================================ -->
+<a href="#main-content">Saltar al contenido principal</a>
+
+<header role="banner">
+  <div>
+    <a href="/index.html" aria-label="Lucky Air - Ir al inicio">
+      <strong>Lucky Air</strong>
+    </a>
+    <p>Tu aerolinea low-cost en Yunnan</p>
+  </div>
+
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="/pages/vuelos.html">Vuelos</a></li>
+      <li><a href="/pages/destinos.html">Destinos</a></li>
+      <li><a href="/pages/lucky-points.html">Lucky Points</a></li>
+      <li><a href="/pages/empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="/pages/ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <a href="/pages/login.html">Iniciar sesion</a>
+    <a href="/pages/mi-cuenta.html">Mi cuenta</a>
+  </div>
+</header>
+<!-- ============================================================ -->
+<!-- FIN HEADER GLOBAL - Felipe Reyes Ingunza                     -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- CONTENIDO HOME - Autor: Felipe Reyes Ingunza                 -->
+<!-- ============================================================ -->
+<main id="main-content">
+
+  <section aria-labelledby="hero-title">
+    <h1 id="hero-title">Vuela por Yunnan al mejor precio</h1>
+    <p>Mas de 150 vuelos semanales, 5% a 20% mas barato online que en cualquier otro lugar.</p>
+    <p>
+      <a href="#buscador">Buscar vuelo</a> |
+      <a href="/pages/destinos.html">Explorar destinos</a>
+    </p>
+  </section>
+
+  <section id="buscador" aria-labelledby="buscador-title">
+    <h2 id="buscador-title">Encuentra tu vuelo</h2>
+
+    <form action="/pages/vuelos.html" method="get" name="buscador-vuelos">
+      <fieldset>
+        <legend>Datos del vuelo</legend>
+
+        <p>
+          <label for="tipo-viaje">Tipo de viaje:</label>
+          <select id="tipo-viaje" name="tipo" required>
+            <option value="ida">Solo ida</option>
+            <option value="ida-vuelta">Ida y vuelta</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="origen">Origen:</label>
+          <select id="origen" name="origen" required>
+            <option value="">Selecciona ciudad</option>
+            <option value="KMG">Kunming (KMG)</option>
+            <option value="DLU">Dali (DLU)</option>
+            <option value="JHG">Xishuangbanna (JHG)</option>
+            <option value="LJG">Lijiang (LJG)</option>
+            <option value="PEK">Beijing (PEK)</option>
+            <option value="SHA">Shanghai (SHA)</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="destino">Destino:</label>
+          <select id="destino" name="destino" required>
+            <option value="">Selecciona ciudad</option>
+            <option value="KMG">Kunming (KMG)</option>
+            <option value="DLU">Dali (DLU)</option>
+            <option value="JHG">Xishuangbanna (JHG)</option>
+            <option value="LJG">Lijiang (LJG)</option>
+            <option value="PEK">Beijing (PEK)</option>
+            <option value="SHA">Shanghai (SHA)</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="fecha-ida">Fecha de ida:</label>
+          <input type="date" id="fecha-ida" name="fecha-ida" required>
+        </p>
+
+        <p>
+          <label for="fecha-vuelta">Fecha de vuelta:</label>
+          <input type="date" id="fecha-vuelta" name="fecha-vuelta">
+        </p>
+
+        <p>
+          <label for="pasajeros">Pasajeros:</label>
+          <input type="number" id="pasajeros" name="pasajeros" min="1" max="9" value="1" required>
+        </p>
+      </fieldset>
+
+      <p>
+        <button type="submit">Buscar vuelos</button>
+        <button type="reset">Limpiar</button>
+      </p>
+    </form>
+  </section>
+
+  <section aria-labelledby="destinos-title">
+    <h2 id="destinos-title">Destinos destacados en Yunnan</h2>
+
+    <article>
+      <h3>Kunming</h3>
+      <img src="/assets/images/kunming.jpg" alt="Vista panoramica de Kunming, la ciudad de la eterna primavera" width="400" height="250">
+      <p>La capital de Yunnan, conocida como la ciudad de la eterna primavera por su clima templado todo el ano.</p>
+      <p><a href="/pages/destino-detalle.html?ciudad=kunming">Ver destino</a></p>
+    </article>
+
+    <article>
+      <h3>Dali</h3>
+      <img src="/assets/images/dali.jpg" alt="Lago Erhai y montanas de Cang en Dali" width="400" height="250">
+      <p>Ciudad historica a orillas del lago Erhai, famosa por su arquitectura tradicional Bai.</p>
+      <p><a href="/pages/destino-detalle.html?ciudad=dali">Ver destino</a></p>
+    </article>
+
+    <article>
+      <h3>Xishuangbanna</h3>
+      <img src="/assets/images/xishuangbanna.jpg" alt="Selva tropical de Xishuangbanna con elefantes asiaticos" width="400" height="250">
+      <p>Region tropical con selvas, templos budistas y cultura de la etnia Dai.</p>
+      <p><a href="/pages/destino-detalle.html?ciudad=xishuangbanna">Ver destino</a></p>
+    </article>
+
+    <article>
+      <h3>Lijiang</h3>
+      <img src="/assets/images/lijiang.jpg" alt="Casco antiguo de Lijiang, patrimonio de la humanidad UNESCO" width="400" height="250">
+      <p>Casco antiguo declarado Patrimonio de la Humanidad por la UNESCO, con canales y arquitectura Naxi.</p>
+      <p><a href="/pages/destino-detalle.html?ciudad=lijiang">Ver destino</a></p>
+    </article>
+  </section>
+
+  <section aria-labelledby="ventajas-title">
+    <h2 id="ventajas-title">Por que volar con Lucky Air</h2>
+    <ul>
+      <li><strong>Precios low-cost:</strong> hasta 20% mas barato comprando en linea.</li>
+      <li><strong>Todo online:</strong> compra, validacion y reembolso sin llamar a un call center.</li>
+      <li><strong>Flota moderna:</strong> 5 Boeing 737-700 con 148 asientos de una sola clase.</li>
+      <li><strong>Puntualidad:</strong> rutas cortas punto a punto para garantizar salidas y llegadas a tiempo.</li>
+      <li><strong>Comunidad activa:</strong> resenas reales de pasajeros y blog de experiencias.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="lucky-points-title">
+    <h2 id="lucky-points-title">Gana con Lucky Points</h2>
+    <p>Acumula puntos en cada vuelo y canjealos por regalos, vuelos gratis o beneficios con nuestras aerolineas socias.</p>
+    <p><a href="/pages/lucky-points.html">Conoce el programa</a></p>
+  </section>
+
+  <aside aria-labelledby="noticias-title">
+    <h2 id="noticias-title">Ultimas noticias</h2>
+    <article>
+      <h3>Nueva ruta Kunming - Shanghai desde abril</h3>
+      <p><time datetime="2026-03-15">15 de marzo, 2026</time></p>
+      <p>Ampliamos nuestras rutas extra-provinciales con 3 vuelos semanales a Shanghai.</p>
+    </article>
+    <article>
+      <h3>Promocion estudiantes: 15% de descuento</h3>
+      <p><time datetime="2026-03-01">1 de marzo, 2026</time></p>
+      <p>Viaja en tus vacaciones con descuento especial presentando tu carnet universitario.</p>
+    </article>
+  </aside>
+
+</main>
+<!-- ============================================================ -->
+<!-- FIN CONTENIDO HOME - Felipe Reyes Ingunza                    -->
+<!-- ============================================================ -->
+
+
+<!-- ============================================================ -->
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza                  -->
+<!-- Componente reutilizado en todas las paginas del sitio        -->
+<!-- ============================================================ -->
+<footer role="contentinfo">
+  <section aria-labelledby="footer-empresa">
+    <h2 id="footer-empresa">Lucky Air</h2>
+    <ul>
+      <li><a href="/pages/nosotros.html">Nosotros</a></li>
+      <li><a href="/pages/blog.html">Blog</a></li>
+      <li><a href="/pages/legal.html">Terminos y privacidad</a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="footer-ayuda">
+    <h2 id="footer-ayuda">Ayuda</h2>
+    <ul>
+      <li><a href="/pages/ayuda.html">Centro de ayuda</a></li>
+      <li><a href="/pages/ayuda.html#contacto">Contacto</a></li>
+      <li><a href="/pages/vuelos.html#validar">Validar ticket</a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="footer-contacto">
+    <h2 id="footer-contacto">Contactanos</h2>
+    <address>
+      Aeropuerto Internacional de Kunming<br>
+      Yunnan, China<br>
+      <a href="tel:+868712345678">+86 871 234 5678</a><br>
+      <a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a>
+    </address>
+  </section>
+
+  <section aria-labelledby="footer-redes">
+    <h2 id="footer-redes">Siguenos</h2>
+    <ul>
+      <li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li>
+      <li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li>
+    </ul>
+  </section>
+
+  <p><small>&copy; 2026 Lucky Air. Todos los derechos reservados. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- ============================================================ -->
+<!-- FIN FOOTER GLOBAL - Felipe Reyes Ingunza                     -->
+<!-- ============================================================ -->
+
+</body>
+</html>
