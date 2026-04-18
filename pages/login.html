@@ -33,7 +33,81 @@
 <!-- FIN HEADER -->
 
 
+<!-- CONTENIDO LOGIN - Autor: Rodrigo Alonso Santos Nunez -->
+<main id="main-content">
+  <h1>Iniciar sesion</h1>
+  <p>Accede a tu cuenta para gestionar reservas, puntos y preferencias.</p>
 
+  <section aria-labelledby="login-title">
+    <h2 id="login-title">Ingresa a tu cuenta</h2>
+
+    <form action="/pages/mi-cuenta.html" method="post" name="form-login">
+      <fieldset>
+        <legend>Credenciales</legend>
+        <p><label for="l-email">Correo electronico:</label> <input type="email" id="l-email" name="email" autocomplete="email" required></p>
+        <p><label for="l-pass">Contrasena:</label> <input type="password" id="l-pass" name="password" minlength="8" autocomplete="current-password" required></p>
+        <p><label><input type="checkbox" name="recordar" value="si"> Recordarme en este dispositivo</label></p>
+      </fieldset>
+      <p>
+        <button type="submit">Ingresar</button>
+        <a href="#recuperar">Olvide mi contrasena</a>
+      </p>
+    </form>
+  </section>
+
+  <section aria-labelledby="registro-title">
+    <h2 id="registro-title">Aun no tienes cuenta</h2>
+    <p>Registrate gratis y accede automaticamente al programa Lucky Points.</p>
+    <form action="/pages/mi-cuenta.html" method="post" name="form-registro">
+      <fieldset>
+        <legend>Datos personales</legend>
+        <p><label for="reg-nombre">Nombres:</label> <input type="text" id="reg-nombre" name="nombre" minlength="2" maxlength="50" required></p>
+        <p><label for="reg-apellido">Apellidos:</label> <input type="text" id="reg-apellido" name="apellido" minlength="2" maxlength="50" required></p>
+        <p><label for="reg-email">Correo electronico:</label> <input type="email" id="reg-email" name="email" autocomplete="email" required></p>
+        <p><label for="reg-doc">Documento de identidad:</label> <input type="text" id="reg-doc" name="documento" required></p>
+        <p><label for="reg-fecha">Fecha de nacimiento:</label> <input type="date" id="reg-fecha" name="nacimiento" required></p>
+        <p>
+          <label for="reg-pais">Pais:</label>
+          <select id="reg-pais" name="pais" required>
+            <option value="">Selecciona</option>
+            <option value="CN">China</option>
+            <option value="US">Estados Unidos</option>
+            <option value="PE">Peru</option>
+            <option value="MX">Mexico</option>
+            <option value="AR">Argentina</option>
+            <option value="ES">Espana</option>
+            <option value="otro">Otro</option>
+          </select>
+        </p>
+      </fieldset>
+      <fieldset>
+        <legend>Crea tu contrasena</legend>
+        <p><label for="reg-pass">Contrasena:</label> <input type="password" id="reg-pass" name="password" minlength="8" autocomplete="new-password" required></p>
+        <p><label for="reg-pass2">Confirma contrasena:</label> <input type="password" id="reg-pass2" name="password2" minlength="8" autocomplete="new-password" required></p>
+        <p><small>Minimo 8 caracteres, con al menos un numero.</small></p>
+      </fieldset>
+      <fieldset>
+        <legend>Preferencias</legend>
+        <p><label><input type="checkbox" name="newsletter" value="si" checked> Quiero recibir ofertas y newsletters</label></p>
+        <p><label><input type="checkbox" name="terminos" value="si" required> Acepto los <a href="/pages/legal.html">terminos y la politica de privacidad</a></label></p>
+      </fieldset>
+      <p><button type="submit">Crear mi cuenta</button></p>
+    </form>
+  </section>
+
+  <section id="recuperar" aria-labelledby="recuperar-title">
+    <h2 id="recuperar-title">Recuperar contrasena</h2>
+    <p>Te enviaremos un enlace de recuperacion a tu email.</p>
+    <form action="#recuperar" method="post" name="form-recuperar">
+      <fieldset>
+        <legend>Datos de recuperacion</legend>
+        <p><label for="rec-email">Correo electronico:</label> <input type="email" id="rec-email" name="email" required></p>
+      </fieldset>
+      <p><button type="submit">Enviar enlace</button></p>
+    </form>
+  </section>
+</main>
+<!-- FIN CONTENIDO LOGIN -->
 
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
