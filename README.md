@@ -1,4 +1,4 @@
-# Lucky Air - Sitio Web v1.0
+# Lucky Air - Sitio Web v2.0
 
 Proyecto académico del curso **Fundamentos de Desarrollo Frontend (18612)** de UCAL.
 
