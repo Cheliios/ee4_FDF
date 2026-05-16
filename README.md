@@ -64,6 +64,8 @@ luckyair-web/
 │   ├── checkout.html           (Rodrigo)
 │   ├── nosotros.html           (Rodrigo)
 │   └── legal.html              (Rodrigo)
+│   └── quejas.html             (Adso)
+│   └── estado-queja.html       (Adso)
 ├── /css/                       (vacío - EE2)
 ├── /scripts/                   (vacío - EE3)
 ├── /data/                      (vacío - EE3)
