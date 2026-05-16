@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Centro de ayuda de Lucky Air: preguntas frecuentes, contacto y soporte al pasajero.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <title>Ayuda | Lucky Air</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<a href="#main-content">Saltar al contenido principal</a>
+<header>
+
+  <div>
+    <a href="../index.html" aria-label="Lucky Air - Ir al inicio" class="logo">
+      <img src="../images/logo/Modern_flat_vector_202604181715.png" alt="" width="40" height="40" class="logo-img"><strong>Lucky Air</strong>
+    </a>
+    <p class="tagline">Tu aerolinea low-cost en Yunnan</p>
+  </div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir o cerrar menu de navegacion">
+    <span aria-hidden="true">&#9776;</span>
+  </label>
+
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="vuelos.html">Vuelos</a></li>
+      <li><a href="destinos.html">Destinos</a></li>
+      <li><a href="lucky-points.html">Lucky Points</a></li>
+      <li><a href="empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <a href="login.html">Iniciar sesion</a>
+    <a href="mi-cuenta.html" class="btn-gold">Mi cuenta</a>
+  </div>
+
+</header>
+<!-- FIN HEADER -->
+
+
+<!-- CONTENIDO AYUDA - Autor: Felipe Reyes Ingunza -->
+<main id="main-content">
+  <h1>Centro de ayuda</h1>
+  <p>Encuentra respuestas rapidas o contactanos si necesitas ayuda personalizada.</p>
+
+  <nav aria-label="Secciones de ayuda">
+    <ul>
+      <li><a href="#buscar">Buscar en ayuda</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+      <li><a href="#contacto">Formulario de contacto</a></li>
+    </ul>
+  </nav>
+
+  <section id="buscar" aria-labelledby="buscar-title">
+    <h2 id="buscar-title">Busca en el centro de ayuda</h2>
+    <form action="#faq" method="get" name="form-buscar-ayuda" role="search">
+      <p>
+        <label for="s-query">Escribe tu pregunta:</label>
+        <input type="search" id="s-query" name="q" placeholder="Ej. como reembolsar" required>
+        <button type="submit"><span aria-hidden="true">&#128269;</span> Buscar</button>
+      </p>
+    </form>
+  </section>
+
+  <section id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Preguntas frecuentes</h2>
+
+    <details>
+      <summary>Como compro un ticket online</summary>
+      <p>Ingresa a la seccion <a href="vuelos.html#buscar">Buscar vuelo</a>, elige origen, destino y fecha. Selecciona el vuelo y completa el pago con tarjeta, PayPal o Alipay. Recibiras la confirmacion por email.</p>
+    </details>
+
+    <details>
+      <summary>Como valido mi ticket sin TravelSky</summary>
+      <p>Ve a <a href="vuelos.html#validar">Validar ticket</a>, ingresa tu codigo de reserva de 6 caracteres y apellido. La validacion es inmediata.</p>
+    </details>
+
+    <details>
+      <summary>Cuanto cuesta un reembolso</summary>
+      <p>El costo depende de tu tarifa. La tarifa Flex permite cambios y reembolso total. La tarifa Basica tiene un cargo administrativo de CNY 100.</p>
+    </details>
+
+    <details>
+      <summary>Como gano Lucky Points</summary>
+      <p>Cada vuelo te da puntos equivalentes al 5% del valor pagado. Tambien ganas comprando con aerolineas socias. Revisa el <a href="lucky-points.html">programa completo</a>.</p>
+    </details>
+
+    <details>
+      <summary>Puedo viajar con mascotas</summary>
+      <p>Si, aceptamos mascotas pequenas en cabina (hasta 8 kg) con transportadora aprobada. Debe reservarse con 48 horas de anticipacion.</p>
+    </details>
+
+    <details>
+      <summary>Cual es la franquicia de equipaje</summary>
+      <p>Tarifa Basica: 7 kg de mano. Tarifa Flex: 7 kg de mano + 20 kg en bodega. Equipaje extra se paga en el aeropuerto o hasta 24h antes online.</p>
+    </details>
+
+    <details>
+      <summary>Como hago check-in online</summary>
+      <p>El check-in web esta disponible desde 24 horas hasta 2 horas antes del vuelo. Accede desde <a href="mi-cuenta.html#reservas">Mis reservas</a>.</p>
+    </details>
+
+    <details>
+      <summary>Que pasa si mi vuelo se cancela</summary>
+      <p>Te notificamos por email y SMS. Puedes reagendar sin costo o solicitar reembolso total automaticamente desde tu cuenta.</p>
+    </details>
+  </section>
+
+  <section id="contacto" aria-labelledby="contacto-title">
+    <h2 id="contacto-title">Formulario de contacto</h2>
+    <p>Si no encuentras tu respuesta, escribenos. Respondemos en 24 horas habiles.</p>
+
+    <form action="#gracias-contacto" method="post" name="form-contacto">
+      <fieldset>
+        <legend>Tus datos</legend>
+        <p><label for="c-nombre">Nombres y apellidos:</label> <input type="text" id="c-nombre" name="nombre" minlength="3" maxlength="80" required></p>
+        <p><label for="c-email">Correo electronico:</label> <input type="email" id="c-email" name="email" required></p>
+        <p><label for="c-tel">Telefono (opcional):</label> <input type="tel" id="c-tel" name="telefono" pattern="[+0-9 ]{9,15}"></p>
+        <p><label for="c-codigo">Codigo de reserva (si aplica):</label> <input type="text" id="c-codigo" name="codigo" pattern="[A-Z0-9]{6}" maxlength="6"></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tu consulta</legend>
+        <p>
+          <label for="c-tipo">Tipo de consulta:</label>
+          <select id="c-tipo" name="tipo" required>
+            <option value="">Selecciona</option>
+            <option value="reserva">Problemas con reserva</option>
+            <option value="pago">Pagos y reembolsos</option>
+            <option value="equipaje">Equipaje</option>
+            <option value="puntos">Lucky Points</option>
+            <option value="corporativo">Ventas corporativas</option>
+            <option value="otro">Otro</option>
+          </select>
+        </p>
+        <p>
+          <label for="c-asunto">Asunto:</label>
+          <input type="text" id="c-asunto" name="asunto" minlength="5" maxlength="100" required>
+        </p>
+        <p><label for="c-mensaje">Mensaje:</label></p>
+        <p><textarea id="c-mensaje" name="mensaje" rows="6" cols="60" minlength="20" maxlength="1000" required></textarea></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Preferencia de respuesta</legend>
+        <p><label><input type="radio" name="preferencia" value="email" checked required> Por email</label></p>
+        <p><label><input type="radio" name="preferencia" value="tel"> Por telefono</label></p>
+      </fieldset>
+
+      <p><label><input type="checkbox" name="terminos" value="aceptado" required> He leido y acepto los <a href="legal.html">terminos y la politica de privacidad</a></label></p>
+
+      <p>
+        <button type="submit"><span aria-hidden="true">&#128233;</span> Enviar consulta</button>
+        <button type="reset">Limpiar</button>
+      </p>
+    </form>
+  </section>
+
+  <section aria-labelledby="otros-canales">
+    <h2 id="otros-canales">Otros canales de atencion</h2>
+    <dl>
+      <dt>Telefono 24/7</dt><dd><a href="tel:+868712345678">+86 871 234 5678</a></dd>
+      <dt>Email</dt><dd><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></dd>
+      <dt>WeChat oficial</dt><dd>luckyair_oficial</dd>
+    </dl>
+  </section>
+
+  <!-- Modal de confirmacion (CSS-only, simulacion EE2) -->
+  <div class="modal" id="gracias-contacto" role="dialog" aria-labelledby="gracias-contacto-title" aria-modal="true">
+    <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
+    <div class="modal-card">
+      <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+      <p class="modal-icon" aria-hidden="true">&check;</p>
+      <h2 id="gracias-contacto-title">&iexcl;Gracias por contactarnos!</h2>
+      <p>Recibimos tu consulta. Te responderemos en menos de 24 horas habiles al canal que indicaste.</p>
+      <p class="modal-actions">
+        <a href="#close" class="btn btn-primary">Entendido</a>
+      </p>
+    </div>
+  </div>
+</main>
+<!-- FIN CONTENIDO AYUDA -->
+
+
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<footer>
+  <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
+    <ul><li><a href="nosotros.html">Nosotros</a></li><li><a href="blog.html">Blog</a></li><li><a href="legal.html">Terminos y privacidad</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-ayuda-f"><h2 id="footer-ayuda-f">Ayuda</h2>
+    <ul><li><a href="ayuda.html">Centro de ayuda</a></li><li><a href="ayuda.html#contacto">Contacto</a></li><li><a href="quejas.html">Libro de reclamaciones</a></li><li><a href="vuelos.html#validar">Validar ticket</a></li></ul>
+  </section>
+  <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
+    <address>Aeropuerto Internacional de Kunming<br>Yunnan, China<br><a href="tel:+868712345678">+86 871 234 5678</a><br><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></address>
+  </section>
+  <section aria-labelledby="footer-redes"><h2 id="footer-redes">Siguenos</h2>
+    <ul><li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li><li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li></ul>
+  </section>
+  <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- FIN FOOTER -->
+
+</body>
+</html>

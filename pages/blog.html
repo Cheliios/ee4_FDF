@@ -6,29 +6,42 @@
   <meta name="description" content="Blog de Lucky Air: experiencias de pasajeros, guias de viaje y novedades de la aerolinea.">
   <meta name="author" content="Equipo Lucky Air - UCAL FDF">
   <title>Blog | Lucky Air</title>
+  <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
 
 <!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
 <a href="#main-content">Saltar al contenido principal</a>
-<header role="banner">
+<header>
+
   <div>
-    <a href="/index.html" aria-label="Lucky Air - Ir al inicio"><strong>Lucky Air</strong></a>
-    <p>Tu aerolinea low-cost en Yunnan</p>
+    <a href="../index.html" aria-label="Lucky Air - Ir al inicio"
+      class="logo">
+      <img src="../images/logo/Modern_flat_vector_202604181715.png" alt="" width="40" height="40" class="logo-img"><strong>Lucky Air</strong>
+    </a>
+    <p class="tagline">Tu aerolinea low-cost en Yunnan</p>
   </div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir o cerrar menu de navegacion">
+    <span aria-hidden="true">&#9776;</span>
+  </label>
+
   <nav aria-label="Navegacion principal">
     <ul>
-      <li><a href="/pages/vuelos.html">Vuelos</a></li>
-      <li><a href="/pages/destinos.html">Destinos</a></li>
-      <li><a href="/pages/lucky-points.html">Lucky Points</a></li>
-      <li><a href="/pages/empresas.html">Empresas y estudiantes</a></li>
-      <li><a href="/pages/ayuda.html">Ayuda</a></li>
+      <li><a href="vuelos.html">Vuelos</a></li>
+      <li><a href="destinos.html">Destinos</a></li>
+      <li><a href="lucky-points.html">Lucky Points</a></li>
+      <li><a href="empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
     </ul>
   </nav>
+
   <div>
-    <a href="/pages/login.html">Iniciar sesion</a>
-    <a href="/pages/mi-cuenta.html">Mi cuenta</a>
+    <a href="login.html">Iniciar sesion</a>
+    <a href="mi-cuenta.html" class="btn-gold">Mi cuenta</a>
   </div>
+
 </header>
 <!-- FIN HEADER -->
 
@@ -44,7 +57,7 @@
       <p>
         <label for="sb-query">Palabra clave:</label>
         <input type="search" id="sb-query" name="q" placeholder="Ej. Kunming, mochilero" required>
-        <button type="submit">Buscar</button>
+        <button type="submit"><span aria-hidden="true">&#128269;</span> Buscar</button>
       </p>
     </form>
   </section>
@@ -52,14 +65,15 @@
   <section id="articulos" aria-labelledby="articulos-title">
     <h2 id="articulos-title">Articulos recientes</h2>
 
+    <div class="cards">
     <article>
       <header>
         <h3>Como recorri Yunnan en 10 dias con 2,000 yuanes</h3>
         <p>Por Chen Li | <time datetime="2026-04-05">5 de abril, 2026</time> | Categoria: Experiencias</p>
       </header>
-      <img src="/assets/images/blog-yunnan-10dias.jpg" alt="Viajero en el Bosque de Piedra de Shilin con mochila de viaje" width="400" height="250">
+      <img src="../images/blog-yunnan-10dias.jpg" alt="Viajero en el Bosque de Piedra de Shilin con mochila de viaje" width="400" height="250">
       <p>Un recorrido completo por los imperdibles de Yunnan sin vaciar la billetera. Kunming, Dali, Lijiang y Shangri-La con transporte terrestre y aereo combinado.</p>
-      <p><a href="#">Leer articulo completo</a></p>
+      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
     </article>
 
     <article>
@@ -67,9 +81,9 @@
         <h3>Por que elegimos Lucky Air para nuestra luna de miel</h3>
         <p>Por Maria Wang | <time datetime="2026-03-28">28 de marzo, 2026</time> | Categoria: Historias</p>
       </header>
-      <img src="/assets/images/blog-luna-miel.jpg" alt="Pareja de recien casados en el lago Erhai de Dali" width="400" height="250">
+      <img src="../images/blog-luna-miel.jpg" alt="Pareja de recien casados en el lago Erhai de Dali" width="400" height="250">
       <p>Nuestra experiencia eligiendo una aerolinea low-cost para un momento especial. Spoiler: no te arrepentis.</p>
-      <p><a href="#">Leer articulo completo</a></p>
+      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
     </article>
 
     <article>
@@ -77,9 +91,9 @@
         <h3>Ruta gastronomica por Kunming en 48 horas</h3>
         <p>Por Zhang Wei | <time datetime="2026-03-15">15 de marzo, 2026</time> | Categoria: Gastronomia</p>
       </header>
-      <img src="/assets/images/blog-gastronomia.jpg" alt="Plato de fideos Guoqiao, fideos a traves del puente, tipicos de Yunnan" width="400" height="250">
+      <img src="../images/blog-gastronomia.jpg" alt="Plato de fideos Guoqiao, fideos a traves del puente, tipicos de Yunnan" width="400" height="250">
       <p>Desde los fideos Guoqiao (a traves del puente) hasta el hot pot de Yunnan. Ruta completa para foodies.</p>
-      <p><a href="#">Leer articulo completo</a></p>
+      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
     </article>
 
     <article>
@@ -87,9 +101,9 @@
         <h3>Los 25 minutos del turnaround: por que volamos mas barato</h3>
         <p>Por Equipo Lucky Air | <time datetime="2026-03-01">1 de marzo, 2026</time> | Categoria: Nosotros</p>
       </header>
-      <img src="/assets/images/blog-turnaround.jpg" alt="Personal de tierra preparando un Boeing 737 de Lucky Air" width="400" height="250">
+      <img src="../images/blog-turnaround.jpg" alt="Personal de tierra preparando un Boeing 737 de Lucky Air" width="400" height="250">
       <p>Inspirados en Southwest Airlines, aprendimos a preparar un avion para su siguiente vuelo en solo 25 minutos. Te contamos como.</p>
-      <p><a href="#">Leer articulo completo</a></p>
+      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
     </article>
 
     <article>
@@ -97,10 +111,11 @@
         <h3>Guia para mochileros: Xishuangbanna sin morir en el intento</h3>
         <p>Por Zhou Min | <time datetime="2026-02-20">20 de febrero, 2026</time> | Categoria: Guias</p>
       </header>
-      <img src="/assets/images/blog-xishuangbanna.jpg" alt="Mochilero cruzando puente colgante en la selva de Xishuangbanna" width="400" height="250">
+      <img src="../images/blog-xishuangbanna.jpg" alt="Mochilero cruzando puente colgante en la selva de Xishuangbanna" width="400" height="250">
       <p>Clima tropical, idioma, transporte, alojamiento barato y que comer. Todo lo que necesitas saber antes de ir.</p>
-      <p><a href="#">Leer articulo completo</a></p>
+      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
     </article>
+    </div>
   </section>
 
   <aside aria-labelledby="sidebar-title">
@@ -115,9 +130,9 @@
     </ul>
 
     <h2>Suscribete al blog</h2>
-    <form action="#sidebar-title" method="post" name="form-newsletter">
+    <form action="#gracias-newsletter" method="post" name="form-newsletter">
       <p><label for="n-email">Tu email:</label> <input type="email" id="n-email" name="email" required></p>
-      <p><button type="submit">Suscribirme</button></p>
+      <p><button type="submit"><span aria-hidden="true">&#128231;</span> Suscribirme</button></p>
     </form>
   </aside>
 
@@ -130,17 +145,31 @@
       <li><a href="#" aria-label="Pagina siguiente">Siguiente</a></li>
     </ul>
   </nav>
+
+  <!-- Modal: suscripcion newsletter -->
+  <div class="modal" id="gracias-newsletter" role="dialog" aria-labelledby="gracias-newsletter-title" aria-modal="true">
+    <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
+    <div class="modal-card">
+      <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+      <p class="modal-icon" aria-hidden="true">&check;</p>
+      <h2 id="gracias-newsletter-title">&iexcl;Suscrito al newsletter!</h2>
+      <p>Te enviaremos cada mes las mejores historias de viaje y promociones exclusivas de Lucky Air.</p>
+      <p class="modal-actions">
+        <a href="#close" class="btn btn-primary">Genial</a>
+      </p>
+    </div>
+  </div>
 </main>
 <!-- FIN CONTENIDO BLOG -->
 
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
-<footer role="contentinfo">
+<footer>
   <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
-    <ul><li><a href="/pages/nosotros.html">Nosotros</a></li><li><a href="/pages/blog.html">Blog</a></li><li><a href="/pages/legal.html">Terminos y privacidad</a></li></ul>
+    <ul><li><a href="nosotros.html">Nosotros</a></li><li><a href="blog.html">Blog</a></li><li><a href="legal.html">Terminos y privacidad</a></li></ul>
   </section>
   <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
-    <ul><li><a href="/pages/ayuda.html">Centro de ayuda</a></li><li><a href="/pages/ayuda.html#contacto">Contacto</a></li><li><a href="/pages/vuelos.html#validar">Validar ticket</a></li></ul>
+    <ul><li><a href="ayuda.html">Centro de ayuda</a></li><li><a href="ayuda.html#contacto">Contacto</a></li><li><a href="quejas.html">Libro de reclamaciones</a></li><li><a href="vuelos.html#validar">Validar ticket</a></li></ul>
   </section>
   <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
     <address>Aeropuerto Internacional de Kunming<br>Yunnan, China<br><a href="tel:+868712345678">+86 871 234 5678</a><br><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></address>

@@ -6,43 +6,184 @@
   <meta name="description" content="Completa el pago de tu vuelo Lucky Air con tarjeta de credito, PayPal o Alipay de forma segura.">
   <meta name="author" content="Equipo Lucky Air - UCAL FDF">
   <title>Checkout | Lucky Air</title>
+  <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
 
 <!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
 <a href="#main-content">Saltar al contenido principal</a>
-<header role="banner">
+<header>
+
   <div>
-    <a href="/index.html" aria-label="Lucky Air - Ir al inicio"><strong>Lucky Air</strong></a>
-    <p>Tu aerolinea low-cost en Yunnan</p>
+    <a href="../index.html" aria-label="Lucky Air - Ir al inicio"
+      class="logo">
+      <img src="../images/logo/Modern_flat_vector_202604181715.png" alt="" width="40" height="40" class="logo-img"><strong>Lucky Air</strong>
+    </a>
+    <p class="tagline">Tu aerolinea low-cost en Yunnan</p>
   </div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir o cerrar menu de navegacion">
+    <span aria-hidden="true">&#9776;</span>
+  </label>
+
   <nav aria-label="Navegacion principal">
     <ul>
-      <li><a href="/pages/vuelos.html">Vuelos</a></li>
-      <li><a href="/pages/destinos.html">Destinos</a></li>
-      <li><a href="/pages/lucky-points.html">Lucky Points</a></li>
-      <li><a href="/pages/empresas.html">Empresas y estudiantes</a></li>
-      <li><a href="/pages/ayuda.html">Ayuda</a></li>
+      <li><a href="vuelos.html">Vuelos</a></li>
+      <li><a href="destinos.html">Destinos</a>
+      </li>
+      <li><a href="lucky-points.html">Lucky
+          Points</a></li>
+      <li><a href="empresas.html">Empresas y
+          estudiantes</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
     </ul>
   </nav>
+
   <div>
-    <a href="/pages/login.html">Iniciar sesion</a>
-    <a href="/pages/mi-cuenta.html">Mi cuenta</a>
+    <a href="login.html"
+     >Iniciar sesion</a>
+    <a href="mi-cuenta.html"
+      class="btn-gold">Mi
+      cuenta</a>
   </div>
+
 </header>
 <!-- FIN HEADER -->
 
 
+<!-- CONTENIDO CHECKOUT - Autor: Rodrigo Alonso Santos Nunez -->
+<main id="main-content">
+  <nav aria-label="Progreso de compra">
+    <ol>
+      <li>Busqueda</li>
+      <li>Seleccion</li>
+      <li aria-current="step">Pago</li>
+      <li>Confirmacion</li>
+    </ol>
+  </nav>
 
+  <h1>Finaliza tu compra</h1>
+  <p>Estas a un paso de tu proximo viaje con Lucky Air.</p>
+
+  <section aria-labelledby="resumen-title">
+    <h2 id="resumen-title">Resumen de tu vuelo</h2>
+    <dl>
+      <dt>Vuelo</dt><dd>LA8201</dd>
+      <dt>Ruta</dt><dd>Kunming (KMG) - Dali (DLU)</dd>
+      <dt>Fecha</dt><dd><time datetime="2026-04-20T06:30">20 de abril, 06:30</time></dd>
+      <dt>Pasajeros</dt><dd>1 adulto</dd>
+      <dt>Tarifa</dt><dd>Basica</dd>
+      <dt>Subtotal</dt><dd>CNY 380.00</dd>
+      <dt>Impuestos</dt><dd>CNY 55.00</dd>
+      <dt>Total a pagar</dt><dd><strong>CNY 435.00</strong></dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="pasajero-title">
+    <h2 id="pasajero-title">Datos del pasajero</h2>
+    <form action="#gracias-pago" method="post" name="form-checkout">
+      <fieldset>
+        <legend>Pasajero 1</legend>
+        <p><label for="p-nombre">Nombres:</label> <input type="text" id="p-nombre" name="nombre" autocomplete="given-name" required></p>
+        <p><label for="p-apellido">Apellidos:</label> <input type="text" id="p-apellido" name="apellido" autocomplete="family-name" required></p>
+        <p><label for="p-email">Email:</label> <input type="email" id="p-email" name="email" autocomplete="email" required></p>
+        <p><label for="p-tel">Telefono:</label> <input type="tel" id="p-tel" name="telefono" pattern="[+0-9 ]{9,15}" required></p>
+        <p><label for="p-doc">Documento de identidad:</label> <input type="text" id="p-doc" name="documento" required></p>
+        <p><label for="p-nac">Fecha de nacimiento:</label> <input type="date" id="p-nac" name="nacimiento" required></p>
+        <p>
+          <label for="p-genero">Genero:</label>
+          <select id="p-genero" name="genero" required>
+            <option value="">Selecciona</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+            <option value="X">Otro</option>
+            <option value="NA">Prefiero no decir</option>
+          </select>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Extras opcionales</legend>
+        <p><label><input type="checkbox" name="extras" value="equipaje"> Equipaje en bodega 20 kg (+CNY 80)</label></p>
+        <p><label><input type="checkbox" name="extras" value="asiento"> Seleccion de asiento (+CNY 40)</label></p>
+        <p><label><input type="checkbox" name="extras" value="comida"> Comida a bordo (+CNY 55)</label></p>
+        <p><label><input type="checkbox" name="extras" value="seguro"> Seguro de cancelacion (+CNY 45)</label></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Metodo de pago</legend>
+        <p><label><input type="radio" name="pago" value="tarjeta" checked required> Tarjeta de credito o debito</label></p>
+        <p><label><input type="radio" name="pago" value="paypal"> PayPal</label></p>
+        <p><label><input type="radio" name="pago" value="alipay"> Alipay</label></p>
+        <p><label><input type="radio" name="pago" value="wechat"> WeChat Pay</label></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Datos de la tarjeta</legend>
+        <p><label for="t-numero">Numero de tarjeta:</label> <input type="text" id="t-numero" name="numero" pattern="[0-9 ]{13,19}" maxlength="19" autocomplete="cc-number" inputmode="numeric" required></p>
+        <p><label for="t-titular">Titular (como figura en la tarjeta):</label> <input type="text" id="t-titular" name="titular" autocomplete="cc-name" required></p>
+        <p><label for="t-venc">Vencimiento:</label> <input type="month" id="t-venc" name="vencimiento" autocomplete="cc-exp" required></p>
+        <p><label for="t-cvv">CVV:</label> <input type="text" id="t-cvv" name="cvv" pattern="[0-9]{3,4}" maxlength="4" autocomplete="cc-csc" inputmode="numeric" required></p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Direccion de facturacion</legend>
+        <p><label for="f-direccion">Direccion:</label> <input type="text" id="f-direccion" name="direccion" autocomplete="street-address" required></p>
+        <p><label for="f-ciudad">Ciudad:</label> <input type="text" id="f-ciudad" name="ciudad" autocomplete="address-level2" required></p>
+        <p><label for="f-codigo">Codigo postal:</label> <input type="text" id="f-codigo" name="codigo" autocomplete="postal-code" required></p>
+        <p>
+          <label for="f-pais">Pais:</label>
+          <select id="f-pais" name="pais" autocomplete="country" required>
+            <option value="">Selecciona</option>
+            <option value="CN">China</option>
+            <option value="US">Estados Unidos</option>
+            <option value="PE">Peru</option>
+            <option value="MX">Mexico</option>
+            <option value="otro">Otro</option>
+          </select>
+        </p>
+      </fieldset>
+
+      <p><label><input type="checkbox" name="usar_puntos" value="si"> Usar mis Lucky Points (tengo 2,450 puntos = CNY 25 de descuento)</label></p>
+
+      <p><label><input type="checkbox" name="acepto" value="si" required> He leido y acepto los <a href="legal.html">terminos de compra y politica de reembolsos</a></label></p>
+
+      <p><button type="submit"><span aria-hidden="true">&#128179;</span> Confirmar y pagar CNY 435.00</button></p>
+    </form>
+  </section>
+
+  <aside aria-labelledby="seguridad-title">
+    <h2 id="seguridad-title">Pago 100% seguro</h2>
+    <p>Procesamos tus datos con encriptacion SSL. Lucky Air no almacena numeros completos de tarjeta.</p>
+    <p>Tu informacion esta protegida conforme a la Ley de Seguridad Cibernetica de China.</p>
+  </aside>
+
+  <!-- Modal: pago confirmado -->
+  <div class="modal" id="gracias-pago" role="dialog" aria-labelledby="gracias-pago-title" aria-modal="true">
+    <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
+    <div class="modal-card">
+      <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+      <p class="modal-icon" aria-hidden="true">&check;</p>
+      <h2 id="gracias-pago-title">&iexcl;Pago confirmado!</h2>
+      <p>Tu reserva se proceso correctamente. Te enviamos los tickets electronicos y la confirmacion a tu correo.</p>
+      <p class="modal-actions">
+        <a href="mi-cuenta.html" class="btn btn-primary">Ver mis vuelos</a>
+        <a href="../index.html" class="btn btn-outline">Volver al inicio</a>
+      </p>
+    </div>
+  </div>
+</main>
+<!-- FIN CONTENIDO CHECKOUT -->
 
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
-<footer role="contentinfo">
+<footer>
   <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
-    <ul><li><a href="/pages/nosotros.html">Nosotros</a></li><li><a href="/pages/blog.html">Blog</a></li><li><a href="/pages/legal.html">Terminos y privacidad</a></li></ul>
+    <ul><li><a href="nosotros.html">Nosotros</a></li><li><a href="blog.html">Blog</a></li><li><a href="legal.html">Terminos y privacidad</a></li></ul>
   </section>
   <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
-    <ul><li><a href="/pages/ayuda.html">Centro de ayuda</a></li><li><a href="/pages/ayuda.html#contacto">Contacto</a></li><li><a href="/pages/vuelos.html#validar">Validar ticket</a></li></ul>
+    <ul><li><a href="ayuda.html">Centro de ayuda</a></li><li><a href="ayuda.html#contacto">Contacto</a></li><li><a href="quejas.html">Libro de reclamaciones</a></li><li><a href="vuelos.html#validar">Validar ticket</a></li></ul>
   </section>
   <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
     <address>Aeropuerto Internacional de Kunming<br>Yunnan, China<br><a href="tel:+868712345678">+86 871 234 5678</a><br><a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a></address>
