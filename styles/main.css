@@ -1,0 +1,1175 @@
+/* ============================================================
+   Lucky Air - main.css
+   UCAL FDF - Grupo 2 - EE2 (responsive mobile-first)
+   Breakpoints:
+     base      : 360px+  (mobile)
+     >= 768px  : tablet
+     >= 1024px : desktop
+   Paleta de marca:
+     #C8102E rojo, #D4A017 dorado, #1A1A1A oscuro,
+     #FFD4A0 crema, #0066cc azul (theme)
+   ============================================================ */
+
+/* --- Reset minimo y tokens de diseño ----------------------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+:root {
+  --red: #C8102E;
+  --red-dark: #9c0c24;
+  --gold: #D4A017;
+  --dark: #1A1A1A;
+  --light: #FFD4A0;
+  --blue: #0066cc;
+  --white: #ffffff;
+  --bg: #ffffff;
+  --bg-alt: #f6f6f6;
+  --text: #1A1A1A;
+  --muted: #555555;
+  --border: #dcdcdc;
+  --radius: 6px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --container: 1200px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Guarda dura contra scroll horizontal accidental */
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+/* Fallback navegadores sin soporte de clip */
+@supports not (overflow-x: clip) {
+  html, body { overflow-x: hidden; }
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Sin subrayados en ningun enlace - se diferencian por color + negrita */
+a {
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+a:hover { color: var(--red-dark); }
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Sistema de botones ------------------------------------ */
+
+.btn {
+  display: inline-flex; /* permite iconos + texto con gap, y mantiene el tamaño natural del contenido */
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+.btn-primary:hover {
+  background: var(--red-dark);
+  color: var(--white);
+  border-color: var(--red-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--red);
+  border-color: var(--red);
+}
+.btn-outline:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+/* Variante dorada - reutilizable sin la clase .btn */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--gold);
+  color: var(--dark);
+  border: 2px solid var(--gold);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.btn-gold:hover {
+  background: #b88913;
+  color: var(--dark);
+  border-color: #b88913;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.btn-gold:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.btn-gold:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+
+/* --- Skip link (accesibilidad) ----------------------------- */
+
+body > a[href="#main-content"] {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--dark);
+  color: var(--white);
+  padding: var(--space-2) var(--space-4);
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 0 0 var(--radius) 0;
+}
+body > a[href="#main-content"]:focus {
+  left: 0;
+}
+
+/* --- HEADER global ----------------------------------------- */
+
+header {
+  background: var(--red);
+  color: var(--white);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 3px solid var(--gold);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: stretch;
+  position: relative;
+}
+
+/* --- Menu hamburguesa (CSS-only, sin JS) ------------------- */
+
+/* Checkbox oculto pero accesible por teclado */
+.nav-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Boton hamburguesa (label clicable) */
+header .nav-toggle-btn {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  z-index: 5;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.25s ease;
+}
+header .nav-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--gold);
+}
+.nav-toggle:checked ~ .nav-toggle-btn {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+.nav-toggle:focus-visible ~ .nav-toggle-btn {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+header .nav-toggle-btn > span {
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+/* Reserva espacio para el boton hamburguesa en mobile */
+header > div:first-child {
+  padding-right: 56px;
+}
+
+/* En mobile: oculta nav y bloque de auth por defecto */
+header > nav,
+header > div:last-child {
+  display: none;
+}
+
+/* Drawer estilo LATAM: limpio, alineado a la izquierda, con opacidad */
+.nav-toggle:checked ~ nav,
+.nav-toggle:checked ~ div:last-child {
+  display: flex;
+  background: rgba(26, 26, 26, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  animation: drawerSlideDown 0.28s ease-out;
+}
+
+/* Nav: items apilados, alineados a la izquierda, sin separadores duros */
+.nav-toggle:checked ~ nav {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.nav-toggle:checked ~ nav ul {
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  align-items: flex-start;
+}
+.nav-toggle:checked ~ nav li {
+  width: 100%;
+}
+.nav-toggle:checked ~ nav a {
+  display: inline-block;
+  padding: 12px 0;
+  text-align: left;
+}
+.nav-toggle:checked ~ nav a:hover {
+  color: var(--gold);
+}
+
+/* Auth: apilada (Mi cuenta debajo de Iniciar sesion), tamaño natural, alineada a la izquierda */
+.nav-toggle:checked ~ div:last-child {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin-top: 0;
+}
+.nav-toggle:checked ~ div:last-child a {
+  align-self: flex-start;
+  text-align: left;
+}
+.nav-toggle:checked ~ div:last-child a:not(.btn-gold):not(.btn) {
+  padding: 4px 0;
+}
+
+@keyframes drawerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bloque logo + tagline */
+header > div:first-child a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+header > div:first-child p {
+  margin: var(--space-1) 0 0;
+  font-size: 12px;
+  color: var(--light);
+}
+
+/* Nav principal */
+header nav {
+  width: 100%;
+}
+header nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+}
+header nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: var(--space-1) 0;
+  display: inline-block;
+}
+header nav a[aria-current="page"] {
+  border-bottom: 2px solid var(--gold);
+}
+header nav a:hover {
+  color: var(--light);
+}
+
+/* Bloque de auth (login + Mi cuenta) - display lo controla el hamburger */
+header > div:last-child {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+header > div:last-child a:not(.btn-gold):not(.btn) {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 14px;
+  padding: var(--space-1) 0;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+header > div:last-child a:not(.btn-gold):not(.btn):hover {
+  color: var(--light);
+}
+
+/* --- Main wrapper ------------------------------------------ */
+
+main {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+main > section,
+main > article {
+  margin-bottom: var(--space-6);
+}
+
+/* Tipografia */
+h1, h2, h3, h4 {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  margin: 0 0 var(--space-3);
+  color: var(--dark);
+}
+main h1 { font-size: 26px; }
+main h2 {
+  font-size: 20px;
+  color: var(--red);
+  margin-top: var(--space-5);
+}
+main h3 { font-size: 17px; margin-top: var(--space-4); }
+main p { margin: 0 0 var(--space-3); }
+
+main ul, main ol { padding-left: 20px; margin: 0 0 var(--space-3); }
+main li { margin-bottom: var(--space-1); }
+
+/* --- Grilla de cards (article siblings) -------------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+.cards > article,
+.cards > li {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.cards > article:hover,
+.cards > li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+.cards > article > img,
+.cards > article > a > img,
+.cards > article > figure > img {
+  transition: transform 0.5s ease;
+}
+.cards > article:hover > img,
+.cards > article:hover > a > img,
+.cards > article:hover > figure > img {
+  transform: scale(1.04);
+}
+
+.cards > article > img,
+.cards > article > a > img,
+.cards > article > figure > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.cards > article > h2,
+.cards > article > h3 {
+  margin: var(--space-3) var(--space-4) var(--space-2);
+  font-size: 17px;
+  color: var(--red);
+}
+
+.cards > article > p,
+.cards > article > a,
+.cards > article > ul {
+  margin-left: var(--space-4);
+  margin-right: var(--space-4);
+}
+
+.cards > article > p:last-child,
+.cards > article > a:last-child {
+  margin-bottom: var(--space-4);
+}
+
+/* Boton dentro de card alineado a la izquierda con buen aire */
+.cards > article > p:has(> .btn),
+.cards > article > p:has(> .btn-gold) {
+  margin-top: auto;
+}
+.cards > article .btn,
+.cards > article .btn-gold {
+  align-self: flex-start;
+}
+
+/* --- Formularios ------------------------------------------- */
+
+form { margin: 0 0 var(--space-5); }
+
+form fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin: 0 0 var(--space-4);
+  background: var(--white);
+}
+
+form legend {
+  font-weight: 700;
+  padding: 0 var(--space-2);
+  color: var(--red);
+}
+
+form p {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-3);
+}
+
+form label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--dark);
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 16px;   /* >=16px evita zoom en iOS */
+  font-family: inherit;
+  background: var(--white);
+  color: var(--text);
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  outline: 2px solid var(--red);
+  outline-offset: 1px;
+  border-color: var(--red);
+}
+
+form input:invalid:not(:placeholder-shown) {
+  border-color: var(--red);
+}
+
+form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Checkbox/radio en linea con su label */
+form p:has(> input[type="checkbox"]),
+form p:has(> input[type="radio"]) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Botones de formulario: tamaño natural, no estirados, alineados a la izquierda */
+form p:has(> button),
+form p:has(> input[type="submit"]),
+form p:has(> input[type="reset"]) {
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+  width: auto;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+form button,
+form input[type="submit"],
+form input[type="reset"] {
+  background: var(--red);
+  color: var(--white);
+  border: 2px solid var(--red);
+  min-height: 44px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+form button:hover,
+form input[type="submit"]:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+form button:active,
+form input[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+form input[type="reset"] {
+  background: var(--bg-alt);
+  color: var(--dark);
+  border-color: var(--border);
+  margin-left: var(--space-2);
+}
+form input[type="reset"]:hover {
+  background: var(--border);
+  border-color: var(--muted);
+}
+
+/* --- Tablas ------------------------------------------------ */
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.table-scroll > table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 520px;
+}
+
+/* Tablas sin wrapper: se permite scroll directo */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 700;
+  padding: var(--space-3);
+  background: var(--bg-alt);
+  color: var(--dark);
+}
+
+table th,
+table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+table thead th {
+  background: var(--bg-alt);
+  font-weight: 700;
+  color: var(--dark);
+}
+
+table tbody tr:nth-child(even) { background: #fafafa; }
+
+/* --- Details / Acordeones (FAQ) ---------------------------- */
+
+details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-2);
+  background: var(--white);
+}
+details[open] { background: var(--bg-alt); }
+
+details > summary {
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 28px;
+  color: var(--dark);
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--red);
+  line-height: 1;
+}
+details[open] > summary::after { content: "\2013"; }
+
+/* --- Modal (CSS-only, controlado por :target) -------------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 1000;
+  padding: var(--space-4);
+}
+.modal:target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: modalFadeIn 0.25s ease-out;
+}
+.modal-card {
+  position: relative;
+  background: var(--white);
+  border-radius: 12px;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  max-width: 480px;
+  width: 100%;
+  max-height: calc(100vh - var(--space-6));
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  text-align: center;
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+/* Variante grande para formularios */
+.modal-card--lg {
+  max-width: 640px;
+  text-align: left;
+}
+.modal-card--lg h2 {
+  text-align: left;
+  margin-top: 0;
+}
+.modal-card--lg p {
+  text-align: left;
+  color: var(--text);
+}
+.modal-card h2 {
+  color: var(--red);
+  font-size: 24px;
+  margin: 0 0 var(--space-3);
+}
+.modal-card p {
+  margin: 0 0 var(--space-4);
+  color: var(--muted);
+}
+.modal-card p:last-child { margin-bottom: 0; }
+
+.modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--dark);
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0 auto var(--space-4);
+  animation: modalCheck 0.4s ease-out 0.15s backwards;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--dark);
+  background: var(--bg-alt);
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.modal-close:hover {
+  background: var(--border);
+  transform: rotate(90deg);
+  color: var(--dark);
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(30px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes modalCheck {
+  from { transform: scale(0); }
+  60% { transform: scale(1.15); }
+  to { transform: scale(1); }
+}
+
+/* --- Listas de definicion ---------------------------------- */
+
+dl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin: 0 0 var(--space-4);
+}
+dt {
+  font-weight: 700;
+  color: var(--dark);
+}
+dd {
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+}
+
+/* --- Figure / video ---------------------------------------- */
+
+figure {
+  margin: 0 0 var(--space-4);
+}
+
+figure img,
+figure video {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+}
+
+figcaption {
+  font-size: 13px;
+  color: var(--muted);
+  padding: var(--space-2) 0;
+  text-align: center;
+  font-style: italic;
+}
+
+video {
+  background: var(--dark);
+}
+
+/* --- Aside (sidebars) -------------------------------------- */
+
+aside {
+  background: var(--bg-alt);
+  border-left: 4px solid var(--gold);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  margin: var(--space-4) 0;
+}
+aside h2,
+aside h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: var(--red);
+}
+aside ul { padding-left: 18px; }
+aside form { margin-bottom: 0; }
+
+/* --- FOOTER global ----------------------------------------- */
+
+footer {
+  background: var(--dark);
+  color: var(--white);
+  padding: var(--space-6) var(--space-4);
+  margin-top: var(--space-7);
+}
+footer a,
+footer address a {
+  color: var(--light);
+  text-decoration: none;
+  display: inline-block;
+  padding: 4px 0;
+  font-weight: 700;
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+footer a:hover,
+footer address a:hover {
+  color: var(--gold);
+  transform: translateX(4px);
+}
+footer a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+footer address {
+  font-style: normal;
+  line-height: 1.7;
+}
+
+footer h2,
+footer h3,
+footer h4 {
+  font-size: 15px;
+  color: var(--gold);
+  margin: 0 0 var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+footer section,
+footer > div { margin-bottom: var(--space-4); }
+
+footer small,
+footer p:last-child {
+  display: block;
+  font-size: 12px;
+  color: var(--light);
+  text-align: center;
+  border-top: 1px solid #333;
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ============================================================
+   TABLET >= 768px
+   ============================================================ */
+
+@media (min-width: 768px) {
+
+  body { font-size: 16px; }
+
+  /* Header se vuelve fila */
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-5);
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  header nav { width: auto; flex: 1; }
+  header nav ul {
+    justify-content: center;
+    gap: var(--space-4);
+    flex-direction: row;
+  }
+
+  /* En tablet+ ocultar hamburger y mostrar nav + auth siempre */
+  header .nav-toggle-btn { display: none; }
+  header > nav,
+  .nav-toggle:checked ~ nav {
+    display: block;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    margin-top: 0;
+    animation: none;
+    flex-direction: row;
+  }
+  header > div:last-child,
+  .nav-toggle:checked ~ div:last-child {
+    display: flex;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    margin-top: 0;
+    animation: none;
+    flex-direction: row;
+    gap: var(--space-2) var(--space-3);
+  }
+  header > div:last-child a,
+  .nav-toggle:checked ~ div:last-child a {
+    text-align: left;
+    padding: 0;
+  }
+  .nav-toggle:checked ~ nav ul {
+    flex-direction: row;
+    gap: var(--space-2) var(--space-4);
+    width: auto;
+  }
+  .nav-toggle:checked ~ nav li {
+    border-bottom: 0;
+  }
+  .nav-toggle:checked ~ nav a {
+    display: inline-block;
+    padding: var(--space-1) 0;
+    width: auto;
+  }
+  header > div:first-child { padding-right: 0; }
+
+  main { padding: var(--space-5); }
+  main h1 { font-size: 32px; }
+  main h2 { font-size: 24px; }
+
+  /* Cards: 2 columnas */
+  .cards { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+
+  /* DL en dos columnas (clave / valor) */
+  dl {
+    grid-template-columns: minmax(120px, max-content) 1fr;
+    gap: var(--space-2) var(--space-4);
+  }
+  dd { margin-bottom: 0; }
+
+  /* Footer en 2 columnas */
+  footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    padding: var(--space-6) var(--space-5);
+  }
+  footer > small,
+  footer > p:last-child { grid-column: 1 / -1; }
+
+  /* Tablas mantienen scroll si el contenido es muy ancho */
+  .table-scroll > table { min-width: 0; }
+
+  /* Form layout: 2 inputs por fila en pantallas amplias */
+  form fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 var(--space-4);
+  }
+  form fieldset > legend { grid-column: 1 / -1; }
+  form fieldset > p { grid-column: span 1; }
+  form fieldset > p:has(> textarea),
+  form fieldset > p:has(> button),
+  form fieldset > p:has(> input[type="submit"]),
+  form fieldset > p:has(> input[type="checkbox"]),
+  form fieldset > p:has(> input[type="radio"]) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ============================================================
+   DESKTOP >= 1024px
+   ============================================================ */
+
+@media (min-width: 1024px) {
+
+  main { padding: var(--space-6) var(--space-5); }
+  main h1 { font-size: 36px; }
+  main h2 { font-size: 26px; }
+
+  /* Cards: 3 columnas por defecto */
+  .cards { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+  /* Variante de 4 columnas para grillas grandes */
+  .cards.cards-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* Header: nav y auth alineados a la derecha */
+  header { padding: var(--space-4) var(--space-6); }
+  header nav { flex: 0 1 auto; }
+  header nav ul { gap: var(--space-5); }
+
+  /* Footer: 4 columnas */
+  footer { grid-template-columns: repeat(4, 1fr); padding: var(--space-6); }
+
+  /* Layout con aside: si main tiene section + aside hermanos, mostrar 2 columnas */
+  main:has(> aside) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: var(--space-5);
+    align-items: start;
+  }
+  main:has(> aside) > section,
+  main:has(> aside) > article,
+  main:has(> aside) > form,
+  main:has(> aside) > h1,
+  main:has(> aside) > h2 { grid-column: 1; }
+  main:has(> aside) > aside { grid-column: 2; position: sticky; top: var(--space-4); }
+}
+
+/* ============================================================
+   Utilidades + impresion
+   ============================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media print {
+  header, footer, aside, .skip-link { display: none; }
+  body { color: #000; background: #fff; }
+  a { color: #000; text-decoration: underline; }
+}

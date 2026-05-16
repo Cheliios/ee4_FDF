@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Libro de reclamaciones de Lucky Air: registra una queja o reclamo y haremos seguimiento en menos de 48 horas habiles.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <meta name="theme-color" content="#C8102E">
+  <title>Quejas y reclamos | Lucky Air</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<a href="#main-content">Saltar al contenido principal</a>
+<header>
+
+  <div>
+    <a href="../index.html" aria-label="Lucky Air - Ir al inicio" class="logo">
+      <img src="../images/logo/Modern_flat_vector_202604181715.png" alt="" width="36" height="36" class="logo-img">
+      <strong>Lucky Air</strong>
+    </a>
+    <p class="tagline">Tu aerolinea low-cost en Yunnan</p>
+  </div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir o cerrar menu de navegacion">
+    <span aria-hidden="true">&#9776;</span>
+  </label>
+
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="vuelos.html">Vuelos</a></li>
+      <li><a href="destinos.html">Destinos</a></li>
+      <li><a href="lucky-points.html">Lucky Points</a></li>
+      <li><a href="empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <a href="login.html">Iniciar sesion</a>
+    <a href="mi-cuenta.html" class="btn-gold">Mi cuenta</a>
+  </div>
+
+</header>
+<!-- FIN HEADER -->
+
+
+<!-- CONTENIDO QUEJAS Y RECLAMOS - Autor: Felipe Reyes Ingunza -->
+<main id="main-content">
+
+  <nav aria-label="Ruta de navegacion">
+    <ol>
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
+      <li><strong>Quejas y reclamos</strong></li>
+    </ol>
+  </nav>
+
+  <section aria-labelledby="quejas-title">
+    <h1 id="quejas-title">Libro de reclamaciones</h1>
+    <p>Tu experiencia importa. Registra una queja o un reclamo y nuestro equipo de soporte te respondera en un plazo maximo de <strong>48 horas habiles</strong>.</p>
+    <p>
+      <a href="estado-queja.html" class="btn btn-gold"><span aria-hidden="true">&#128269;</span> Ver estado de mi queja</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="diferencia-title">
+    <h2 id="diferencia-title">&iquest;Queja o reclamo?</h2>
+    <dl>
+      <dt>Queja</dt>
+      <dd>Manifestacion de disconformidad con la calidad del servicio (atencion, tiempos, comodidad). No requiere compensacion economica.</dd>
+      <dt>Reclamo</dt>
+      <dd>Solicitud formal por incumplimiento del servicio contratado (cancelacion, equipaje, reembolso). Puede derivar en compensacion o devolucion.</dd>
+    </dl>
+  </section>
+
+  <section id="formulario" aria-labelledby="form-title">
+    <h2 id="form-title">Registra tu caso</h2>
+
+    <form action="#gracias-queja" method="post" name="form-queja">
+
+      <fieldset>
+        <legend>Tipo de caso</legend>
+        <p>
+          <label><input type="radio" name="tipo-caso" value="queja" checked required> <strong>Queja</strong> - Disconformidad con el servicio</label>
+        </p>
+        <p>
+          <label><input type="radio" name="tipo-caso" value="reclamo" required> <strong>Reclamo</strong> - Incumplimiento del servicio contratado</label>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Datos del pasajero</legend>
+        <p>
+          <label for="q-nombres">Nombres y apellidos:</label>
+          <input type="text" id="q-nombres" name="nombres" minlength="3" maxlength="80" required>
+        </p>
+        <p>
+          <label for="q-documento">Documento de identidad:</label>
+          <input type="text" id="q-documento" name="documento" pattern="[A-Z0-9]{6,12}" maxlength="12" required>
+        </p>
+        <p>
+          <label for="q-email">Correo electronico:</label>
+          <input type="email" id="q-email" name="email" required>
+        </p>
+        <p>
+          <label for="q-telefono">Telefono:</label>
+          <input type="tel" id="q-telefono" name="telefono" pattern="[+0-9 ]{9,15}">
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Detalle del vuelo</legend>
+        <p>
+          <label for="q-codigo">Codigo de reserva (6 caracteres):</label>
+          <input type="text" id="q-codigo" name="codigo-reserva" pattern="[A-Z0-9]{6}" maxlength="6">
+        </p>
+        <p>
+          <label for="q-fecha">Fecha del vuelo:</label>
+          <input type="date" id="q-fecha" name="fecha-vuelo">
+        </p>
+        <p>
+          <label for="q-ruta">Ruta (opcional):</label>
+          <select id="q-ruta" name="ruta">
+            <option value="">Selecciona la ruta</option>
+            <option value="KMG-DLU">Kunming - Dali</option>
+            <option value="KMG-LJG">Kunming - Lijiang</option>
+            <option value="KMG-JHG">Kunming - Xishuangbanna</option>
+            <option value="KMG-PEK">Kunming - Beijing</option>
+            <option value="KMG-SHA">Kunming - Shanghai</option>
+            <option value="otra">Otra</option>
+          </select>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Detalle del caso</legend>
+        <p>
+          <label for="q-tipo">Tipo de incidente:</label>
+          <select id="q-tipo" name="tipo-incidente" required>
+            <option value="">Selecciona un tipo</option>
+            <option value="retraso">Retraso o cancelacion de vuelo</option>
+            <option value="equipaje">Perdida o dano de equipaje</option>
+            <option value="atencion">Atencion del personal</option>
+            <option value="reembolso">Problema con reembolso</option>
+            <option value="puntos">Lucky Points no acreditados</option>
+            <option value="otro">Otro</option>
+          </select>
+        </p>
+        <p>
+          <label for="q-descripcion">Descripcion de lo sucedido:</label>
+        </p>
+        <p>
+          <textarea id="q-descripcion" name="descripcion" rows="6" minlength="30" maxlength="1500" required></textarea>
+        </p>
+        <p>
+          <label for="q-pedido">&iquest;Que solicitas como solucion?</label>
+        </p>
+        <p>
+          <textarea id="q-pedido" name="pedido" rows="3" minlength="10" maxlength="500" required></textarea>
+        </p>
+      </fieldset>
+
+      <p>
+        <label>
+          <input type="checkbox" name="acepto" value="aceptado" required>
+          He leido y acepto los <a href="legal.html">terminos y la politica de privacidad</a>
+        </label>
+      </p>
+
+      <p>
+        <button type="submit"><span aria-hidden="true">&#128233;</span> Enviar caso</button>
+        <button type="reset">Limpiar</button>
+      </p>
+    </form>
+  </section>
+
+  <aside aria-labelledby="contacto-aside">
+    <h2 id="contacto-aside">&iquest;Necesitas ayuda inmediata?</h2>
+    <p>Si tu caso es urgente, contactanos directamente:</p>
+    <dl>
+      <dt>Telefono 24/7</dt><dd><a href="tel:+868712345678">+86 871 234 5678</a></dd>
+      <dt>Email</dt><dd><a href="mailto:reclamos@luckyair.net">reclamos@luckyair.net</a></dd>
+      <dt>Centro de ayuda</dt><dd><a href="ayuda.html">Preguntas frecuentes</a></dd>
+    </dl>
+  </aside>
+
+  <!-- Modal: caso registrado -->
+  <div class="modal" id="gracias-queja" role="dialog" aria-labelledby="gracias-queja-title" aria-modal="true">
+    <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
+    <div class="modal-card">
+      <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+      <p class="modal-icon" aria-hidden="true">&check;</p>
+      <h2 id="gracias-queja-title">Caso registrado</h2>
+      <p>Tu queja o reclamo se registro correctamente. Te asignamos el numero <strong>REC-2026-0846</strong>. Te avisaremos por correo en menos de 48 horas habiles.</p>
+      <p class="modal-actions">
+        <a href="estado-queja.html" class="btn btn-primary">Ver estado</a>
+        <a href="#close" class="btn btn-outline">Cerrar</a>
+      </p>
+    </div>
+  </div>
+
+</main>
+<!-- FIN CONTENIDO QUEJAS Y RECLAMOS -->
+
+
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<footer>
+  <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
+    <ul>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="legal.html">Terminos y privacidad</a></li>
+    </ul>
+  </section>
+  <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
+    <ul>
+      <li><a href="ayuda.html">Centro de ayuda</a></li>
+      <li><a href="ayuda.html#contacto">Contacto</a></li>
+      <li><a href="quejas.html">Libro de reclamaciones</a></li>
+      <li><a href="estado-queja.html">Seguimiento de quejas</a></li>
+    </ul>
+  </section>
+  <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
+    <address>
+      Aeropuerto Internacional de Kunming<br>
+      Yunnan, China<br>
+      <a href="tel:+868712345678">+86 871 234 5678</a><br>
+      <a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a>
+    </address>
+  </section>
+  <section aria-labelledby="footer-redes"><h2 id="footer-redes">Siguenos</h2>
+    <ul>
+      <li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li>
+      <li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li>
+    </ul>
+  </section>
+  <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- FIN FOOTER -->
+
+</body>
+</html>

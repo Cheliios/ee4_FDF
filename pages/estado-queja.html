@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consulta el estado de tu queja o reclamo en Lucky Air. Ingresa tu numero de ticket y revisa el avance.">
+  <meta name="author" content="Equipo Lucky Air - UCAL FDF">
+  <meta name="theme-color" content="#C8102E">
+  <title>Estado de mi queja | Lucky Air</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+
+<!-- HEADER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<a href="#main-content">Saltar al contenido principal</a>
+<header>
+
+  <div>
+    <a href="../index.html" aria-label="Lucky Air - Ir al inicio" class="logo">
+      <img src="../images/logo/Modern_flat_vector_202604181715.png" alt="" width="36" height="36" class="logo-img">
+      <strong>Lucky Air</strong>
+    </a>
+    <p class="tagline">Tu aerolinea low-cost en Yunnan</p>
+  </div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <label for="nav-toggle" class="nav-toggle-btn" aria-label="Abrir o cerrar menu de navegacion">
+    <span aria-hidden="true">&#9776;</span>
+  </label>
+
+  <nav aria-label="Navegacion principal">
+    <ul>
+      <li><a href="vuelos.html">Vuelos</a></li>
+      <li><a href="destinos.html">Destinos</a></li>
+      <li><a href="lucky-points.html">Lucky Points</a></li>
+      <li><a href="empresas.html">Empresas y estudiantes</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <a href="login.html">Iniciar sesion</a>
+    <a href="mi-cuenta.html" class="btn-gold">Mi cuenta</a>
+  </div>
+
+</header>
+<!-- FIN HEADER -->
+
+
+<!-- CONTENIDO ESTADO QUEJA - Autor: Felipe Reyes Ingunza -->
+<main id="main-content">
+
+  <nav aria-label="Ruta de navegacion">
+    <ol>
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="ayuda.html">Ayuda</a></li>
+      <li><a href="quejas.html">Quejas y reclamos</a></li>
+      <li><strong>Seguimiento</strong></li>
+    </ol>
+  </nav>
+
+  <section aria-labelledby="seguimiento-title">
+    <h1 id="seguimiento-title">Seguimiento de mi queja</h1>
+    <p>Ingresa el numero de ticket que recibiste por correo cuando registraste tu queja o reclamo.</p>
+  </section>
+
+  <section id="buscar" aria-labelledby="buscar-title">
+    <h2 id="buscar-title">Buscar mi caso</h2>
+
+    <form action="#resultado" method="get" name="form-seguimiento">
+      <fieldset>
+        <legend>Datos de busqueda</legend>
+        <p>
+          <label for="s-tipo">Tipo de caso:</label>
+          <select id="s-tipo" name="tipo-caso" required>
+            <option value="">Selecciona</option>
+            <option value="queja">Queja</option>
+            <option value="reclamo">Reclamo</option>
+          </select>
+        </p>
+        <p>
+          <label for="s-numero">Numero de ticket:</label>
+          <input type="text" id="s-numero" name="numero-ticket" placeholder="Ej: REC-2026-0845" pattern="REC-[0-9]{4}-[0-9]{4}" required>
+        </p>
+        <p>
+          <label for="s-documento">Documento de identidad:</label>
+          <input type="text" id="s-documento" name="documento" maxlength="12" required>
+        </p>
+      </fieldset>
+      <p>
+        <button type="submit"><span aria-hidden="true">&#128269;</span> Buscar estado</button>
+      </p>
+    </form>
+  </section>
+
+  <section id="resultado" aria-labelledby="resultado-title">
+    <h2 id="resultado-title">Resultado de busqueda</h2>
+
+    <article aria-labelledby="caso-titulo">
+      <header>
+        <h3 id="caso-titulo">Caso REC-2026-0845</h3>
+        <p>
+          <strong>Estado:</strong>
+          <span class="badge badge-warning">En revision</span>
+        </p>
+      </header>
+
+      <dl>
+        <dt>Tipo de caso</dt>
+        <dd>Reclamo</dd>
+
+        <dt>Fecha de ingreso</dt>
+        <dd><time datetime="2026-05-14">14 de mayo, 2026</time></dd>
+
+        <dt>Asunto</dt>
+        <dd>Perdida o dano de equipaje</dd>
+
+        <dt>Vuelo asociado</dt>
+        <dd>LX-1234 - Kunming a Beijing (10 de mayo, 2026)</dd>
+
+        <dt>Ultima actualizacion</dt>
+        <dd><time datetime="2026-05-15">15 de mayo, 2026</time></dd>
+
+        <dt>Plazo de respuesta</dt>
+        <dd>Hasta el 16 de mayo, 2026 (48 horas habiles)</dd>
+      </dl>
+
+      <h4>Historial del caso</h4>
+      <ol>
+        <li>
+          <time datetime="2026-05-14T10:23">14 may 10:23</time> -
+          <strong>Caso recibido.</strong> Generamos el numero de ticket y enviamos confirmacion al correo registrado.
+        </li>
+        <li>
+          <time datetime="2026-05-14T14:05">14 may 14:05</time> -
+          <strong>Asignado a soporte.</strong> Un agente especializado en equipaje revisa tu caso.
+        </li>
+        <li>
+          <time datetime="2026-05-15T09:18">15 may 09:18</time> -
+          <strong>En evaluacion.</strong> Estamos contrastando tu reporte con los registros del vuelo y rastreo de equipaje.
+        </li>
+      </ol>
+
+      <p>Nuestro equipo te enviara una respuesta detallada al correo registrado antes del <strong>16 de mayo</strong>. Si tienes informacion adicional, puedes adjuntarla por correo.</p>
+    </article>
+  </section>
+
+  <aside aria-labelledby="acciones-title">
+    <h2 id="acciones-title">Acciones disponibles</h2>
+    <p>
+      <a href="quejas.html" class="btn btn-primary"><span aria-hidden="true">&#128221;</span> Registrar nueva queja</a>
+    </p>
+    <p>
+      <a href="ayuda.html#contacto" class="btn btn-outline">Contactar a soporte</a>
+    </p>
+  </aside>
+
+</main>
+<!-- FIN CONTENIDO ESTADO QUEJA -->
+
+
+<!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
+<footer>
+  <section aria-labelledby="footer-empresa"><h2 id="footer-empresa">Lucky Air</h2>
+    <ul>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="legal.html">Terminos y privacidad</a></li>
+    </ul>
+  </section>
+  <section aria-labelledby="footer-ayuda"><h2 id="footer-ayuda">Ayuda</h2>
+    <ul>
+      <li><a href="ayuda.html">Centro de ayuda</a></li>
+      <li><a href="ayuda.html#contacto">Contacto</a></li>
+      <li><a href="quejas.html">Libro de reclamaciones</a></li>
+      <li><a href="estado-queja.html">Seguimiento de quejas</a></li>
+    </ul>
+  </section>
+  <section aria-labelledby="footer-contacto"><h2 id="footer-contacto">Contactanos</h2>
+    <address>
+      Aeropuerto Internacional de Kunming<br>
+      Yunnan, China<br>
+      <a href="tel:+868712345678">+86 871 234 5678</a><br>
+      <a href="mailto:soporte@luckyair.net">soporte@luckyair.net</a>
+    </address>
+  </section>
+  <section aria-labelledby="footer-redes"><h2 id="footer-redes">Siguenos</h2>
+    <ul>
+      <li><a href="https://weibo.com/luckyair" rel="noopener">Weibo</a></li>
+      <li><a href="https://wechat.com/luckyair" rel="noopener">WeChat</a></li>
+    </ul>
+  </section>
+  <p><small>&copy; 2026 Lucky Air. Proyecto academico UCAL - Fundamentos de Desarrollo Frontend.</small></p>
+</footer>
+<!-- FIN FOOTER -->
+
+</body>
+</html>
