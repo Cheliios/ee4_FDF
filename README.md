@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+# Lucky Air - Sitio Web v1.0
+=======
 # Lucky Air - Sitio Web v2.0
+>>>>>>> 1690743860136f1a5c23b5694299d88fb1353ac6
 
 Proyecto académico del curso **Fundamentos de Desarrollo Frontend (18612)** de UCAL.
 
@@ -64,8 +68,11 @@ luckyair-web/
 │   ├── checkout.html           (Rodrigo)
 │   ├── nosotros.html           (Rodrigo)
 │   └── legal.html              (Rodrigo)
+<<<<<<< HEAD
+=======
 │   └── quejas.html             (Adso)
 │   └── estado-queja.html       (Adso)
+>>>>>>> 1690743860136f1a5c23b5694299d88fb1353ac6
 ├── /css/                       (vacío - EE2)
 ├── /scripts/                   (vacío - EE3)
 ├── /data/                      (vacío - EE3)
