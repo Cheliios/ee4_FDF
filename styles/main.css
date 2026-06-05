@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    Lucky Air - main.css
    UCAL FDF - Grupo 2 - EE2 (responsive mobile-first)
    Breakpoints:
@@ -10,7 +10,7 @@
      #FFD4A0 crema, #0066cc azul (theme)
    ============================================================ */
 
-/* --- Reset minimo y tokens de diseño ----------------------- */
+/* --- Reset minimo y tokens de diseÃ±o ----------------------- */
 
 *,
 *::before,
@@ -91,7 +91,7 @@ a:focus-visible {
 /* --- Sistema de botones ------------------------------------ */
 
 .btn {
-  display: inline-flex; /* permite iconos + texto con gap, y mantiene el tamaño natural del contenido */
+  display: inline-flex; /* permite iconos + texto con gap, y mantiene el tamaÃ±o natural del contenido */
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
@@ -219,6 +219,8 @@ header {
   background: var(--red);
   color: var(--white);
   padding: var(--space-3) var(--space-4);
+  overflow: visible;
+  z-index: 20;
   border-bottom: 3px solid var(--gold);
   font-family: Arial, sans-serif;
   display: flex;
@@ -295,66 +297,83 @@ header > div:last-child {
   display: none;
 }
 
-/* Drawer estilo LATAM: limpio, alineado a la izquierda, con opacidad */
+/* Menu mobile: panel lateral derecho superpuesto */
 .nav-toggle:checked ~ nav,
 .nav-toggle:checked ~ div:last-child {
+  position: absolute;
+  right: var(--space-4);
   display: flex;
-  background: rgba(26, 26, 26, 0.92);
+  width: min(76vw, 300px);
+  background: rgba(8, 12, 18, 0.82);
+  box-shadow: -14px 18px 34px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-radius: var(--radius);
-  margin-top: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  animation: drawerSlideDown 0.28s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: var(--space-3);
+  z-index: 30;
+  animation: drawerSlideIn 0.28s ease-out;
 }
 
-/* Nav: items apilados, alineados a la izquierda, sin separadores duros */
 .nav-toggle:checked ~ nav {
+  top: calc(100% + var(--space-2));
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 .nav-toggle:checked ~ nav ul {
   flex-direction: column;
-  gap: 0;
+  gap: var(--space-1);
   width: 100%;
-  align-items: flex-start;
+  align-items: stretch;
 }
 .nav-toggle:checked ~ nav li {
   width: 100%;
 }
-.nav-toggle:checked ~ nav a {
-  display: inline-block;
-  padding: 12px 0;
+.nav-toggle:checked ~ nav a,
+.nav-toggle:checked ~ div:last-child a:not(.btn-gold):not(.btn) {
+  display: block;
+  width: 100%;
+  padding: 10px var(--space-2);
   text-align: left;
+  border-radius: calc(var(--radius) - 2px);
 }
-.nav-toggle:checked ~ nav a:hover {
+.nav-toggle:checked ~ nav a:hover,
+.nav-toggle:checked ~ div:last-child a:not(.btn-gold):not(.btn):hover {
   color: var(--gold);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* Auth: apilada (Mi cuenta debajo de Iniciar sesion), tamaño natural, alineada a la izquierda */
+/* Auth mobile integrado visualmente al mismo panel */
 .nav-toggle:checked ~ div:last-child {
+  top: calc(100% + var(--space-2) + 228px);
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-3);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  margin-top: 0;
+  align-items: stretch;
+  gap: var(--space-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding-top: var(--space-3);
 }
 .nav-toggle:checked ~ div:last-child a {
-  align-self: flex-start;
+  align-self: stretch;
   text-align: left;
 }
-.nav-toggle:checked ~ div:last-child a:not(.btn-gold):not(.btn) {
-  padding: 4px 0;
-}
 
-@keyframes drawerSlideDown {
+.nav-toggle:checked ~ div:last-child .btn-gold,
+.nav-toggle:checked ~ div:last-child .btn {
+  align-self: stretch;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px var(--space-2);
+}
+@keyframes drawerSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateX(18px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -362,16 +381,17 @@ header > div:last-child {
 header > div:first-child a {
   color: var(--white);
   text-decoration: none;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
 }
 .logo-img {
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
   flex-shrink: 0;
   display: block;
 }
@@ -499,9 +519,10 @@ main li { margin-bottom: var(--space-1); }
 .cards > article > a > img,
 .cards > article > figure > img {
   width: 100%;
-  height: auto;
+  height: clamp(170px, 24vw, 230px);
   aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -604,7 +625,7 @@ form p:has(> input[type="radio"]) {
   gap: var(--space-2);
 }
 
-/* Botones de formulario: tamaño natural, no estirados, alineados a la izquierda */
+/* Botones de formulario: tamaÃ±o natural, no estirados, alineados a la izquierda */
 form p:has(> button),
 form p:has(> input[type="submit"]),
 form p:has(> input[type="reset"]) {
@@ -1005,6 +1026,16 @@ footer p:last-child {
    TABLET >= 768px
    ============================================================ */
 
+@media (max-width: 480px) {
+  header > div:first-child a { font-size: 20px; }
+  .logo-img { width: 58px; height: 58px; }
+  .nav-toggle:checked ~ nav,
+  .nav-toggle:checked ~ div:last-child { width: min(78vw, 280px); }
+  .cards > article > img,
+  .cards > article > a > img,
+  .cards > article > figure > img { height: 190px; }
+}
+
 @media (min-width: 768px) {
 
   body { font-size: 16px; }
@@ -1069,6 +1100,10 @@ footer p:last-child {
     width: auto;
   }
   header > div:first-child { padding-right: 0; }
+  .logo-img { width: 60px; height: 60px; }
+  .cards > article > img,
+  .cards > article > a > img,
+  .cards > article > figure > img { height: 210px; }
 
   main { padding: var(--space-5); }
   main h1 { font-size: 32px; }
@@ -1131,6 +1166,9 @@ footer p:last-child {
 
   /* Header: nav y auth alineados a la derecha */
   header { padding: var(--space-4) var(--space-6); }
+  .cards > article > img,
+  .cards > article > a > img,
+  .cards > article > figure > img { height: 230px; }
   header nav { flex: 0 1 auto; }
   header nav ul { gap: var(--space-5); }
 
@@ -1173,3 +1211,12 @@ footer p:last-child {
   body { color: #000; background: #fff; }
   a { color: #000; text-decoration: underline; }
 }
+
+
+
+
+
+
+
+
+
