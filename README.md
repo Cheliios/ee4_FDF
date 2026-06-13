@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Lucky Air - Sitio Web v1.0
-=======
-# Lucky Air - Sitio Web v2.0
->>>>>>> 1690743860136f1a5c23b5694299d88fb1353ac6
+# Lucky Air - Sitio Web v3.0 (EE3 - JavaScript)
 
 Proyecto académico del curso **Fundamentos de Desarrollo Frontend (18612)** de UCAL.
 
@@ -22,6 +18,7 @@ El sitio cubre los siguientes escenarios del caso:
 - Ventas corporativas (portal B2B) y descuentos para estudiantes
 - Pagos con tarjeta, PayPal, Alipay y WeChat Pay
 - Centro de ayuda con FAQ y formulario de contacto
+- Libro de reclamaciones (quejas y estado del reclamo)
 
 ## Equipo
 
@@ -31,89 +28,87 @@ El sitio cubre los siguientes escenarios del caso:
 | **Lenin David Mamani Sarmiento** | Contribuidor | `destinos.html`, `destino-detalle.html`, `blog.html` |
 | **Piero Batti Peña** | Contribuidor | `lucky-points.html`, `empresas.html`, `estudiantes.html` |
 | **Rodrigo Alonso Santos Núñez** | Contribuidor | `login.html`, `checkout.html`, `legal.html`, `nosotros.html` |
+| **Adso Martin Obregón Gutiérrez** | Contribuidor | `quejas.html`, `estado-queja.html` |
 
-## Funcionalidades principales (UA1 - HTML semántico)
+## EE3 - JavaScript + DOM + localStorage
 
-Esta versión 1.0 cubre la Unidad de Aprendizaje 1 del curso: **estructuración de contenido web con HTML semántico y Git**.
+Esta versión 3.0 cubre la Unidad de Aprendizaje 3: **interactividad real con JavaScript puro (vanilla)**, sin librerías ni frameworks. Todo el JS vive en `scripts/` y se enlaza con `defer`; no hay manejadores `onclick` en línea (todo con `addEventListener`).
 
-- 14 páginas HTML con estructura semántica completa (header, nav, main, section, article, aside, footer)
-- Formularios validados con HTML5 nativo (required, pattern, type, minlength, maxlength)
-- Accesibilidad: skip-links, aria-labels, aria-current, lang="es", contraste implícito
-- Tablas con caption, thead, tbody, scope para lectores de pantalla
-- Imágenes con alt descriptivo y dimensiones width/height
-- Multimedia con `<video>` y `<track>` para subtítulos
-- Acordeones nativos con `<details>` y `<summary>`
-- Listas de definición `<dl>` para datos estructurados
-- Fechas con `<time datetime>` para máquinas
+### Convenciones de JavaScript
+
+- JavaScript puro (vanilla). Sin jQuery, React ni otras librerías.
+- Cada archivo `.js` inicia con su comentario de autoría y cada función lleva una línea que explica qué hace.
+- La validación HTML5 (`required`, `pattern`, `type`) se mantiene y encima se agrega validación con JS que muestra mensajes de error propios (`.error-msg`, `aria-live`).
+- Accesibilidad: mensajes con `aria-live`, menú hamburguesa usable con teclado (`Esc`, foco), modales con foco y cierre con `Esc`.
+
+### Estructura de `scripts/`
+
+| Archivo | Autor | Función |
+|---|---|---|
+| `validacion.js` | Felipe Reyes | Utilidades reutilizables de validación en `window.LA` (`validarEmail`, `validarVacio`, `validarPatron`, `mostrarError`, `limpiarError`, ...) |
+| `main.js` | Felipe Reyes | Globales en las 16 páginas: menú hamburguesa JS, nav activa (`aria-current`), año dinámico, estado de sesión, botón "volver arriba", notificaciones (toasts) y accesibilidad de modales |
+| `cuentas.js` | Felipe Reyes | Sistema de cuentas con localStorage: registrar y luego iniciar sesión con esa cuenta (`window.LA.cuentas`) |
+| `index.js` | Felipe Reyes | Buscador del home: contador de pasajeros, fecha de vuelta condicional y validación |
+| `vuelos.js` | Felipe Reyes | Buscar/comprar (render dinámico), validar ticket, estado de vuelo y calculadora de reembolso |
+| `mi-cuenta.js` | Felipe Reyes | Perfil y preferencias guardados y cargados desde localStorage |
+| `ayuda.js` | Felipe Reyes | Filtro en vivo de FAQ + validación de contacto con contador de caracteres |
+| `destinos.js` `destino-detalle.js` `blog.js` | Lenin Mamani | Filtros/orden, carrusel + reseñas, buscador de artículos + newsletter |
+| `lucky-points.js` `empresas.js` `estudiantes.js` | Piero Batti | Calculadora de puntos, ahorro corporativo, validación de grupo/archivo |
+| `login.js` `checkout.js` `legal.js` `nosotros.js` | Rodrigo Santos | Login/registro/recuperar, pago, pestañas legales, contador animado |
+
+### Persistencia en localStorage (claves)
+
+| Clave | Contenido |
+|---|---|
+| `la_cuentas` | Cuentas registradas (la contraseña se guarda ofuscada; es una simulación académica, no seguridad real) |
+| `la_sesion` | Sesión activa (`{ nombre, email }`); el header muestra "Hola, X" y "Salir" en las 16 páginas |
+| `la_perfil` | Datos del perfil de "Mi cuenta" |
+| `la_preferencias` | Preferencias de comunicación e idioma |
+| `la_reembolso` | Última cotización de la calculadora de reembolso |
+
+### Flujo de cuenta de extremo a extremo
+
+1. En `login.html` te registras (se valida y se guarda la cuenta en `la_cuentas`).
+2. Inicias sesión con esa misma cuenta: las credenciales se verifican contra lo guardado.
+3. La sesión queda en `la_sesion` y el header saluda "Hola, X" con botón "Salir" en todo el sitio.
+4. En "Mi cuenta" el perfil se precarga desde la sesión y se guardan perfil y preferencias.
+
+## Cómo probar el sitio
+
+1. Clona el repositorio y entra a la carpeta.
+2. Abre `index.html` en un navegador moderno (Chrome, Firefox, Edge).
+3. Recomendado (para que localStorage funcione sin restricciones de `file://`), levanta un servidor local:
+   ```bash
+   python -m http.server 8000
+   ```
+   Luego abre http://localhost:8000
 
 ## Estructura del proyecto
 
 ```
-luckyair-web/
+ee1_grupo2/
 ├── index.html                  (Home - Felipe)
 ├── README.md
-├── GIT-WORKFLOW.md             (comandos git paso a paso)
 ├── .gitignore
-├── /pages/                     (páginas internas)
-│   ├── vuelos.html             (Felipe)
-│   ├── mi-cuenta.html          (Felipe)
-│   ├── ayuda.html              (Felipe)
-│   ├── destinos.html           (Lenin)
-│   ├── destino-detalle.html    (Lenin)
-│   ├── blog.html               (Lenin)
-│   ├── lucky-points.html       (Piero)
-│   ├── empresas.html           (Piero)
-│   ├── estudiantes.html        (Piero)
-│   ├── login.html              (Rodrigo)
-│   ├── checkout.html           (Rodrigo)
-│   ├── nosotros.html           (Rodrigo)
-│   └── legal.html              (Rodrigo)
-<<<<<<< HEAD
-=======
-│   └── quejas.html             (Adso)
-│   └── estado-queja.html       (Adso)
->>>>>>> 1690743860136f1a5c23b5694299d88fb1353ac6
-├── /css/                       (vacío - EE2)
-├── /scripts/                   (vacío - EE3)
-├── /data/                      (vacío - EE3)
-└── /assets/images/             (imágenes)
+├── /pages/                     (páginas internas: 15 .html)
+├── /scripts/                   (JavaScript - EE3)
+├── /styles/                    (main.css)
+├── /data/                      (site-data.json)
+└── /images/ /assets/           (recursos)
 ```
-
-## Cómo probar el sitio
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/FelipeReyesIngunza/luckyair-web.git
-   cd luckyair-web
-   ```
-
-2. Abre `index.html` en cualquier navegador moderno (Chrome, Firefox, Edge, Safari).
-
-3. Alternativa: levanta un servidor local:
-   ```bash
-   python3 -m http.server 8000
-   ```
-   Luego abre http://localhost:8000
-
-## Enlaces principales
-
-- **Repositorio:** https://github.com/FelipeReyesIngunza/luckyair-web
-- **Sitio publicado (GitHub Pages):** https://FelipeReyesIngunza.github.io/luckyair-web (disponible desde EE4)
-- **Caso de estudio:** E-commerce at Yunnan Lucky Air - MIT 2008
 
 ## Roadmap de evidencias evaluativas
 
-- **EE1 (v1.0) - HTML + Git** — Estado: entregable actual
-- **EE2 (v2.0) - CSS + Layout + Responsive** — Próximo
-- **EE3 (v3.0) - JavaScript + DOM + Fetch** — Siguiente
-- **EE4 (v4.0) - Integración + Calidad + Despliegue** — Final
+- **EE1 (v1.0) - HTML + Git** — entregado
+- **EE2 (v2.0) - CSS + Layout + Responsive** — entregado
+- **EE3 (v3.0) - JavaScript + DOM + localStorage** — entregable actual
+- **EE4 (v4.0) - Integración + Calidad + Despliegue** — final
 
 ## Convenciones del proyecto
 
 - Nombres de archivos en minúsculas con guiones (`destino-detalle.html`)
-- IDs únicos por página, en minúsculas
-- Prefijo de ID en inputs de formulario por sección (ej. `c-email` en contacto, `p-email` en perfil) para evitar colisiones
-- Todos los textos sin tildes para evitar problemas de encoding en repos colaborativos
+- Prefijo de ID en inputs por sección (ej. `c-email` en contacto, `p-email` en perfil) para evitar colisiones
+- Textos sin tildes en el contenido para evitar problemas de encoding en repos colaborativos
 - Comentarios de autoría al inicio de cada bloque de contenido único
 
 ## Licencia

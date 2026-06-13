@@ -1212,6 +1212,63 @@ footer p:last-child {
   a { color: #000; text-decoration: underline; }
 }
 
+/* ============================================================
+   EE3 - Mejoras de espaciado y cajas (responsive)
+   Autor: Felipe Reyes Ingunza
+   Bloque aditivo: agrega aire y pulido sin alterar las reglas
+   base del equipo. Cards, formularios y contenido respiran
+   mejor en mobile, tablet y desktop (antes se veian pegados).
+   ============================================================ */
+
+/* Navegacion interna de seccion como chips (antes vinetas pegadas) */
+main > nav[aria-label] ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  padding: 0;
+  margin: 0 0 var(--space-5);
+}
+main > nav[aria-label] li { margin: 0; }
+main > nav[aria-label] a {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 14px;
+}
+main > nav[aria-label] a:hover {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+/* Cajas de feedback y resultados dinamicos con su propio aire */
+#b-resultados { margin-top: var(--space-5); }
+.la-aviso { line-height: 1.45; }
+.la-aviso dl { margin: var(--space-2) 0 0; }
+
+/* No marcar en rojo los campos requeridos vacios antes de interactuar:
+   el error se muestra al interactuar (:user-invalid) o por JS (.campo-invalido). */
+form input:invalid:not(:placeholder-shown) { border-color: var(--border); }
+form input:user-invalid { border-color: var(--red); }
+
+@media (min-width: 768px) {
+  /* Mas separacion entre secciones de contenido */
+  main > section,
+  main > article { margin-bottom: var(--space-7); }
+
+  /* Formularios: filas con separacion vertical y mas relleno interno */
+  form fieldset { gap: var(--space-4) var(--space-5); padding: var(--space-5); }
+  form fieldset > p { margin-bottom: 0; }
+}
+
+@media (min-width: 1024px) {
+  /* Grilla de cards con mas aire en pantallas grandes */
+  .cards { gap: var(--space-6); }
+}
+
 
 
 

@@ -1,5 +1,7 @@
 // ============================================================
 // login.js - Autor: Rodrigo Alonso Santos Nunez
+// Flujo de cuentas con localStorage (registrar y luego iniciar
+// sesion con esa cuenta) integrado con cuentas.js - Felipe Reyes Ingunza
 // ============================================================
 
 const SESION_KEY = 'la_sesion';
@@ -202,10 +204,20 @@ if (formLogin) {
 
     if (!emailOk || !passOk) return;
 
-    const usuario = { email: email.value.trim(), nombre: email.value.split('@')[0] };
-    guardarSesion(usuario);
+    // Verifica las credenciales contra las cuentas guardadas (cuentas.js - Felipe).
+    const r = window.LA && window.LA.cuentas
+      ? window.LA.cuentas.login(email.value, pass.value)
+      : { ok: true, usuario: { email: email.value.trim(), nombre: email.value.split('@')[0] } };
 
-    window.location.hash = 'gracias-login';
+    if (!r.ok) {
+      mostrarError(pass, r.error);
+      if (window.LA && window.LA.notificar) window.LA.notificar(r.error, 'error');
+      return;
+    }
+
+    guardarSesion(r.usuario);
+    if (window.LA && window.LA.notificar) window.LA.notificar('Sesion iniciada. Hola, ' + r.usuario.nombre + '.', 'ok');
+    redirigirTrasAcceso('gracias-login');
   });
 }
 
@@ -260,12 +272,31 @@ if (formRegistro) {
 
     if (!valido) return;
 
+    // Registra la cuenta de forma persistente y rechaza correos duplicados (cuentas.js - Felipe).
+    if (window.LA && window.LA.cuentas) {
+      const reg = window.LA.cuentas.registrar({
+        nombre:   campos.nombre.el.value.trim(),
+        apellido: campos.apellido.el.value.trim(),
+        email:    campos.email.el.value.trim(),
+        pass:     campos.pass.el.value,
+        pais:     campos.pais.el.value,
+        doc:      campos.doc.el.value.trim(),
+        fecha:    campos.fecha.el.value,
+      });
+      if (!reg.ok) {
+        mostrarError(campos.email.el, reg.error);
+        if (window.LA.notificar) window.LA.notificar(reg.error, 'error');
+        return;
+      }
+      if (window.LA.notificar) window.LA.notificar('Cuenta creada. Ya puedes iniciar sesion con ella.', 'ok');
+    }
+
     const usuario = {
       nombre:  campos.nombre.el.value.trim(),
       email:   campos.email.el.value.trim(),
     };
     guardarSesion(usuario);
-    window.location.hash = 'gracias-registro';
+    redirigirTrasAcceso('gracias-registro');
   });
 }
 
@@ -278,6 +309,10 @@ if (formRecuperar) {
     const email = document.getElementById('rec-email');
     if (!validarEmail(email)) return;
 
+    // Avisa de forma neutra si el correo no esta registrado (cuentas.js - Felipe).
+    if (window.LA && window.LA.cuentas && !window.LA.cuentas.existeEmail(email.value) && window.LA.notificar) {
+      window.LA.notificar('Si ese correo tiene una cuenta, te llegara el enlace de recuperacion.', 'info');
+    }
     window.location.hash = 'gracias-recuperar';
   });
 }
@@ -285,9 +320,44 @@ if (formRecuperar) {
 //  Autor: Rodrigo Alonso Santos Nunez - GESTION DE SESION 
 
 function guardarSesion(usuario) {
+  // Delega en el modulo de cuentas (Felipe) si esta disponible.
+  if (window.LA && window.LA.cuentas) {
+    window.LA.cuentas.guardarSesion(usuario);
+    return;
+  }
   try {
     localStorage.setItem(SESION_KEY, JSON.stringify(usuario));
   } catch {
     console.warn('login.js: no se pudo guardar la sesion en localStorage.');
   }
+}
+
+//  Autor: Felipe Reyes Ingunza - REDIRECCION DE RETORNO TRAS EL ACCESO
+
+// Calcula a donde volver: la pagina previa guardada, el referrer o el home.
+function destinoRetorno() {
+  let destino = '';
+  try { destino = localStorage.getItem('la_retorno') || ''; } catch { destino = ''; }
+  if (!destino || /login\.html/i.test(destino)) {
+    if (document.referrer && !/login\.html/i.test(document.referrer)) {
+      try { if (new URL(document.referrer).origin === location.origin) destino = document.referrer; } catch { /* referrer invalido */ }
+    }
+  }
+  if (!destino || /login\.html/i.test(destino)) destino = '../index.html'; // home por defecto
+  try { localStorage.removeItem('la_retorno'); } catch { /* sin storage */ }
+  return destino;
+}
+
+// Muestra el modal de confirmacion y apunta su boton al destino de retorno.
+function redirigirTrasAcceso(idModal) {
+  const destino = destinoRetorno();
+  const modal = document.getElementById(idModal);
+  if (modal) {
+    const cta = modal.querySelector('.modal-actions a');
+    if (cta) {
+      cta.setAttribute('href', destino);
+      cta.textContent = 'Continuar';
+    }
+  }
+  window.location.hash = idModal;
 }
