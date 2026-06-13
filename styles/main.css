@@ -1267,7 +1267,55 @@ form input:user-invalid { border-color: var(--red); }
 @media (min-width: 1024px) {
   /* Grilla de cards con mas aire en pantallas grandes */
   .cards { gap: var(--space-6); }
+  /* Cards de destinos y articulos mas anchas (2 columnas) */
+  #lista-destinos.cards,
+  #lista-articulos.cards { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
 }
+
+/* Pestanas de acceso (Iniciar sesion / Crear cuenta / Recuperar) con estilo de marca */
+.tabs-nav { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0 0 var(--space-5); }
+.tab-btn {
+  display: inline-block; width: auto; background: var(--white); color: var(--red);
+  border: 2px solid var(--red); border-radius: 999px; padding: 8px 18px;
+  font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer; min-height: 0;
+  transition: background .2s ease, color .2s ease;
+}
+.tab-btn:hover { background: var(--light); color: var(--red-dark); }
+.tab-btn.tab-activa,
+.tab-btn[aria-selected="true"] { background: var(--red); color: var(--white); }
+
+/* Header: enlaces y botones de cuenta al ancho de su texto (sin estirarse) */
+header > div:last-child a { white-space: nowrap; }
+header > div:last-child .btn,
+header > div:last-child .btn-gold { width: auto; }
+
+/* Popup promocional de Lucky Air (crear cuenta = descuento) */
+.la-promo-overlay { position: fixed; inset: 0; background: rgba(10,12,16,.55);
+  display: flex; align-items: center; justify-content: center; z-index: 80;
+  padding: var(--space-4); opacity: 0; transition: opacity .25s ease; }
+.la-promo-overlay.visible { opacity: 1; }
+.la-promo { width: min(92vw, 420px); background: var(--white); border-radius: 14px;
+  overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.35); text-align: center;
+  transform: translateY(14px) scale(.98); transition: transform .28s ease; }
+.la-promo-overlay.visible .la-promo { transform: translateY(0) scale(1); }
+.la-promo__top { background: var(--red); color: var(--white);
+  padding: var(--space-5) var(--space-4) var(--space-4); position: relative; }
+.la-promo__top img { width: 64px; height: 64px; margin: 0 auto var(--space-2); display: block; }
+.la-promo__top h3 { color: var(--white); margin: 0; font-size: 22px; }
+.la-promo__badge { display: inline-block; background: var(--gold); color: var(--dark);
+  font-weight: 800; border-radius: 999px; padding: 4px 14px; font-size: 13px; margin-bottom: var(--space-2); }
+.la-promo__body { padding: var(--space-4) var(--space-5) var(--space-5); }
+.la-promo__body h3 { color: var(--red); margin: 0 0 var(--space-2); font-size: 19px; }
+.la-promo__body p { color: var(--muted); margin: 0 0 var(--space-4); }
+.la-promo__cta { display: block; background: var(--gold); color: var(--dark); font-weight: 800;
+  border: none; border-radius: var(--radius); padding: 12px; font-size: 15px; cursor: pointer;
+  text-decoration: none; }
+.la-promo__cta:hover { background: #b88913; color: var(--dark); }
+.la-promo__no { display: inline-block; margin-top: var(--space-3); background: none; border: none;
+  color: var(--muted); font-size: 13px; cursor: pointer; text-decoration: underline; }
+.la-promo__close { position: absolute; top: 6px; right: 12px; background: none; border: none;
+  color: var(--white); font-size: 24px; line-height: 1; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .la-promo-overlay, .la-promo { transition: none; } }
 
 
 

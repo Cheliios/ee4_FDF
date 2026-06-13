@@ -63,6 +63,7 @@
   function iniciarBuscar() {
     const form = document.querySelector('[name="form-buscar"]');
     if (!form) return;
+    form.noValidate = true;
     const origen = document.getElementById('b-origen');
     const destino = document.getElementById('b-destino');
     const fecha = document.getElementById('b-fecha');
@@ -137,6 +138,7 @@
   function iniciarValidar() {
     const form = document.querySelector('[name="form-validar"]');
     if (!form) return;
+    form.noValidate = true;
     const codigo = document.getElementById('v-codigo');
     const apellido = document.getElementById('v-apellido');
 
@@ -174,6 +176,7 @@
   function iniciarEstado() {
     const form = document.querySelector('[name="form-estado"]');
     if (!form) return;
+    form.noValidate = true;
     const vuelo = document.getElementById('e-vuelo');
     const fecha = document.getElementById('e-fecha');
 
@@ -213,6 +216,7 @@
   function iniciarReembolso() {
     const form = document.querySelector('[name="form-reembolso"]');
     if (!form) return;
+    form.noValidate = true;
     const codigo = document.getElementById('r-codigo');
     const email = document.getElementById('r-email');
     const motivo = document.getElementById('r-motivo');

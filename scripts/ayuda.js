@@ -76,6 +76,7 @@
   function iniciarContacto() {
     const form = document.querySelector('[name="form-contacto"]');
     if (!form) return;
+    form.noValidate = true;
     const nombre = document.getElementById('c-nombre');
     const email = document.getElementById('c-email');
     const tipo = document.getElementById('c-tipo');

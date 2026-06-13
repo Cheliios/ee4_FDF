@@ -283,6 +283,61 @@
   }
 
   // ----------------------------------------------------------
+  // Popup promocional: invita a crear cuenta para un descuento.
+  // Solo en el home, una vez al dia y si no hay sesion activa.
+  // ----------------------------------------------------------
+  // Indica si estamos en la pagina de inicio.
+  function enHome() {
+    const seg = location.pathname.split('/').filter(Boolean).pop() || '';
+    return seg === '' || seg === 'index.html' || seg === 'ee1_grupo2';
+  }
+  // Programa la aparicion del popup si corresponde.
+  function iniciarPromo() {
+    if (!enHome() || leerSesion()) return;
+    let visto = '';
+    try { visto = localStorage.getItem('la_promo_visto') || ''; } catch { visto = ''; }
+    const hoy = new Date().toISOString().split('T')[0];
+    if (visto === hoy) return; // ya se mostro hoy
+    const logo = document.querySelector('header .logo img');
+    setTimeout(() => mostrarPromo(logo ? logo.src : '', hoy), 1400);
+  }
+  // Construye y muestra el popup de marca con su animacion.
+  function mostrarPromo(logoSrc, hoy) {
+    const overlay = document.createElement('div');
+    overlay.className = 'la-promo-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Crea tu cuenta y ahorra');
+    overlay.innerHTML = `
+      <div class="la-promo">
+        <div class="la-promo__top">
+          <button class="la-promo__close" type="button" aria-label="Cerrar">&times;</button>
+          ${logoSrc ? `<img src="${logoSrc}" alt="Lucky Air">` : ''}
+          <span class="la-promo__badge">-15% EXTRA</span>
+          <h3>Vuela mas barato</h3>
+        </div>
+        <div class="la-promo__body">
+          <h3>Crea tu cuenta y gana un descuento adicional</h3>
+          <p>Registrate gratis en Lucky Air y obten <strong>15% extra</strong> en tu primer vuelo, ademas de Lucky Points de bienvenida.</p>
+          <a class="la-promo__cta" href="pages/login.html#registro">Crear cuenta y ahorrar</a>
+          <button class="la-promo__no" type="button">Ahora no, gracias</button>
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    requestAnimationFrame(() => requestAnimationFrame(() => overlay.classList.add('visible')));
+    // Recuerda que ya se mostro hoy para no repetir.
+    const marcar = () => { try { localStorage.setItem('la_promo_visto', hoy); } catch { /* sin storage */ } };
+    const cerrar = () => { marcar(); overlay.classList.remove('visible'); setTimeout(() => overlay.remove(), 300); };
+    overlay.querySelector('.la-promo__close').addEventListener('click', cerrar);
+    overlay.querySelector('.la-promo__no').addEventListener('click', cerrar);
+    overlay.querySelector('.la-promo__cta').addEventListener('click', marcar);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) cerrar(); });
+    document.addEventListener('keydown', function esc(e) {
+      if (e.key === 'Escape') { cerrar(); document.removeEventListener('keydown', esc); }
+    });
+  }
+
+  // ----------------------------------------------------------
   // Arranque de todas las funciones globales.
   // ----------------------------------------------------------
   inyectarEstilos();
@@ -292,4 +347,5 @@
   pintarSesion();
   iniciarVolverArriba();
   iniciarModales();
+  iniciarPromo();
 })();

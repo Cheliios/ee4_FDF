@@ -10,6 +10,7 @@
   const LA = window.LA || {};
   const form = document.querySelector('[name="buscador-vuelos"]');
   if (!form) return;
+  form.noValidate = true; // la validacion la controla JS para mostrar mensajes propios
 
   const tipoViaje = document.getElementById('tipo-viaje');
   const origen = document.getElementById('origen');
