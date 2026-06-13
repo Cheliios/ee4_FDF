@@ -53,69 +53,33 @@
 
   <section aria-labelledby="buscar-blog">
     <h2 id="buscar-blog">Buscar en el blog</h2>
-    <form action="#articulos" method="get" role="search" name="form-buscar-blog">
+    <form action="#articulos" method="get" role="search" name="form-buscar-blog" id="form-buscar-blog">
       <p>
         <label for="sb-query">Palabra clave:</label>
-        <input type="search" id="sb-query" name="q" placeholder="Ej. Kunming, mochilero" required>
+        <input type="search" id="sb-query" name="q" placeholder="Ej. Kunming, mochilero">
+      </p>
+      <p>
+        <label for="categoria-blog">Categoria:</label>
+        <select id="categoria-blog" name="categoria">
+          <option value="todas">Todas</option>
+          <option value="experiencias">Experiencias</option>
+          <option value="historias">Historias</option>
+          <option value="gastronomia">Gastronomia</option>
+          <option value="guias">Guias</option>
+          <option value="nosotros">Nosotros</option>
+        </select>
+      </p>
+      <p>
         <button type="submit"><span aria-hidden="true">&#128269;</span> Buscar</button>
       </p>
+      <p id="mensaje-blog" aria-live="polite"></p>
     </form>
   </section>
 
   <section id="articulos" aria-labelledby="articulos-title">
     <h2 id="articulos-title">Articulos recientes</h2>
 
-    <div class="cards">
-    <article>
-      <header>
-        <h3>Como recorri Yunnan en 10 dias con 2,000 yuanes</h3>
-        <p>Por Chen Li | <time datetime="2026-04-05">5 de abril, 2026</time> | Categoria: Experiencias</p>
-      </header>
-      <img src="../images/blog-yunnan-10dias.jpg" alt="Viajero en el Bosque de Piedra de Shilin con mochila de viaje" width="400" height="250">
-      <p>Un recorrido completo por los imperdibles de Yunnan sin vaciar la billetera. Kunming, Dali, Lijiang y Shangri-La con transporte terrestre y aereo combinado.</p>
-      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
-    </article>
-
-    <article>
-      <header>
-        <h3>Por que elegimos Lucky Air para nuestra luna de miel</h3>
-        <p>Por Maria Wang | <time datetime="2026-03-28">28 de marzo, 2026</time> | Categoria: Historias</p>
-      </header>
-      <img src="../images/blog-luna-miel.jpg" alt="Pareja de recien casados en el lago Erhai de Dali" width="400" height="250">
-      <p>Nuestra experiencia eligiendo una aerolinea low-cost para un momento especial. Spoiler: no te arrepentis.</p>
-      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
-    </article>
-
-    <article>
-      <header>
-        <h3>Ruta gastronomica por Kunming en 48 horas</h3>
-        <p>Por Zhang Wei | <time datetime="2026-03-15">15 de marzo, 2026</time> | Categoria: Gastronomia</p>
-      </header>
-      <img src="../images/blog-gastronomia.jpg" alt="Plato de fideos Guoqiao, fideos a traves del puente, tipicos de Yunnan" width="400" height="250">
-      <p>Desde los fideos Guoqiao (a traves del puente) hasta el hot pot de Yunnan. Ruta completa para foodies.</p>
-      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
-    </article>
-
-    <article>
-      <header>
-        <h3>Los 25 minutos del turnaround: por que volamos mas barato</h3>
-        <p>Por Equipo Lucky Air | <time datetime="2026-03-01">1 de marzo, 2026</time> | Categoria: Nosotros</p>
-      </header>
-      <img src="../images/blog-turnaround.jpg" alt="Personal de tierra preparando un Boeing 737 de Lucky Air" width="400" height="250">
-      <p>Inspirados en Southwest Airlines, aprendimos a preparar un avion para su siguiente vuelo en solo 25 minutos. Te contamos como.</p>
-      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
-    </article>
-
-    <article>
-      <header>
-        <h3>Guia para mochileros: Xishuangbanna sin morir en el intento</h3>
-        <p>Por Zhou Min | <time datetime="2026-02-20">20 de febrero, 2026</time> | Categoria: Guias</p>
-      </header>
-      <img src="../images/blog-xishuangbanna.jpg" alt="Mochilero cruzando puente colgante en la selva de Xishuangbanna" width="400" height="250">
-      <p>Clima tropical, idioma, transporte, alojamiento barato y que comer. Todo lo que necesitas saber antes de ir.</p>
-      <p><a href="#" class="btn btn-outline"><span aria-hidden="true">&#128214;</span> Leer articulo</a></p>
-    </article>
-    </div>
+    <div class="cards" id="lista-articulos" aria-live="polite"></div>
   </section>
 
   <aside aria-labelledby="sidebar-title">
@@ -130,8 +94,9 @@
     </ul>
 
     <h2>Suscribete al blog</h2>
-    <form action="#gracias-newsletter" method="get" name="form-newsletter">
+    <form action="#gracias-newsletter" method="get" name="form-newsletter" id="form-newsletter">
       <p><label for="n-email">Tu email:</label> <input type="email" id="n-email" name="email" required></p>
+      <p id="mensaje-newsletter" aria-live="polite"></p>
       <p><button type="submit"><span aria-hidden="true">&#128231;</span> Suscribirme</button></p>
     </form>
   </aside>
@@ -181,6 +146,7 @@
 </footer>
 <!-- FIN FOOTER -->
 
+<script src="../scripts/blog.js" defer></script>
 </body>
 </html>
 

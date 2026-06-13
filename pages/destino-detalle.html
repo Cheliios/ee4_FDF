@@ -101,18 +101,14 @@
 
     <section aria-labelledby="galeria-title">
       <h2 id="galeria-title">Galeria</h2>
-      <figure>
-        <img src="../images/kunming-shilin.jpg" alt="Formaciones rocosas del Bosque de Piedra en Shilin" width="300" height="200">
-        <figcaption>Bosque de Piedra (Shilin)</figcaption>
+      <figure id="galeria-carrusel" aria-live="polite">
+        <img id="galeria-imagen" src="../images/kunming-shilin.jpg" alt="Formaciones rocosas del Bosque de Piedra en Shilin" width="800" height="400">
+        <figcaption id="galeria-texto">Bosque de Piedra (Shilin)</figcaption>
       </figure>
-      <figure>
-        <img src="../images/kunming-dianchi.jpg" alt="Orillas del lago Dianchi al amanecer" width="300" height="200">
-        <figcaption>Lago Dianchi</figcaption>
-      </figure>
-      <figure>
-        <img src="../images/kunming-yuantong.jpg" alt="Fachada del Templo de Yuantong con sus pagodas" width="300" height="200">
-        <figcaption>Templo de Yuantong</figcaption>
-      </figure>
+      <p>
+        <button type="button" id="galeria-anterior"><span aria-hidden="true">&#8592;</span> Anterior</button>
+        <button type="button" id="galeria-siguiente">Siguiente <span aria-hidden="true">&#8594;</span></button>
+      </p>
     </section>
 
     <section aria-labelledby="video-title">
@@ -137,7 +133,7 @@
       <h2 id="resenas-title">Resenas de viajeros</h2>
       <p>Calificacion promedio: 4.6 de 5 estrellas (basado en 1,247 resenas)</p>
 
-      <ul>
+      <ul id="lista-resenas" aria-live="polite">
         <li>
           <article>
             <h3>Experiencia inolvidable</h3>
@@ -196,15 +192,15 @@
           <legend>Tu experiencia</legend>
           <p><label for="r-titulo">Titulo:</label> <input type="text" id="r-titulo" name="titulo" minlength="5" maxlength="80" required></p>
           <p>
-            <label for="r-general">Calificacion general:</label>
-            <select id="r-general" name="general" required>
-              <option value="">Selecciona</option>
-              <option value="5">5 estrellas - Excelente</option>
-              <option value="4">4 estrellas - Muy bueno</option>
-              <option value="3">3 estrellas - Regular</option>
-              <option value="2">2 estrellas - Malo</option>
-              <option value="1">1 estrella - Muy malo</option>
-            </select>
+            <span>Calificacion general:</span>
+            <span id="estrellas-resena" role="radiogroup" aria-label="Calificacion general">
+              <button type="button" data-valor="1" aria-label="1 estrella">&#9734;</button>
+              <button type="button" data-valor="2" aria-label="2 estrellas">&#9734;</button>
+              <button type="button" data-valor="3" aria-label="3 estrellas">&#9734;</button>
+              <button type="button" data-valor="4" aria-label="4 estrellas">&#9734;</button>
+              <button type="button" data-valor="5" aria-label="5 estrellas">&#9734;</button>
+            </span>
+            <input type="hidden" id="r-general" name="general" required>
           </p>
           <p><label for="r-punt">Puntualidad (1-5):</label> <input type="number" id="r-punt" name="puntualidad" min="1" max="5" required></p>
           <p><label for="r-equi">Equipaje (1-5):</label> <input type="number" id="r-equi" name="equipaje" min="1" max="5" required></p>
@@ -212,6 +208,7 @@
           <p><label for="r-texto">Comentario:</label></p>
           <p><textarea id="r-texto" name="texto" rows="5" cols="60" minlength="20" maxlength="500" required></textarea></p>
         </fieldset>
+        <p id="mensaje-resena" aria-live="polite"></p>
         <p><button type="submit"><span aria-hidden="true">&#11088;</span> Publicar resena</button></p>
       </form>
     </section>
@@ -252,6 +249,7 @@
 </footer>
 <!-- FIN FOOTER -->
 
+<script src="../scripts/destino-detalle.js" defer></script>
 </body>
 </html>
 

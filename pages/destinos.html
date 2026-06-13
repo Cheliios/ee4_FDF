@@ -59,7 +59,7 @@
 
   <section aria-labelledby="filtros-title">
     <h2 id="filtros-title">Filtrar destinos</h2>
-    <form action="#listado" method="get" name="form-filtros">
+    <form action="#listado" method="get" name="form-filtros" id="form-filtros-destinos">
       <fieldset>
         <legend>Region</legend>
         <p><label><input type="radio" name="region" value="todos" checked> Todos</label></p>
@@ -73,74 +73,24 @@
         <p><label><input type="checkbox" name="tipo" value="gastronomia"> Gastronomia</label></p>
         <p><label><input type="checkbox" name="tipo" value="aventura"> Aventura</label></p>
       </fieldset>
+      <p>
+        <label for="orden-destinos">Ordenar por:</label>
+        <select id="orden-destinos" name="orden">
+          <option value="recomendado">Recomendado</option>
+          <option value="precio-menor">Menor precio</option>
+          <option value="precio-mayor">Mayor precio</option>
+          <option value="nombre">Nombre A-Z</option>
+        </select>
+      </p>
       <p><button type="submit"><span aria-hidden="true">&#128270;</span> Aplicar filtros</button></p>
+      <p id="mensaje-destinos" aria-live="polite"></p>
     </form>
   </section>
 
   <section id="listado" aria-labelledby="yunnan-title">
-    <h2 id="yunnan-title">Destinos en Yunnan</h2>
+    <h2 id="yunnan-title">Destinos disponibles</h2>
 
-    <div class="cards">
-    <article>
-      <h3>Kunming - La ciudad de la eterna primavera</h3>
-      <img src="../images/kunming.jpg" alt="Vista panoramica de Kunming con su lago y rascacielos de fondo" width="400" height="250">
-      <p>Capital de Yunnan, con clima templado todo el ano. Puerta de entrada a la provincia.</p>
-      <ul>
-        <li>Aeropuerto: Kunming Changshui (KMG)</li>
-        <li>Duracion promedio: 3-4 dias</li>
-        <li>Mejor epoca: Todo el ano</li>
-      </ul>
-      <p><a href="destino-detalle.html?ciudad=kunming" class="btn btn-primary"><span aria-hidden="true">&#128205;</span> Ver Kunming</a></p>
-    </article>
-
-    <article>
-      <h3>Dali - Historia y lagos</h3>
-      <img src="../images/dali.jpg" alt="Lago Erhai de Dali con las montanas Cang al fondo" width="400" height="250">
-      <p>Ciudad a orillas del lago Erhai, con arquitectura tradicional Bai y montanas Cang.</p>
-      <ul>
-        <li>Aeropuerto: Dali (DLU)</li>
-        <li>Duracion promedio: 2-3 dias</li>
-        <li>Mejor epoca: Marzo a octubre</li>
-      </ul>
-      <p><a href="destino-detalle.html?ciudad=dali" class="btn btn-primary"><span aria-hidden="true">&#128205;</span> Ver Dali</a></p>
-    </article>
-
-    <article>
-      <h3>Xishuangbanna - Tropico y selva</h3>
-      <img src="../images/xishuangbanna.jpg" alt="Selva tropical de Xishuangbanna con pagodas budistas" width="400" height="250">
-      <p>Region tropical al sur, con selvas, templos budistas y cultura de la etnia Dai.</p>
-      <ul>
-        <li>Aeropuerto: Xishuangbanna Gasa (JHG)</li>
-        <li>Duracion promedio: 3-5 dias</li>
-        <li>Mejor epoca: Noviembre a abril</li>
-      </ul>
-      <p><a href="destino-detalle.html?ciudad=xishuangbanna" class="btn btn-primary"><span aria-hidden="true">&#128205;</span> Ver Xishuangbanna</a></p>
-    </article>
-
-    <article>
-      <h3>Lijiang - Patrimonio UNESCO</h3>
-      <img src="../images/lijiang.jpg" alt="Casco antiguo de Lijiang con canales y techos tradicionales" width="400" height="250">
-      <p>Casco antiguo declarado Patrimonio de la Humanidad, con canales y arquitectura Naxi.</p>
-      <ul>
-        <li>Aeropuerto: Lijiang Sanyi (LJG)</li>
-        <li>Duracion promedio: 2-4 dias</li>
-        <li>Mejor epoca: Abril a octubre</li>
-      </ul>
-      <p><a href="destino-detalle.html?ciudad=lijiang" class="btn btn-primary"><span aria-hidden="true">&#128205;</span> Ver Lijiang</a></p>
-    </article>
-
-    <article>
-      <h3>Shangri-La - El Tibet accesible</h3>
-      <img src="../images/shangrila.jpg" alt="Monasterio de Songzanlin en Shangri-La con montanas nevadas" width="400" height="250">
-      <p>Meseta tibetana con monasterios, lagos alpinos y cultura budista.</p>
-      <ul>
-        <li>Aeropuerto: Diqing Shangri-La (DIG)</li>
-        <li>Duracion promedio: 3-4 dias</li>
-        <li>Mejor epoca: Mayo a septiembre</li>
-      </ul>
-      <p><a href="destino-detalle.html?ciudad=shangrila" class="btn btn-primary"><span aria-hidden="true">&#128205;</span> Ver Shangri-La</a></p>
-    </article>
-    </div>
+    <div class="cards" id="lista-destinos" aria-live="polite"></div>
   </section>
 
   <section aria-labelledby="extra-title">
@@ -199,6 +149,7 @@
 </footer>
 <!-- FIN FOOTER -->
 
+<script src="../scripts/destinos.js" defer></script>
 </body>
 </html>
 
