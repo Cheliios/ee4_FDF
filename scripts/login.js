@@ -1,5 +1,7 @@
 // ============================================================
 // login.js - Autor: Rodrigo Alonso Santos Nunez
+// Flujo de cuentas con localStorage (registrar y luego iniciar
+// sesion con esa cuenta) integrado con cuentas.js - Felipe Reyes Ingunza
 // ============================================================
 
 const SESION_KEY = 'la_sesion';
@@ -202,9 +204,19 @@ if (formLogin) {
 
     if (!emailOk || !passOk) return;
 
-    const usuario = { email: email.value.trim(), nombre: email.value.split('@')[0] };
-    guardarSesion(usuario);
+    // Verifica las credenciales contra las cuentas guardadas (cuentas.js - Felipe).
+    const r = window.LA && window.LA.cuentas
+      ? window.LA.cuentas.login(email.value, pass.value)
+      : { ok: true, usuario: { email: email.value.trim(), nombre: email.value.split('@')[0] } };
 
+    if (!r.ok) {
+      mostrarError(pass, r.error);
+      if (window.LA && window.LA.notificar) window.LA.notificar(r.error, 'error');
+      return;
+    }
+
+    guardarSesion(r.usuario);
+    if (window.LA && window.LA.notificar) window.LA.notificar('Sesion iniciada. Hola, ' + r.usuario.nombre + '.', 'ok');
     window.location.hash = 'gracias-login';
   });
 }
@@ -260,6 +272,25 @@ if (formRegistro) {
 
     if (!valido) return;
 
+    // Registra la cuenta de forma persistente y rechaza correos duplicados (cuentas.js - Felipe).
+    if (window.LA && window.LA.cuentas) {
+      const reg = window.LA.cuentas.registrar({
+        nombre:   campos.nombre.el.value.trim(),
+        apellido: campos.apellido.el.value.trim(),
+        email:    campos.email.el.value.trim(),
+        pass:     campos.pass.el.value,
+        pais:     campos.pais.el.value,
+        doc:      campos.doc.el.value.trim(),
+        fecha:    campos.fecha.el.value,
+      });
+      if (!reg.ok) {
+        mostrarError(campos.email.el, reg.error);
+        if (window.LA.notificar) window.LA.notificar(reg.error, 'error');
+        return;
+      }
+      if (window.LA.notificar) window.LA.notificar('Cuenta creada. Ya puedes iniciar sesion con ella.', 'ok');
+    }
+
     const usuario = {
       nombre:  campos.nombre.el.value.trim(),
       email:   campos.email.el.value.trim(),
@@ -278,6 +309,10 @@ if (formRecuperar) {
     const email = document.getElementById('rec-email');
     if (!validarEmail(email)) return;
 
+    // Avisa de forma neutra si el correo no esta registrado (cuentas.js - Felipe).
+    if (window.LA && window.LA.cuentas && !window.LA.cuentas.existeEmail(email.value) && window.LA.notificar) {
+      window.LA.notificar('Si ese correo tiene una cuenta, te llegara el enlace de recuperacion.', 'info');
+    }
     window.location.hash = 'gracias-recuperar';
   });
 }
@@ -285,6 +320,11 @@ if (formRecuperar) {
 //  Autor: Rodrigo Alonso Santos Nunez - GESTION DE SESION 
 
 function guardarSesion(usuario) {
+  // Delega en el modulo de cuentas (Felipe) si esta disponible.
+  if (window.LA && window.LA.cuentas) {
+    window.LA.cuentas.guardarSesion(usuario);
+    return;
+  }
   try {
     localStorage.setItem(SESION_KEY, JSON.stringify(usuario));
   } catch {
