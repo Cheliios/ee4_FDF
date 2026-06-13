@@ -1,0 +1,11 @@
+[
+  { "categoria": "vuelos", "nombre": "Vuelo domestico corto (Yunnan)", "puntos": 8000 },
+  { "categoria": "vuelos", "nombre": "Vuelo extra-provincial", "puntos": 15000 },
+  { "categoria": "vuelos", "nombre": "Upgrade a Flex en vuelo propio", "puntos": 3000 },
+  { "categoria": "regalos", "nombre": "Set de equipaje Lucky Air", "puntos": 10000 },
+  { "categoria": "regalos", "nombre": "Tarjeta de regalo Starbucks", "puntos": 5000 },
+  { "categoria": "regalos", "nombre": "Noche en hotel partner", "puntos": 12000 },
+  { "categoria": "experiencias", "nombre": "Tour guiado al Bosque de Piedra", "puntos": 7500 },
+  { "categoria": "experiencias", "nombre": "Cena degustacion Yunnan en Kunming", "puntos": 4000 },
+  { "categoria": "experiencias", "nombre": "Paseo en barco por el lago Erhai en Dali", "puntos": 6000 }
+]
