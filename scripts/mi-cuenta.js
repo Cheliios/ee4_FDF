@@ -24,6 +24,7 @@
   // ----------------------------------------------------------
   function iniciarPerfil() {
     if (!formPerfil) return;
+    formPerfil.noValidate = true;
     const nombre = document.getElementById('p-nombre');
     const apellido = document.getElementById('p-apellido');
     const email = document.getElementById('p-email');

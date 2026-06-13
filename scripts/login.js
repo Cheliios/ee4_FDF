@@ -179,6 +179,9 @@ function iniciarTabs() {
 
   activarTab('login');
 
+  // Si se llega con #registro (ej. desde el popup promocional), abre Crear cuenta.
+  if (location.hash === '#registro') activarTab('registro');
+
   const enlaceRecuperar = document.querySelector('a[href="#recuperar"]');
   if (enlaceRecuperar) {
     enlaceRecuperar.addEventListener('click', e => {

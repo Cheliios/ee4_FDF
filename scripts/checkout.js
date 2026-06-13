@@ -262,10 +262,81 @@ if (formCheckout) {
 
     if (!valido) return;
 
-    guardarConfirmacionPago();
-
-    window.location.hash = 'gracias-pago';
+    // Antes de cobrar, muestra el resumen de la compra para revisar.
+    mostrarResumenCompra();
   });
+}
+
+//  Autor: Felipe Reyes Ingunza - RESUMEN DE COMPRA ANTES DE CONFIRMAR
+
+// Calcula el total actual de la compra.
+function calcularTotalCompra() {
+  let totalExtras = 0;
+  checkboxExtras.forEach((cb) => { if (cb.checked) totalExtras += (PRECIOS_EXTRAS[cb.value] || 0); });
+  const descuento = (checkboxPuntos && checkboxPuntos.checked) ? VUELO_BASE.descuentoPorPunto : 0;
+  return {
+    totalExtras,
+    descuento,
+    total: VUELO_BASE.subtotal + VUELO_BASE.impuestos + totalExtras - descuento,
+  };
+}
+
+// Construye y muestra un modal con los datos de la compra antes de pagar.
+function mostrarResumenCompra() {
+  const val = (id) => (document.getElementById(id)?.value || '').trim();
+  const metodoPago = document.querySelector('[name="pago"]:checked');
+  const nombresMetodo = { tarjeta: 'Tarjeta', paypal: 'PayPal', alipay: 'Alipay', wechat: 'WeChat Pay' };
+  const extras = Array.from(checkboxExtras).filter((cb) => cb.checked).map((cb) => cb.parentElement.textContent.trim());
+  const { totalExtras, descuento, total } = calcularTotalCompra();
+
+  let modal = document.getElementById('revisar-compra');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.id = 'revisar-compra';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'revisar-compra-title');
+    modal.innerHTML = `
+      <a href="#close" class="modal-backdrop" aria-label="Cerrar" tabindex="-1"></a>
+      <div class="modal-card modal-card--lg">
+        <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+        <h2 id="revisar-compra-title">Revisa tu compra</h2>
+        <p>Confirma que los datos de tu boleto son correctos antes de pagar.</p>
+        <div id="revisar-compra-cuerpo"></div>
+        <p class="modal-actions">
+          <button type="button" class="btn btn-primary" id="btn-confirmar-compra">Confirmar y pagar</button>
+          <a href="#close" class="btn btn-outline">Volver y editar</a>
+        </p>
+      </div>`;
+    document.getElementById('main-content').appendChild(modal);
+  }
+
+  const filaExtras = totalExtras > 0 ? `<dt>Extras</dt><dd>CNY ${totalExtras.toFixed(2)}</dd>` : '';
+  const filaDesc = descuento > 0 ? `<dt>Descuento puntos</dt><dd>- CNY ${descuento.toFixed(2)}</dd>` : '';
+  modal.querySelector('#revisar-compra-cuerpo').innerHTML = `
+    <dl>
+      <dt>Pasajero</dt><dd>${val('p-nombre')} ${val('p-apellido')}</dd>
+      <dt>Email</dt><dd>${val('p-email')}</dd>
+      <dt>Documento</dt><dd>${val('p-doc')}</dd>
+      <dt>Vuelo</dt><dd>LA8201 - Kunming (KMG) a Dali (DLU)</dd>
+      <dt>Tarifa</dt><dd>Basica</dd>
+      <dt>Extras</dt><dd>${extras.length ? extras.join('; ') : 'Ninguno'}</dd>
+      <dt>Metodo de pago</dt><dd>${nombresMetodo[metodoPago && metodoPago.value] || '-'}</dd>
+      <dt>Subtotal</dt><dd>CNY ${VUELO_BASE.subtotal.toFixed(2)}</dd>
+      <dt>Impuestos</dt><dd>CNY ${VUELO_BASE.impuestos.toFixed(2)}</dd>
+      ${filaExtras}
+      ${filaDesc}
+      <dt>Total a pagar</dt><dd><strong>CNY ${total.toFixed(2)}</strong></dd>
+    </dl>`;
+
+  // El boton confirma: guarda la compra y muestra el modal de exito.
+  modal.querySelector('#btn-confirmar-compra').onclick = () => {
+    guardarConfirmacionPago();
+    window.location.hash = 'gracias-pago';
+  };
+
+  window.location.hash = 'revisar-compra';
 }
 
 //  Autor: Rodrigo Alonso Santos Nunez - GUARDAR CONFIRMACION EN LOCALSTORAGE
