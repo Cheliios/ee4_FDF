@@ -286,23 +286,23 @@
   // Popup promocional: invita a crear cuenta para un descuento.
   // Solo en el home, una vez al dia y si no hay sesion activa.
   // ----------------------------------------------------------
-  // Indica si estamos en la pagina de inicio.
-  function enHome() {
-    const seg = location.pathname.split('/').filter(Boolean).pop() || '';
-    return seg === '' || seg === 'index.html' || seg === 'ee1_grupo2';
-  }
-  // Programa la aparicion del popup si corresponde.
+  // Programa la aparicion del popup si corresponde (en todas las paginas,
+  // una vez al dia, salvo en login/checkout o si ya hay sesion).
   function iniciarPromo() {
-    if (!enHome() || leerSesion()) return;
+    if (leerSesion()) return;
+    const ruta = location.pathname.toLowerCase();
+    if (ruta.includes('login.html') || ruta.includes('checkout.html')) return;
     let visto = '';
     try { visto = localStorage.getItem('la_promo_visto') || ''; } catch { visto = ''; }
     const hoy = new Date().toISOString().split('T')[0];
     if (visto === hoy) return; // ya se mostro hoy
     const logo = document.querySelector('header .logo img');
-    setTimeout(() => mostrarPromo(logo ? logo.src : '', hoy), 1400);
+    const loginLink = document.querySelector('header a[href$="login.html"]');
+    const cta = (loginLink ? loginLink.getAttribute('href') : 'pages/login.html') + '#registro';
+    setTimeout(() => mostrarPromo(logo ? logo.src : '', cta, hoy), 1600);
   }
   // Construye y muestra el popup de marca con su animacion.
-  function mostrarPromo(logoSrc, hoy) {
+  function mostrarPromo(logoSrc, ctaHref, hoy) {
     const overlay = document.createElement('div');
     overlay.className = 'la-promo-overlay';
     overlay.setAttribute('role', 'dialog');
@@ -319,7 +319,7 @@
         <div class="la-promo__body">
           <h3>Crea tu cuenta y gana un descuento adicional</h3>
           <p>Registrate gratis en Lucky Air y obten <strong>15% extra</strong> en tu primer vuelo, ademas de Lucky Points de bienvenida.</p>
-          <a class="la-promo__cta" href="pages/login.html#registro">Crear cuenta y ahorrar</a>
+          <a class="la-promo__cta" href="${ctaHref}">Crear cuenta y ahorrar</a>
           <button class="la-promo__no" type="button">Ahora no, gracias</button>
         </div>
       </div>`;

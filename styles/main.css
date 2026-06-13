@@ -1270,6 +1270,9 @@ form input:user-invalid { border-color: var(--red); }
   /* Cards de destinos y articulos mas anchas (2 columnas) */
   #lista-destinos.cards,
   #lista-articulos.cards { grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+  /* Si la pagina tiene aside (layout con sidebar), las secciones con cards
+     ocupan TODO el ancho para que las tarjetas no salgan delgadas y apretadas. */
+  main:has(> aside) > section:has(.cards) { grid-column: 1 / -1; }
 }
 
 /* Pestanas de acceso (Iniciar sesion / Crear cuenta / Recuperar) con estilo de marca */
