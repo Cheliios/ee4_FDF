@@ -165,24 +165,32 @@
     localStorage.removeItem(SESION_KEY);
     location.reload();
   }
-  // Pinta "Hola, X" + boton "Salir" si hay sesion activa.
+  // Pinta "Hola, X" + boton "Salir" si hay sesion; si no, recuerda
+  // la pagina actual para volver a ella despues de iniciar sesion.
   function pintarSesion() {
     const sesion = leerSesion();
     const loginLink = document.querySelector('header a[href$="login.html"]');
-    if (!loginLink || !sesion || !sesion.nombre) return;
+    if (!loginLink) return;
 
-    const saludo = document.createElement('span');
-    saludo.className = 'sesion-saludo';
-    saludo.textContent = `Hola, ${sesion.nombre}`;
-    loginLink.parentElement.insertBefore(saludo, loginLink);
+    if (sesion && sesion.nombre) {
+      const saludo = document.createElement('span');
+      saludo.className = 'sesion-saludo';
+      saludo.textContent = `Hola, ${sesion.nombre}`;
+      loginLink.parentElement.insertBefore(saludo, loginLink);
 
-    loginLink.textContent = 'Salir';
-    loginLink.setAttribute('href', '#');
-    loginLink.classList.add('sesion-salir');
-    loginLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      cerrarSesion();
-    });
+      loginLink.textContent = 'Salir';
+      loginLink.setAttribute('href', '#');
+      loginLink.classList.add('sesion-salir');
+      loginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        cerrarSesion();
+      });
+    } else {
+      // Guarda de donde viene el usuario para regresarlo tras loguearse.
+      loginLink.addEventListener('click', () => {
+        try { localStorage.setItem('la_retorno', location.href.split('#')[0]); } catch { /* sin storage */ }
+      });
+    }
   }
 
   // ----------------------------------------------------------

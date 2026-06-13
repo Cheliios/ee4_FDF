@@ -217,7 +217,7 @@ if (formLogin) {
 
     guardarSesion(r.usuario);
     if (window.LA && window.LA.notificar) window.LA.notificar('Sesion iniciada. Hola, ' + r.usuario.nombre + '.', 'ok');
-    window.location.hash = 'gracias-login';
+    redirigirTrasAcceso('gracias-login');
   });
 }
 
@@ -296,7 +296,7 @@ if (formRegistro) {
       email:   campos.email.el.value.trim(),
     };
     guardarSesion(usuario);
-    window.location.hash = 'gracias-registro';
+    redirigirTrasAcceso('gracias-registro');
   });
 }
 
@@ -330,4 +330,34 @@ function guardarSesion(usuario) {
   } catch {
     console.warn('login.js: no se pudo guardar la sesion en localStorage.');
   }
+}
+
+//  Autor: Felipe Reyes Ingunza - REDIRECCION DE RETORNO TRAS EL ACCESO
+
+// Calcula a donde volver: la pagina previa guardada, el referrer o el home.
+function destinoRetorno() {
+  let destino = '';
+  try { destino = localStorage.getItem('la_retorno') || ''; } catch { destino = ''; }
+  if (!destino || /login\.html/i.test(destino)) {
+    if (document.referrer && !/login\.html/i.test(document.referrer)) {
+      try { if (new URL(document.referrer).origin === location.origin) destino = document.referrer; } catch { /* referrer invalido */ }
+    }
+  }
+  if (!destino || /login\.html/i.test(destino)) destino = '../index.html'; // home por defecto
+  try { localStorage.removeItem('la_retorno'); } catch { /* sin storage */ }
+  return destino;
+}
+
+// Muestra el modal de confirmacion y apunta su boton al destino de retorno.
+function redirigirTrasAcceso(idModal) {
+  const destino = destinoRetorno();
+  const modal = document.getElementById(idModal);
+  if (modal) {
+    const cta = modal.querySelector('.modal-actions a');
+    if (cta) {
+      cta.setAttribute('href', destino);
+      cta.textContent = 'Continuar';
+    }
+  }
+  window.location.hash = idModal;
 }
