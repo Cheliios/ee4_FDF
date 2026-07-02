@@ -68,8 +68,8 @@ ee1_grupo2/
 
 - **EE1 (v1.0) - HTML + Git** — entregado
 - **EE2 (v2.0) - CSS + Layout + Responsive** — entregado
-- **EE3 (v3.0) - JavaScript + DOM + localStorage** — entregable actual
-- **EE4 (v4.0) - Integración + Calidad + Despliegue** — final
+- **EE3 (v3.0) - JavaScript + DOM + localStorage** — entregado
+- **EE4 (v4.0) - Integración + Calidad + Despliegue** — entregable actual
 
 ## Convenciones del proyecto
 
