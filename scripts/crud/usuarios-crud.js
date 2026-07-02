@@ -18,6 +18,8 @@ async function registrar(email, password, nombre, apellido, dni, fecha_nacimient
         id: data.user.id,
         nombre,
         apellido,
+        dni,
+        fecha_nacimiento
     });
 
     if (errorPerfil) {
