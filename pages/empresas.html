@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -30,27 +30,20 @@
   <nav aria-label="Navegacion principal">
     <ul>
       <li><a href="vuelos.html">Vuelos</a></li>
-      <li><a href="destinos.html">Destinos</a>
-      </li>
-      <li><a href="lucky-points.html">Lucky
-          Points</a></li>
-      <li><a href="empresas.html">Empresas y
-          estudiantes</a></li>
+      <li><a href="destinos.html">Destinos</a></li>
+      <li><a href="lucky-points.html">Lucky Points</a></li>
+      <li><a href="empresas.html">Empresas y estudiantes</a></li>
       <li><a href="ayuda.html">Ayuda</a></li>
     </ul>
   </nav>
 
   <div>
-    <a href="login.html"
-     >Iniciar sesion</a>
-    <a href="mi-cuenta.html"
-      class="btn-gold">Mi
-      cuenta</a>
+    <a href="login.html">Iniciar sesion</a>
+    <a href="mi-cuenta.html" class="btn-gold">Mi cuenta</a>
   </div>
 
 </header>
 <!-- FIN HEADER -->
-<!-- xd -->
 
 <!-- CONTENIDO EMPRESAS - Autor: Piero Batti Pena -->
 <main id="main-content">
@@ -198,7 +191,6 @@
     </form>
   </section>
 
-  <!-- Modal: solicitud empresarial -->
   <div class="modal" id="gracias-empresa" role="dialog" aria-labelledby="gracias-empresa-title" aria-modal="true">
     <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
     <div class="modal-card">
@@ -213,7 +205,6 @@
   </div>
 </main>
 <!-- FIN CONTENIDO EMPRESAS -->
-
 
 <!-- FOOTER GLOBAL - Autor: Felipe Reyes Ingunza -->
 <footer>
@@ -233,11 +224,10 @@
 </footer>
 <!-- FIN FOOTER -->
 
-<script src="config.js"></script>
-<script src="empresas-crud.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../scripts/crud/config.js"></script>
+<script src="../scripts/crud/empresas-crud.js"></script>
 <script src="../scripts/main.js" defer></script>
 <script src="../scripts/empresas.js"></script>
 </body>
 </html>
-
-
