@@ -77,7 +77,7 @@
   <section aria-labelledby="registro-title">
     <h2 id="registro-title">Aun no tienes cuenta</h2>
     <p>Registrate gratis y accede automaticamente al programa Lucky Points.</p>
-    <form action="#gracias-registro" method="get" name="form-registro">
+    <form action="#gracias-registro" method="get" name="form-registro" id="form-registro">
       <fieldset>
         <legend>Datos personales</legend>
         <p><label for="reg-nombre">Nombres:</label> <input type="text" id="reg-nombre" name="nombre" minlength="2" maxlength="50" required></p>
@@ -189,10 +189,13 @@
 </footer>
 <!-- FIN FOOTER -->
 
-<!-- Scripts: main + cuentas (Felipe) cargan antes de login.js (Rodrigo) -->
+<!-- Scripts: -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../scripts/crud/config.js"></script>
+<script src="../scripts/crud/usuarios-crud.js"></script>
+<script src="../scripts/login.js" defer></script>
 <script src="../scripts/main.js" defer></script>
 <script src="../scripts/cuentas.js" defer></script>
-<script src="../scripts/login.js" defer></script>
 
 </body>
 </html>

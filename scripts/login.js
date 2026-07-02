@@ -12,6 +12,29 @@ const formRecuperar = document.querySelector('[name="form-recuperar"]');
 
 // Autor: Rodrigo Alonso Santos Nunez - UTILIDADES DE VALIDACION
 
+//login por api//
+document.getElementById('form-registro').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('reg-email').value;
+  const password = document.getElementById('reg-pass').value;
+  const nombre = document.getElementById('reg-nombre').value;
+  const apellido = document.getElementById('reg-apellido').value;
+  const dni = document.getElementById('reg-doc').value;
+  const fecha_nacimiento = document.getElementById('reg-fecha').value;
+  
+
+  const resultado = await registrar(email, password, nombre, apellido, dni, fecha_nacimiento);
+  console.log('Resultado completo:', resultado);
+
+  // if (resultado.ok) {
+  //   alert('¡Registro exitoso!');
+  //   window.location.href = '../index.html';
+  // } else {
+  //   alert('Error: ' + resultado.error);
+  // }
+});
+//-------------//
+
 function mostrarError(campo, mensaje) {
   let contenedor = campo.parentElement.querySelector('.error-msg');
   if (!contenedor) {
