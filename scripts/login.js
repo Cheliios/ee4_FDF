@@ -1,18 +1,8 @@
 // ============================================================
-// login.js - Autor: Rodrigo Alonso Santos Nunez
-// Flujo de cuentas con localStorage (registrar y luego iniciar
-// sesion con esa cuenta) integrado con cuentas.js - Felipe Reyes Ingunza
+// login.js - Refactorizado a Supabase
 // ============================================================
 
-const SESION_KEY = 'la_sesion';
-
-const formLogin     = document.querySelector('[name="form-login"]');
-const formRegistro  = document.querySelector('[name="form-registro"]');
-const formRecuperar = document.querySelector('[name="form-recuperar"]');
-
-
-
-//Registro API//
+// Registro
 document.getElementById('form-registro').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('reg-email').value;
@@ -25,11 +15,15 @@ document.getElementById('form-registro').addEventListener('submit', async (e) =>
 
   const resultado = await registrar(email, password, nombre, apellido, dni, fecha_nacimiento, pais);
 
+  if (resultado.ok) {
+    redirigirTrasAcceso('gracias-registro');
+  } else {
+    LA.notificar(resultado.error, 'error');
+  }
 });
-//-------------//
 
-// Login API//
-document.getElementById('form-login').addEventListener('submit', async (e)  => {
+// Login
+document.getElementById('form-login').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('l-email').value;
   const password = document.getElementById('l-pass').value;
@@ -37,17 +31,27 @@ document.getElementById('form-login').addEventListener('submit', async (e)  => {
   const resultado = await iniciarSesion(email, password);
 
   if (resultado.ok) {
-    redirigirTrasAcceso('gracias-login');// ajusta la ruta según dónde esté login.html
+    redirigirTrasAcceso('gracias-login');
   } else {
     LA.notificar('Credenciales incorrectas', 'error');
   }
 });
 
-//-------------//
+// Recuperar contraseña (Supabase envía el correo real de recuperación)
+const formRecuperar = document.querySelector('[name="form-recuperar"]');
+if (formRecuperar) {
+  formRecuperar.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('rec-email');
+    if (!validarEmail(email)) return;
 
+    await supabaseClient.auth.resetPasswordForEmail(email.value.trim());
+    LA.notificar('Si ese correo tiene una cuenta, te llegará el enlace de recuperación.', 'info');
+    window.location.hash = 'gracias-recuperar';
+  });
+}
 
-//Utilidades de Validacion//
-
+// ------------- Utilidades de validación (sin cambios) -------------
 function mostrarError(campo, mensaje) {
   let contenedor = campo.parentElement.querySelector('.error-msg');
   if (!contenedor) {
@@ -88,67 +92,52 @@ function validarEmail(campo) {
   return true;
 }
 
-// Autor: Rodrigo Alonso Santos Nunez - VER / OCULTAR CONTRASENA (ojito)
-
+// ------------- Ojito para ver/ocultar contraseña -------------
 function agregarOjito(campoPass) {
-  
   if (campoPass.parentElement.querySelector('.btn-ojo')) return;
-
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'btn-ojo';
   btn.setAttribute('aria-label', 'Mostrar contrasena');
-  btn.innerHTML = '&#128065;'; // emoji ojo
-
+  btn.innerHTML = '&#128065;';
   btn.addEventListener('click', () => {
     const estaOculta = campoPass.type === 'password';
     campoPass.type = estaOculta ? 'text' : 'password';
     btn.setAttribute('aria-label', estaOculta ? 'Ocultar contrasena' : 'Mostrar contrasena');
     btn.innerHTML = estaOculta ? '&#128064;' : '&#128065;';
   });
-
-
   campoPass.insertAdjacentElement('afterend', btn);
 }
-
 document.querySelectorAll('input[type="password"]').forEach(agregarOjito);
 
-// Autor: Rodrigo Alonso Santos Nunez - MEDIDOR DE FORTALEZA DE CONTRASENA
-
+// ------------- Medidor de fortaleza de contraseña -------------
 function iniciarMedidorFortaleza(campoPass) {
   const wrapper = campoPass.closest('p') || campoPass.parentElement;
-
   if (wrapper.querySelector('.medidor-wrapper')) return;
-
   const medidorWrapper = document.createElement('div');
   medidorWrapper.className = 'medidor-wrapper';
   medidorWrapper.setAttribute('aria-live', 'polite');
-
-  const barra   = document.createElement('div');
+  const barra = document.createElement('div');
   barra.className = 'medidor-barra';
-
   const etiqueta = document.createElement('span');
   etiqueta.className = 'medidor-etiqueta';
-
   medidorWrapper.appendChild(barra);
   medidorWrapper.appendChild(etiqueta);
   wrapper.appendChild(medidorWrapper);
-
   campoPass.addEventListener('input', () => {
     const nivel = calcularFortaleza(campoPass.value);
     const niveles = ['', 'Muy debil', 'Debil', 'Aceptable', 'Fuerte', 'Muy fuerte'];
     const colores = ['', '#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#27ae60'];
-
-    barra.style.width   = `${(nivel / 5) * 100}%`;
+    barra.style.width = `${(nivel / 5) * 100}%`;
     barra.style.background = colores[nivel];
-    etiqueta.textContent   = nivel > 0 ? `Fortaleza: ${niveles[nivel]}` : '';
+    etiqueta.textContent = nivel > 0 ? `Fortaleza: ${niveles[nivel]}` : '';
   });
 }
 
 function calcularFortaleza(pass) {
   if (!pass) return 0;
   let puntos = 0;
-  if (pass.length >= 8)  puntos++;
+  if (pass.length >= 8) puntos++;
   if (pass.length >= 12) puntos++;
   if (/[A-Z]/.test(pass)) puntos++;
   if (/[0-9]/.test(pass)) puntos++;
@@ -159,17 +148,13 @@ function calcularFortaleza(pass) {
 const campoRegPass = document.getElementById('reg-pass');
 if (campoRegPass) iniciarMedidorFortaleza(campoRegPass);
 
-// Autor: Rodrigo Alonso Santos Nunez - ALTERNANCIA DE PESTANAS: Login / Registro / Recuperar
-
+// ------------- Tabs Login / Registro / Recuperar -------------
 function iniciarTabs() {
-    
   const secciones = {
-    login:     document.querySelector('[aria-labelledby="login-title"]'),
-    registro:  document.querySelector('[aria-labelledby="registro-title"]'),
+    login: document.querySelector('[aria-labelledby="login-title"]'),
+    registro: document.querySelector('[aria-labelledby="registro-title"]'),
     recuperar: document.getElementById('recuperar'),
   };
-
-  // Crear barra de tabs si no existe en el HTML
   const main = document.getElementById('main-content');
   if (!main || !secciones.login) return;
 
@@ -178,8 +163,8 @@ function iniciarTabs() {
   barraNav.className = 'tabs-nav';
 
   const definicionTabs = [
-    { id: 'login',     label: 'Iniciar sesion' },
-    { id: 'registro',  label: 'Crear cuenta'   },
+    { id: 'login', label: 'Iniciar sesion' },
+    { id: 'registro', label: 'Crear cuenta' },
     { id: 'recuperar', label: 'Recuperar contrasena' },
   ];
 
@@ -209,13 +194,8 @@ function iniciarTabs() {
     });
   }
 
-  botones.forEach(btn => {
-    btn.addEventListener('click', () => activarTab(btn.dataset.tab));
-  });
-
+  botones.forEach(btn => btn.addEventListener('click', () => activarTab(btn.dataset.tab)));
   activarTab('login');
-
-  // Si se llega con #registro (ej. desde el popup promocional), abre Crear cuenta.
   if (location.hash === '#registro') activarTab('registro');
 
   const enlaceRecuperar = document.querySelector('a[href="#recuperar"]');
@@ -226,11 +206,9 @@ function iniciarTabs() {
     });
   }
 }
-
 iniciarTabs();
 
-
-
+// ------------- Redirección de retorno tras el acceso -------------
 function destinoRetorno() {
   let destino = '';
   try { destino = localStorage.getItem('la_retorno') || ''; } catch { destino = ''; }
@@ -239,7 +217,7 @@ function destinoRetorno() {
       try { if (new URL(document.referrer).origin === location.origin) destino = document.referrer; } catch { /* referrer invalido */ }
     }
   }
-  if (!destino || /login\.html/i.test(destino)) destino = 'mi-cuenta.html'; // destino por defecto
+  if (!destino || /login\.html/i.test(destino)) destino = 'mi-cuenta.html';
   try { localStorage.removeItem('la_retorno'); } catch { /* sin storage */ }
   return destino;
 }
