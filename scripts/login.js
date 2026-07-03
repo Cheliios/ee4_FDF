@@ -10,9 +10,9 @@ const formLogin     = document.querySelector('[name="form-login"]');
 const formRegistro  = document.querySelector('[name="form-registro"]');
 const formRecuperar = document.querySelector('[name="form-recuperar"]');
 
-// Autor: Rodrigo Alonso Santos Nunez - UTILIDADES DE VALIDACION
 
-//login por api//
+
+//Registro API//
 document.getElementById('form-registro').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('reg-email').value;
@@ -21,19 +21,32 @@ document.getElementById('form-registro').addEventListener('submit', async (e) =>
   const apellido = document.getElementById('reg-apellido').value;
   const dni = document.getElementById('reg-doc').value;
   const fecha_nacimiento = document.getElementById('reg-fecha').value;
-  
+  const pais = document.getElementById('reg-pais').value;
 
-  const resultado = await registrar(email, password, nombre, apellido, dni, fecha_nacimiento);
-  console.log('Resultado completo:', resultado);
+  const resultado = await registrar(email, password, nombre, apellido, dni, fecha_nacimiento, pais);
 
-  // if (resultado.ok) {
-  //   alert('¡Registro exitoso!');
-  //   window.location.href = '../index.html';
-  // } else {
-  //   alert('Error: ' + resultado.error);
-  // }
 });
 //-------------//
+
+// Login API//
+document.getElementById('form-login').addEventListener('submit', async (e)  => {
+  e.preventDefault();
+  const email = document.getElementById('l-email').value;
+  const password = document.getElementById('l-pass').value;
+
+  const resultado = await iniciarSesion(email, password);
+
+  if (resultado.ok) {
+    redirigirTrasAcceso('gracias-login');// ajusta la ruta según dónde esté login.html
+  } else {
+    LA.notificar('Credenciales incorrectas', 'error');
+  }
+});
+
+//-------------//
+
+
+//Utilidades de Validacion//
 
 function mostrarError(campo, mensaje) {
   let contenedor = campo.parentElement.querySelector('.error-msg');
@@ -216,151 +229,8 @@ function iniciarTabs() {
 
 iniciarTabs();
 
-// Autor: Rodrigo Alonso Santos Nunez -VALIDACION Y ENVIO: FORM LOGIN
 
-if (formLogin) {
-  formLogin.addEventListener('submit', e => {
-    e.preventDefault();
 
-    const email = document.getElementById('l-email');
-    const pass  = document.getElementById('l-pass');
-
-    const emailOk = validarEmail(email);
-    const passOk  = validarVacio(pass, 'La contrasena');
-
-    if (!emailOk || !passOk) return;
-
-    // Verifica las credenciales contra las cuentas guardadas (cuentas.js - Felipe).
-    const r = window.LA && window.LA.cuentas
-      ? window.LA.cuentas.login(email.value, pass.value)
-      : { ok: true, usuario: { email: email.value.trim(), nombre: email.value.split('@')[0] } };
-
-    if (!r.ok) {
-      mostrarError(pass, r.error);
-      if (window.LA && window.LA.notificar) window.LA.notificar(r.error, 'error');
-      return;
-    }
-
-    guardarSesion(r.usuario);
-    if (window.LA && window.LA.notificar) window.LA.notificar('Sesion iniciada. Hola, ' + r.usuario.nombre + '.', 'ok');
-    redirigirTrasAcceso('gracias-login');
-  });
-}
-
-// Autor: Rodrigo Alonso Santos Nunez -VALIDACION Y ENVIO: FORM REGISTRO
-
-if (formRegistro) {
-  formRegistro.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const campos = {
-      nombre:   { el: document.getElementById('reg-nombre'),   label: 'El nombre' },
-      apellido: { el: document.getElementById('reg-apellido'), label: 'El apellido' },
-      email:    { el: document.getElementById('reg-email'),    label: 'El correo' },
-      doc:      { el: document.getElementById('reg-doc'),      label: 'El documento' },
-      fecha:    { el: document.getElementById('reg-fecha'),    label: 'La fecha de nacimiento' },
-      pais:     { el: document.getElementById('reg-pais'),     label: 'El pais' },
-      pass:     { el: document.getElementById('reg-pass'),     label: 'La contrasena' },
-      pass2:    { el: document.getElementById('reg-pass2'),    label: 'La confirmacion' },
-    };
-
-    let valido = true;
-
-    Object.values(campos).forEach(({ el, label }) => {
-      if (!validarVacio(el, label)) valido = false;
-    });
-
-    if (!validarEmail(campos.email.el)) valido = false;
-
-    if (campos.pass.el.value && !/\d/.test(campos.pass.el.value)) {
-      mostrarError(campos.pass.el, 'La contrasena debe incluir al menos un numero.');
-      valido = false;
-    }
-
-    if (
-      campos.pass.el.value &&
-      campos.pass2.el.value &&
-      campos.pass.el.value !== campos.pass2.el.value
-    ) {
-      mostrarError(campos.pass2.el, 'Las contrasenas no coinciden.');
-      valido = false;
-    }
-
-    if (campos.fecha.el.value) {
-      const fechaNac = new Date(campos.fecha.el.value);
-      const hoy      = new Date();
-      const edad     = hoy.getFullYear() - fechaNac.getFullYear();
-      if (edad < 18) {
-        mostrarError(campos.fecha.el, 'Debes tener al menos 18 anos para registrarte.');
-        valido = false;
-      }
-    }
-
-    if (!valido) return;
-
-    // Registra la cuenta de forma persistente y rechaza correos duplicados (cuentas.js - Felipe).
-    if (window.LA && window.LA.cuentas) {
-      const reg = window.LA.cuentas.registrar({
-        nombre:   campos.nombre.el.value.trim(),
-        apellido: campos.apellido.el.value.trim(),
-        email:    campos.email.el.value.trim(),
-        pass:     campos.pass.el.value,
-        pais:     campos.pais.el.value,
-        doc:      campos.doc.el.value.trim(),
-        fecha:    campos.fecha.el.value,
-      });
-      if (!reg.ok) {
-        mostrarError(campos.email.el, reg.error);
-        if (window.LA.notificar) window.LA.notificar(reg.error, 'error');
-        return;
-      }
-      if (window.LA.notificar) window.LA.notificar('Cuenta creada. Ya puedes iniciar sesion con ella.', 'ok');
-    }
-
-    const usuario = {
-      nombre:  campos.nombre.el.value.trim(),
-      email:   campos.email.el.value.trim(),
-    };
-    guardarSesion(usuario);
-    redirigirTrasAcceso('gracias-registro');
-  });
-}
-
-//  Autor: Rodrigo Alonso Santos Nunez - VALIDACION Y ENVIO: FORM RECUPERAR
-
-if (formRecuperar) {
-  formRecuperar.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const email = document.getElementById('rec-email');
-    if (!validarEmail(email)) return;
-
-    // Avisa de forma neutra si el correo no esta registrado (cuentas.js - Felipe).
-    if (window.LA && window.LA.cuentas && !window.LA.cuentas.existeEmail(email.value) && window.LA.notificar) {
-      window.LA.notificar('Si ese correo tiene una cuenta, te llegara el enlace de recuperacion.', 'info');
-    }
-    window.location.hash = 'gracias-recuperar';
-  });
-}
-
-//  Autor: Rodrigo Alonso Santos Nunez - GESTION DE SESION 
-
-function guardarSesion(usuario) {
-  // Delega en el modulo de cuentas (Felipe) si esta disponible.
-  if (window.LA && window.LA.cuentas) {
-    window.LA.cuentas.guardarSesion(usuario);
-    return;
-  }
-  try {
-    localStorage.setItem(SESION_KEY, JSON.stringify(usuario));
-  } catch {
-    console.warn('login.js: no se pudo guardar la sesion en localStorage.');
-  }
-}
-
-//  Autor: Felipe Reyes Ingunza - REDIRECCION DE RETORNO TRAS EL ACCESO
-
-// Calcula a donde volver: la pagina previa guardada, el referrer o el home.
 function destinoRetorno() {
   let destino = '';
   try { destino = localStorage.getItem('la_retorno') || ''; } catch { destino = ''; }
@@ -369,12 +239,11 @@ function destinoRetorno() {
       try { if (new URL(document.referrer).origin === location.origin) destino = document.referrer; } catch { /* referrer invalido */ }
     }
   }
-  if (!destino || /login\.html/i.test(destino)) destino = '../index.html'; // home por defecto
+  if (!destino || /login\.html/i.test(destino)) destino = 'mi-cuenta.html'; // destino por defecto
   try { localStorage.removeItem('la_retorno'); } catch { /* sin storage */ }
   return destino;
 }
 
-// Muestra el modal de confirmacion y apunta su boton al destino de retorno.
 function redirigirTrasAcceso(idModal) {
   const destino = destinoRetorno();
   const modal = document.getElementById(idModal);

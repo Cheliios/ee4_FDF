@@ -1,13 +1,4 @@
-// ============================================================
-// main.js - Autor: Felipe Reyes Ingunza
-// Funcionalidades globales (G1-G5) presentes en las 16 paginas:
-//   G1 Menu hamburguesa con JS (toggle, Esc, click fuera)
-//   G2 Link de navegacion activo (aria-current)
-//   G3 Ano dinamico en el footer
-//   G4 Estado de sesion simulado con localStorage
-//   G5 Boton "volver arriba"
-// Va envuelto en una funcion anonima (IIFE) para no contaminar
-// el espacio global ni chocar con los scripts de otros companeros.
+
 // ============================================================
 
 (function () {
@@ -161,38 +152,45 @@
     }
   }
   // Cierra la sesion y recarga para refrescar el header.
-  function cerrarSesion() {
-    localStorage.removeItem(SESION_KEY);
+  async function cerrarSesion() {
+    await supabaseClient.auth.signOut();
     location.reload();
   }
   // Pinta "Hola, X" + boton "Salir" si hay sesion; si no, recuerda
   // la pagina actual para volver a ella despues de iniciar sesion.
-  function pintarSesion() {
-    const sesion = leerSesion();
-    const loginLink = document.querySelector('header a[href$="login.html"]');
-    if (!loginLink) return;
+  async function pintarSesion() {
+  const loginLink = document.querySelector('header a[href$="login.html"]');
+  if (!loginLink) return;
 
-    if (sesion && sesion.nombre) {
-      const saludo = document.createElement('span');
-      saludo.className = 'sesion-saludo';
-      saludo.textContent = `Hola, ${sesion.nombre}`;
-      loginLink.parentElement.insertBefore(saludo, loginLink);
+  const { data: { session } } = await supabaseClient.auth.getSession();
 
-      loginLink.textContent = 'Salir';
-      loginLink.setAttribute('href', '#');
-      loginLink.classList.add('sesion-salir');
-      loginLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        cerrarSesion();
-      });
-    } else {
-      // Guarda de donde viene el usuario para regresarlo tras loguearse.
-      loginLink.addEventListener('click', () => {
-        try { localStorage.setItem('la_retorno', location.href.split('#')[0]); } catch { /* sin storage */ }
-      });
-    }
+  if (session) {
+    const { data: perfil } = await supabaseClient
+      .from('perfiles')
+      .select('nombre')
+      .eq('id', session.user.id)
+      .single();
+
+    const nombre = perfil?.nombre || session.user.email.split('@')[0];
+
+    const saludo = document.createElement('span');
+    saludo.className = 'sesion-saludo';
+    saludo.textContent = `Hola, ${nombre}`;
+    loginLink.parentElement.insertBefore(saludo, loginLink);
+
+    loginLink.textContent = 'Salir';
+    loginLink.setAttribute('href', '#');
+    loginLink.classList.add('sesion-salir');
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      cerrarSesion();
+    });
+  } else {
+    loginLink.addEventListener('click', () => {
+      try { localStorage.setItem('la_retorno', location.href.split('#')[0]); } catch { /* sin storage */ }
+    });
   }
-
+}
   // ----------------------------------------------------------
   // G5 - Boton "volver arriba" que aparece al hacer scroll.
   // ----------------------------------------------------------
@@ -288,8 +286,9 @@
   // ----------------------------------------------------------
   // Programa la aparicion del popup si corresponde (en todas las paginas,
   // una vez al dia, salvo en login/checkout o si ya hay sesion).
-  function iniciarPromo() {
-    if (leerSesion()) return;
+  async function iniciarPromo() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) return;
     const ruta = location.pathname.toLowerCase();
     if (ruta.includes('login.html') || ruta.includes('checkout.html')) return;
     let visto = '';

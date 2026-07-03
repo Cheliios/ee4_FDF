@@ -1,7 +1,7 @@
 // usuarios-crud.js
 
 // REGISTRO
-async function registrar(email, password, nombre, apellido, dni, fecha_nacimiento) {
+async function registrar(email, password, nombre, apellido, dni, fecha_nacimiento, pais) {
     // 1. Crea el usuario en el sistema de Auth de Supabase
     const { data, error } = await supabaseClient.auth.signUp({
         email,
@@ -19,7 +19,8 @@ async function registrar(email, password, nombre, apellido, dni, fecha_nacimient
         nombre,
         apellido,
         dni,
-        fecha_nacimiento
+        fecha_nacimiento,
+        pais
     });
 
     if (errorPerfil) {
@@ -34,7 +35,7 @@ async function registrar(email, password, nombre, apellido, dni, fecha_nacimient
 async function iniciarSesion(email, password) {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
-        password,
+        password
     });
 
     if (error) {

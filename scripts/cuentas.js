@@ -1,107 +1,99 @@
 // ============================================================
-// cuentas.js - Autor: Felipe Reyes Ingunza
-// Sistema de cuentas con persistencia en localStorage:
-// registrar una cuenta y luego iniciar sesion con ESA cuenta.
-// Se expone en window.LA.cuentas para que lo use login.js.
-//
-// NOTA: la contrasena se guarda ofuscada (base64). Es solo una
-// simulacion academica, NO es seguridad real.
+// cuentas.js - Adaptado a Supabase
+// Mantiene la misma API pública (window.LA.cuentas) pero ahora
+// habla con la base de datos en vez de localStorage.
+// Requiere que config.js (supabaseClient) ya esté cargado antes.
 // ============================================================
 
 (function () {
   'use strict';
 
   const LA = (window.LA = window.LA || {});
-  const KEY_CUENTAS = 'la_cuentas';
-  const KEY_SESION = 'la_sesion'; // compartida con main.js (Felipe) y login.js (Rodrigo)
 
-  // Ofusca un texto a base64 admitiendo acentos/unicode.
-  function ofuscar(txt) {
-    try { return btoa(unescape(encodeURIComponent(txt))); } catch { return txt; }
-  }
-
-  // Lee de forma segura un valor JSON de localStorage.
-  function leer(key, porDefecto) {
-    try {
-      const v = JSON.parse(localStorage.getItem(key));
-      return v === null || v === undefined ? porDefecto : v;
-    } catch {
-      return porDefecto;
-    }
-  }
-
-  // Escribe un valor JSON en localStorage.
-  function escribir(key, valor) {
-    try { localStorage.setItem(key, JSON.stringify(valor)); return true; }
-    catch { return false; }
-  }
-
-  // Devuelve todas las cuentas registradas.
-  function listar() {
-    return leer(KEY_CUENTAS, []);
-  }
-
-  // Busca una cuenta por correo (sin distinguir mayusculas).
-  function buscarPorEmail(email) {
-    const e = String(email).trim().toLowerCase();
-    return listar().find((c) => c.email === e) || null;
-  }
-
-  // Indica si ya existe una cuenta con ese correo.
-  function existeEmail(email) {
-    return !!buscarPorEmail(email);
-  }
-
-  // Registra una cuenta nueva; rechaza correos duplicados.
-  function registrar(datos) {
+  // Registra una cuenta nueva (Auth + tabla perfiles)
+  async function registrar(datos) {
     const email = String(datos.email).trim().toLowerCase();
-    if (existeEmail(email)) {
-      return { ok: false, error: 'Ya existe una cuenta con ese correo.' };
-    }
-    const cuentas = listar();
-    cuentas.push({
-      nombre: (datos.nombre || '').trim(),
-      apellido: (datos.apellido || '').trim(),
+
+    const { data, error } = await supabaseClient.auth.signUp({
       email,
-      pass: ofuscar(datos.pass || ''),
-      pais: datos.pais || '',
-      doc: datos.doc || '',
-      fecha: datos.fecha || '',
+      password: datos.pass
     });
-    escribir(KEY_CUENTAS, cuentas);
+
+    if (error) {
+      return { ok: false, error: error.message };
+    }
+
+    const { error: errorPerfil } = await supabaseClient
+      .from('perfiles')
+      .insert({
+        id: data.user.id,
+        nombre: (datos.nombre || '').trim(),
+        apellido: (datos.apellido || '').trim(),
+        dni: datos.doc || null,
+        fecha_nacimiento: datos.fecha || null
+      });
+
+    if (errorPerfil) {
+      return { ok: false, error: errorPerfil.message };
+    }
+
     return { ok: true };
   }
 
-  // Verifica credenciales contra las cuentas guardadas.
-  function login(email, pass) {
-    const cuenta = buscarPorEmail(email);
-    if (!cuenta) {
-      return { ok: false, error: 'No existe una cuenta con ese correo. Registrate primero.' };
+  // Verifica credenciales contra Supabase Auth
+  async function login(email, pass) {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: String(email).trim().toLowerCase(),
+      password: pass
+    });
+
+    if (error) {
+      return { ok: false, error: error.message };
     }
-    if (cuenta.pass !== ofuscar(pass)) {
-      return { ok: false, error: 'La contrasena no es correcta.' };
-    }
-    return { ok: true, usuario: { nombre: cuenta.nombre || cuenta.email.split('@')[0], email: cuenta.email } };
+
+    // Trae el nombre desde la tabla perfiles
+    const { data: perfil } = await supabaseClient
+      .from('perfiles')
+      .select('nombre, apellido')
+      .eq('id', data.user.id)
+      .single();
+
+    return {
+      ok: true,
+      usuario: {
+        nombre: perfil?.nombre || data.user.email.split('@')[0],
+        email: data.user.email
+      }
+    };
   }
 
-  // Guarda la sesion activa (lo que lee main.js para el header).
-  function guardarSesion(usuario) {
-    return escribir(KEY_SESION, usuario);
+  // La "sesión" ya la maneja Supabase internamente (guardada en su propio storage)
+  async function sesionActual() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) return null;
+
+    const { data: perfil } = await supabaseClient
+      .from('perfiles')
+      .select('nombre, apellido')
+      .eq('id', session.user.id)
+      .single();
+
+    return {
+      nombre: perfil?.nombre || session.user.email.split('@')[0],
+      email: session.user.email
+    };
   }
 
-  // Devuelve la sesion activa o null.
-  function sesionActual() {
-    return leer(KEY_SESION, null);
+  // Cierra la sesión activa
+  async function cerrarSesion() {
+    await supabaseClient.auth.signOut();
   }
 
-  // Cierra la sesion activa.
-  function cerrarSesion() {
-    try { localStorage.removeItem(KEY_SESION); } catch { /* sin storage */ }
-  }
-
-  // Publica la API de cuentas.
+  // Publica la API de cuentas (misma forma que antes, ahora async)
   LA.cuentas = {
-    listar, buscarPorEmail, existeEmail, registrar,
-    login, guardarSesion, sesionActual, cerrarSesion,
+    registrar,
+    login,
+    sesionActual,
+    cerrarSesion,
   };
 })();
