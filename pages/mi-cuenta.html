@@ -131,7 +131,14 @@
       </fieldset>
       <p><button type="submit"><span aria-hidden="true">&#128190;</span> Guardar cambios</button></p>
     </form>
+    <p>
+    <button type="button" id="btn-eliminar-perfil" class="btn btn-danger">
+      🗑 Eliminar mi cuenta
+    </button>
+  </p>
   </section>
+
+  
 
   <section id="preferencias" aria-labelledby="pref-title">
     <h2 id="pref-title">Preferencias</h2>
@@ -179,6 +186,21 @@
       </p>
     </div>
   </div>
+
+  <!-- Modal: confirmar eliminación de cuenta -->
+<div class="modal" id="confirmar-eliminar" role="dialog" aria-labelledby="confirmar-eliminar-title" aria-modal="true">
+  <a href="#close" class="modal-backdrop" aria-label="Cerrar modal" tabindex="-1"></a>
+  <div class="modal-card">
+    <a href="#close" class="modal-close" aria-label="Cerrar">&times;</a>
+    <p class="modal-icon" aria-hidden="true">&#9888;</p>
+    <h2 id="confirmar-eliminar-title">¿Eliminar tu cuenta?</h2>
+    <p>Esta acción no se puede deshacer. Se borrarán tus datos de perfil de forma permanente.</p>
+    <p class="modal-actions">
+      <a href="#close" class="btn">Cancelar</a>
+      <button type="button" id="btn-confirmar-eliminar" class="btn btn-danger">Sí, eliminar</button>
+    </p>
+  </div>
+</div>
 </main>
 <!-- FIN CONTENIDO MI CUENTA -->
 

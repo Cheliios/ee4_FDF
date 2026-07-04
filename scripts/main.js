@@ -58,7 +58,40 @@
     style.textContent = css;
     document.head.appendChild(style);
   }
+  
+  function mostrarError(campo, mensaje) {
+    let contenedor = campo.parentElement.querySelector('.error-msg');
+    if (!contenedor) {
+      contenedor = document.createElement('span');
+      contenedor.className = 'error-msg';
+      contenedor.setAttribute('aria-live', 'polite');
+      contenedor.setAttribute('role', 'alert');
+      campo.parentElement.appendChild(contenedor);
+    }
+    contenedor.textContent = mensaje;
+    campo.setAttribute('aria-invalid', 'true');
+    campo.classList.add('campo-invalido');
+  }
 
+  function limpiarError(campo) {
+    const contenedor = campo.parentElement.querySelector('.error-msg');
+    if (contenedor) contenedor.textContent = '';
+    campo.removeAttribute('aria-invalid');
+    campo.classList.remove('campo-invalido');
+  }
+
+  function validarVacio(campo, etiqueta) {
+    if (!campo.value.trim()) {
+      mostrarError(campo, `${etiqueta} es obligatorio.`);
+      return false;
+    }
+    limpiarError(campo);
+    return true;
+  }
+
+  LA.mostrarError = mostrarError;
+  LA.limpiarError = limpiarError;
+  LA.validarVacio = validarVacio;
   // ----------------------------------------------------------
   // G1 - Menu hamburguesa con JS (mejora el truco del checkbox).
   // ----------------------------------------------------------
@@ -336,10 +369,13 @@
     });
   }
 
+  
   // ----------------------------------------------------------
   // Arranque de todas las funciones globales.
   // ----------------------------------------------------------
   inyectarEstilos();
+
+  
   iniciarMenu();
   marcarNavActiva();
   ponerAno();

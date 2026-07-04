@@ -42,17 +42,17 @@
     }
 
     function validar() {
-      let ok = validarVacio(nombre, 'El nombre');
-      ok = validarVacio(apellido, 'El apellido') && ok;
-      ok = validarVacio(doc, 'El documento') && ok;
-      if (tel.value.trim() && !/^[+0-9 ]{9,15}$/.test(tel.value.trim())) {
-        mostrarError(tel, 'Telefono invalido (9 a 15 digitos).');
-        ok = false;
-      } else {
-        limpiarError(tel);
-      }
-      return ok;
+    let ok = LA.validarVacio(nombre, 'El nombre');
+    ok = LA.validarVacio(apellido, 'El apellido') && ok;
+    ok = LA.validarVacio(doc, 'El documento') && ok;
+    if (tel.value.trim() && !/^[+0-9 ]{9,15}$/.test(tel.value.trim())) {
+      LA.mostrarError(tel, 'Telefono invalido (9 a 15 digitos).');
+      ok = false;
+    } else {
+      LA.limpiarError(tel);
     }
+    return ok;
+  }
 
     formPerfil.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -114,6 +114,32 @@
     });
   }
 
+  async function iniciarEliminarPerfil() {
+  const btn = document.getElementById('btn-eliminar-perfil');
+  const btnConfirmar = document.getElementById('btn-confirmar-eliminar');
+  if (!btn || !btnConfirmar) return;
+
+  btn.addEventListener('click', () => {
+    window.location.hash = 'confirmar-eliminar';
+  });
+
+  btnConfirmar.addEventListener('click', async () => {
+    const usuario = await obtenerUsuarioActual();
+    if (!usuario) return;
+
+    const resultado = await eliminarPerfil(usuario.id);
+    window.location.hash = 'close';
+
+    if (resultado.ok) {
+      avisar('Cuenta eliminada correctamente.', 'ok');
+      setTimeout(() => window.location.href = '../index.html', 1500);
+    } else {
+      avisar('Error al eliminar: ' + resultado.error, 'error');
+    }
+  });
+}
   iniciarPerfil();
   iniciarPreferencias();
+  iniciarEliminarPerfil();
+
 })();
