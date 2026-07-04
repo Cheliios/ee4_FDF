@@ -1,5 +1,7 @@
-(function () {
+﻿(function () {
   'use strict';
+
+  const EMPRESAS_PK = 'identificación';
 
   function obtenerCliente() {
     if (!window.supabaseClient) {
@@ -56,8 +58,42 @@
     return { ok: true, data };
   }
 
+  async function actualizarEmpresa(id, cambios) {
+    const supabase = obtenerCliente();
+    const { data, error } = await supabase
+      .from('empresas')
+      .update(cambios)
+      .eq(EMPRESAS_PK, id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error al actualizar empresa:', error.message);
+      return { ok: false, error: error.message };
+    }
+
+    return { ok: true, data };
+  }
+
+  async function eliminarEmpresa(id) {
+    const supabase = obtenerCliente();
+    const { error } = await supabase
+      .from('empresas')
+      .delete()
+      .eq(EMPRESAS_PK, id);
+
+    if (error) {
+      console.error('Error al eliminar empresa:', error.message);
+      return { ok: false, error: error.message };
+    }
+
+    return { ok: true };
+  }
+
   window.EmpresasCrud = {
     crearEmpresa,
     buscarEmpresaPorRuc,
+    actualizarEmpresa,
+    eliminarEmpresa,
   };
 })();
